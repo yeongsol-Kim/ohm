@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+        .flex-container {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .touch-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 15rem;
+            width: 15rem;
+            margin: 3rem;
+            font-size: 5rem;
+            border: 1px solid #232323;
+        }
+
+        .text-title {
+            font-size:4rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <br/><br/>
+        <div class="text-title">현재 인원 30명</div>
+        <div class="flex-container">
+            <div class="touch-button">
+                입실
+            </div>
+            <div class="touch-button">
+                퇴실
+            </div>
+        </div>
+    </div>
+</body>
+</html>

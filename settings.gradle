@@ -1,0 +1,5 @@
+rootProject.name = 'ohelm'
+include 'ohm-api-server'
+include 'ohm-batch-server'
+include 'ohm-core'
+

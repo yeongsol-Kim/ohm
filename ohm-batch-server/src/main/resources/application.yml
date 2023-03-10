@@ -1,0 +1,10 @@
+server:
+  port: 8081
+
+spring:
+  datasoure:
+    datasource:
+      url: jdbc:h2:tcp://localhost/~/jpashop;MODE=MYSQL
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver

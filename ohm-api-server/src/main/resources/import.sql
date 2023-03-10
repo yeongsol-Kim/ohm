@@ -1,0 +1,4 @@
+--INSERT INTO Code(code_id,code) values (1,'1234');
+--INSERT INTO Authority (authority_name) values ('ROLE_CEO');
+--INSERT INTO Authority (authority_name) values ('ROLE_MANAGER');
+--INSERT INTO Authority (authority_name) values ('ROLE_TRAINER');

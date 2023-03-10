@@ -1,0 +1,64 @@
+server:
+#    address: [ip address]
+  port: 8080
+
+
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/jpashop;MODE=MYSQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+  jpa:
+    database: mysql   # 추가 해준 부분
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect # 추가 해준 부분
+
+    hibernate:
+      naming:
+        physical-strategy : org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+
+    properties:
+      hibernate:
+        show-sql:true
+        format_sql = true
+cloud:
+  aws:
+    s3:
+      bucket: ohm-image
+    credentials:
+      access-key: [access-key]
+      secret-key: [secret-key]
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+
+
+logging.level:
+  org.hirbernate.SQL: debug
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: ERROR
+
+
+jwt:
+  header: Authorization
+  secret: [secret-key]
+  access-token-validity-in-seconds: 86400
