@@ -3,17 +3,14 @@ package ohm.ohm.api;
 import ohm.ohm.dto.responseDto.PostResponseDto;
 import ohm.ohm.entity.Gym.Gym;
 import ohm.ohm.entity.Post.Post;
-import ohm.ohm.repository.gym.GymRepository;
-import ohm.ohm.repository.post.PostRepository;
-import ohm.ohm.service.PostService;
+import com.ohm.repository.gym.GymRepository;
+import com.ohm.repository.post.PostRepository;
+import com.ohm.service.PostService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Slice;
-import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class PostApiControllerTest {

@@ -2,11 +2,8 @@ package ohm.ohm.service;
 
 import ohm.ohm.entity.Gym.Gym;
 import ohm.ohm.entity.Post.Post;
-import ohm.ohm.repository.gym.GymRepository;
-import ohm.ohm.repository.post.PostRepository;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import com.ohm.repository.gym.GymRepository;
+import com.ohm.repository.post.PostRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
