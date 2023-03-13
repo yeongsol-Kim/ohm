@@ -10,6 +10,11 @@ buildscript {
     }
 }
 
+
+
+
+//setting.gradle에 include 된 프로젝트를 전부 관리한다.
+//rootproject까지 적용시키고 싶은 경오 allprojects로 등록하면 된다.
 subprojects {
 
     apply plugin: 'java'
@@ -60,6 +65,7 @@ project(':ohm-api-server') {
     bootJar { enabled = true }
     jar { enabled = false }
 
+    //컴파일시 ohm-core에 로딩된다.
     dependencies {
         implementation project(':ohm-core')
     }

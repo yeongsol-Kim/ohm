@@ -26,7 +26,11 @@ public class GymTime {
     private String saturday;
 
     //평일
-    private String weekday;
+    private String monday;
+    private String tuesday;
+    private String wednesday;
+    private String thursday;
+    private String friday;
 
     //공휴일
     private String holiday;
@@ -35,12 +39,16 @@ public class GymTime {
     private Gym gym;
 
     @Builder
-    public GymTime(Gym gym,String CLOSEDDAYS,String SUNDAY,String SATURDAY,String WEEKDAY,String HOLIDAY){
+    public GymTime(Gym gym,String CLOSEDDAYS,String SUNDAY,String SATURDAY,String monday,String tuesday,String wednesday,String thursday,String friday,String HOLIDAY){
         this.closeddays =CLOSEDDAYS;
         this.sunday = SUNDAY;
         this.gym = gym;
         this.saturday = SATURDAY;
-        this.weekday = WEEKDAY;
+        this.monday = monday;
+        this.tuesday = tuesday;
+        this.wednesday = wednesday;
+        this.thursday = thursday;
+        this.friday = friday;
         this.holiday = HOLIDAY;
     }
 
@@ -52,7 +60,11 @@ public class GymTime {
         this.closeddays = gymTime.closeddays;
         this.saturday = gymTime.saturday;
         this.holiday = gymTime.holiday;
-        this.weekday = gymTime.weekday;
+        this.monday = gymTime.monday;
+        this.tuesday = gymTime.tuesday;
+        this.wednesday = gymTime.wednesday;
+        this.thursday = gymTime.thursday;
+        this.friday = gymTime.friday;
 
     }
 

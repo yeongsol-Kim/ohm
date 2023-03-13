@@ -8,7 +8,6 @@ import com.ohm.dto.AnswerDto.AnswerDto;
 import com.ohm.dto.GymDto.GymDto;
 import com.ohm.dto.GymDto.GymPriceDto;
 import com.ohm.dto.GymDto.GymTimeDto;
-import com.ohm.dto.QuestionDto.QuestionDto;
 import com.ohm.dto.requestDto.GymRequestDto;
 import com.ohm.dto.responseDto.CountResponseDto;
 import com.ohm.dto.responseDto.GymImgResponseDto;
@@ -302,7 +301,11 @@ public class GymService {
         GymTime gymTime = GymTime.builder()
                 .gym(byId.get())
                 .HOLIDAY(gymTimeDto.getHoliday())
-                .WEEKDAY(gymTimeDto.getWeekday())
+                .monday(gymTimeDto.getMonday())
+                .tuesday(gymTimeDto.getTuesday())
+                .wednesday(gymTimeDto.getWednesday())
+                .thursday(gymTimeDto.getThursday())
+                .friday(gymTimeDto.getFriday())
                 .SATURDAY(gymTimeDto.getSaturday())
                 .SUNDAY(gymTimeDto.getSunday())
                 .CLOSEDDAYS(gymTimeDto.getCloseddays())
