@@ -25,7 +25,7 @@ public class ManagerDto {
 
     private String profile;
 
-    private String oneline_introduce;
+    private String onelineIntroduce;
 
     private String introduce;
 
@@ -41,7 +41,7 @@ public class ManagerDto {
         this.name = name;
         this.nickname = nickname;
         this.profile = profile;
-        this.oneline_introduce = oneline_introduce;
+        this.onelineIntroduce = oneline_introduce;
         this.introduce = introduce;
         this.gymDto = gymDto;
         this.authorities = authorities;

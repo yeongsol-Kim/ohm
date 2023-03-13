@@ -17,7 +17,7 @@ public class TrainerResponseDto {
 
     private String profile;
 
-    private String oneline_introduce;
+    private String onelineIntroduce;
     //자기소개
     private String introduce;
 
