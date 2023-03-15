@@ -21,7 +21,11 @@ public class GymTimeDto {
     private String saturday;
 
     //평일
-    private String weekday;
+    private String monday;
+    private String tuesday;
+    private String wednesday;
+    private String thursday;
+    private String friday;
 
     //공휴일
     private String holiday;
