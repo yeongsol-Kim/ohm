@@ -104,6 +104,16 @@ public class Gym{
         this.code = gym.getCode();
     }
 
+    public int increase_count(){
+        this.current_count = this.current_count + 1;
+        return current_count;
+    }
+
+    public int decrease_count(){
+        this.current_count = this.current_count - 1;
+        return current_count;
+    }
+
     @Builder
     public Gym(Long id,GymTime gymTime,String area,String name,String address,int count,int code,String introduce,String oneline_introduce,String holiday,String weekday_time,String weekend_time,int trainer_count){
         this.name = name;

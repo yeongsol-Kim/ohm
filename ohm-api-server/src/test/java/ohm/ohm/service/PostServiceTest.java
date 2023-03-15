@@ -1,7 +1,7 @@
 package ohm.ohm.service;
 
-import ohm.ohm.entity.Gym.Gym;
-import ohm.ohm.entity.Post.Post;
+import com.ohm.entity.Gym.Gym;
+import com.ohm.entity.Post.Post;
 import com.ohm.repository.gym.GymRepository;
 import com.ohm.repository.post.PostRepository;
 import org.junit.jupiter.api.Test;

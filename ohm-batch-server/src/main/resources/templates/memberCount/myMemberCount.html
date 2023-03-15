@@ -51,12 +51,12 @@
         <br>
         <div class="text-title" th:text="|현재 인원 ${gym.current_count}명|">현재 인원 30명</div>
         <div class="flex-container">
-            <a th:href="@{/gym/increaseCurrentCount}">
+            <a th:href="@{/member/count/increase}">
                 <div class="touch-button">
                     입실
                 </div>
             </a>
-            <a th:href="@{/gym/decreaseCurrentCount}">
+            <a th:href="@{/member/count/decrease}">
                 <div class="touch-button">
                     퇴실
                 </div>

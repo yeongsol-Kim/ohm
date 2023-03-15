@@ -1,6 +1,8 @@
 package com.ohm.dto.GymDto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import com.ohm.dto.InputDto.InputDto;
@@ -14,6 +16,8 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class GymDto {
 
     private Long id;

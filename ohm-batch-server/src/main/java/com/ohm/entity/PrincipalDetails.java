@@ -1,25 +1,35 @@
 package com.ohm.entity;
 
+import com.ohm.entity.Manager.Authority;
 import com.ohm.entity.Manager.Manager;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
+@Slf4j
 public class PrincipalDetails implements UserDetails {
 
     private Manager user;
-    private ArrayList<GrantedAuthority> authorities;
 
     public PrincipalDetails(Manager user) {
         this.user = user;
     }
 
+    public Long getGymId() {
+        return user.getGym().getId();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new ArrayList<>();
-        collection.add(new SimpleGrantedAuthority("ROLE_CEO"));
+
+//        user.getAuthorities().stream().map(a -> log.info(a.getAuthorityName()));
+
+        user.getAuthorities().stream().map(a -> collection.add(new SimpleGrantedAuthority(a.getAuthorityName())));
+
         return collection;
     }
 
