@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class ManagerService implements UserDetailsService {
     private final AmazonS3ResourceStorage amazonS3ResourceStorage;
     private final ManagerRepository managerRepository;
@@ -47,16 +47,8 @@ public class ManagerService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
 
-    public boolean check_code(String code) {
-        Optional<Code> code1 = codeRepository.findCode(code);
-        if (code1.get() == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
-    @Transactional
+
     public void profile_save(Long managerId, MultipartFile multipartFile) throws Exception {
         Optional<Manager> byId = managerRepository.findById(managerId);
         LocalDateTime now = LocalDateTime.now();
@@ -72,7 +64,6 @@ public class ManagerService implements UserDetailsService {
         amazonS3ResourceStorage.upload(multipartFile, current_date, uuid_string + ext);
     }
 
-    @Transactional
     public void profile_edit(Long managerId, MultipartFile multipartFile) throws Exception {
         Optional<Manager> byId = managerRepository.findById(managerId);
         String profileUrl = byId.get().getProfileUrl();
@@ -99,7 +90,6 @@ public class ManagerService implements UserDetailsService {
     }
 
     //Manager 회원가입
-    @Transactional
     public ManagerDto manager_save(ManagerRequestDto managerDto, Long gymId) {
         if (managerRepository.findOneWithAuthoritiesByName(managerDto.getName()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어 있는 매니저입니다.");
@@ -129,39 +119,9 @@ public class ManagerService implements UserDetailsService {
 
     }
 
-    //Manager 회원가입
-    @Transactional
-    public ManagerDto ceo_save(ManagerRequestDto managerDto) {
-        if (managerRepository.findOneWithAuthoritiesByName(managerDto.getName()).orElse(null) != null) {
-            throw new RuntimeException("이미 가입되어 있는 아이디.");
-        }
 
-        Authority authority = Authority.builder()
-                .authorityName("ROLE_CEO")
-                .build();
-
-
-        Manager manager = Manager.builder()
-                .name(managerDto.getName())
-                .position(managerDto.getPosition())
-                .password(passwordEncoder.encode(managerDto.getPassword()))
-                .nickname(managerDto.getNickname())
-                .age(managerDto.getAge())
-                .email(managerDto.getEmail())
-                .profile(managerDto.getProfile())
-                .oneline_introduce(managerDto.getOneline_introduce())
-                .introduce(managerDto.getIntroduce())
-                .authorities(Collections.singleton(authority))
-                .build();
-
-
-        Manager save_manager = managerRepository.save(manager);
-        return appConfig.modelMapper().map(save_manager, ManagerDto.class);
-
-    }
 
     //Trainer 회원가입
-    @Transactional
     public ManagerDto trainer_save(ManagerRequestDto managerDto, Long gymId) {
         if (managerRepository.findOneWithAuthoritiesByName(managerDto.getName()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어 있는 트레이너 입니다.");
@@ -194,12 +154,10 @@ public class ManagerService implements UserDetailsService {
 
 
     //현재 시큐리티에 담겨져있는 계정 권한 가져오는 메서드
-    @Transactional
     public ManagerDto getMyManagerWithAuthorities() {
         return appConfig.modelMapper().map(SecurityUtils.getCurrentUsername().flatMap(managerRepository::findOneWithAuthoritiesByName).get(), ManagerDto.class);
     }
 
-    @Transactional
     public ManagerDto getManagerInfo(Long id) {
 
 //        Manager findmanager = managerRepository.findManagerFetchJoinGym(id);
@@ -239,7 +197,6 @@ public class ManagerService implements UserDetailsService {
 
 
     //매니저 정보수정
-    @Transactional
     public Optional<Manager> update(ManagerDto updateDto) {
 
 
@@ -251,7 +208,6 @@ public class ManagerService implements UserDetailsService {
 
 
     //Gym을 save할때 manager와 연관관계를 맺어주는 메서드
-    @Transactional
     public void register_gym(Long gymId, Long manager_id) {
         managerRepository.registerByGymId(manager_id, gymId);
 
@@ -259,14 +215,12 @@ public class ManagerService implements UserDetailsService {
 
 
     //매니저 삭제
-    @Transactional
     public void delete(Long id) {
         Optional<Manager> byId = managerRepository.findById(id);
         managerRepository.delete(byId.get());
     }
 
     // ------------시큐리티에서 사용되는 메서드 --------------
-    @Transactional
     private User createUser(String username, Manager manager) {
         List<GrantedAuthority> grantedAuthorities = manager.getAuthorities().stream()
                 .map(authority -> new SimpleGrantedAuthority(authority.getAuthorityName()))
