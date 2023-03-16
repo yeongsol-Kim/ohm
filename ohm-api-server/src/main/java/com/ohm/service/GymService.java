@@ -130,7 +130,7 @@ public class GymService {
 
     //모든 GYM 조회 App에서 List형식으로 조회
     public List<GymResponseDto> findall() {
-        List<Gym> gyms = gymRepository.findAllGymList();
+        List<Gym> gyms = gymRepository.findAllFetchJoin();
 
         List<GymResponseDto> gymDtos = new ArrayList<GymResponseDto>();
 
