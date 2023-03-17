@@ -9,7 +9,7 @@ plugins {
 	id 'java'
 //	id 'org.springframework.boot' version '2.7.5'
 //	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+//	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'ohm'
@@ -38,8 +38,8 @@ dependencies {
 
 // QueryDSL
 // querydsl 이놈
-	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
-	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+//	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+//	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
@@ -63,21 +63,21 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-//이놈
-def querydslDir =  "$buildDir/generated/querydsl"
-
-querydsl {
-	jpa = true
-	querydslSourcesDir = querydslDir
-}
-
-sourceSets {
-	main.java.srcDir querydslDir
-}
-
-
-compileQuerydsl {
-	options.annotationProcessorPath = configurations.querydsl
-}
-
-
+////이놈
+//def querydslDir =  "$buildDir/generated/querydsl"
+//
+//querydsl {
+//	jpa = true
+//	querydslSourcesDir = querydslDir
+//}
+//
+//sourceSets {
+//	main.java.srcDir querydslDir
+//}
+//
+//
+//compileQuerydsl {
+//	options.annotationProcessorPath = configurations.querydsl
+//}
+//
+//
