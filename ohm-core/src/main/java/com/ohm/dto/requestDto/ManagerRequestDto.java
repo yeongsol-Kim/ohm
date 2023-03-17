@@ -1,6 +1,8 @@
 package com.ohm.dto.requestDto;
 
 
+import com.ohm.entity.Gym.Gym;
+import com.ohm.entity.Manager.Authority;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,4 +29,9 @@ public class ManagerRequestDto {
 
     private String code;
 
+    private Gym gym;
+
+    public void setGym(Gym gym) {
+        this.gym = gym;
+    }
 }

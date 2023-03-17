@@ -3,6 +3,7 @@ package com.ohm.entity.Manager;
 import com.ohm.dto.ManagerDto.ManagerDto;
 import com.ohm.entity.Admin;
 import com.ohm.entity.Gym.Gym;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 
@@ -19,6 +22,8 @@ import java.util.Set;
 //TRAINER는 헬스장 소속 트레이너(직원)
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Manager {
 
@@ -42,7 +47,7 @@ public class Manager {
     private String profileUrl;
 
     //프사이름
-    private String profileOrignName;
+    private String profileOriginName;
 
     //한줄소개
     private String onelineIntroduce;
@@ -56,25 +61,35 @@ public class Manager {
     private String nickname;
 
 
-    @ManyToMany
-    @JoinTable( // JoinTable은 테이블과 테이블 사이에 별도의 조인 테이블을 만들어 양 테이블간의 연관관계를 설정 하는 방법
-            name = "account_authority",
-            joinColumns = {@JoinColumn(name = "manager_id", referencedColumnName = "manager_id")},
-            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
-    private Set<Authority> authorities;
+//    @ManyToMany
+//    @JoinTable( // JoinTable은 테이블과 테이블 사이에 별도의 조인 테이블을 만들어 양 테이블간의 연관관계를 설정 하는 방법
+//            name = "account_authority",
+//            joinColumns = {@JoinColumn(name = "manager_id", referencedColumnName = "manager_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
+//    private Set<Authority> authorities;
 
+//    @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Builder.Default
+    @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<AccountAuthority> authorities = new ArrayList<>();;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_id")
-    private Admin admin;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gym_id")
     private Gym gym;
 
-    public void register_profile(String profile, String profileOrignName) {
+    public void addAuthority(Authority authority) {
+        AccountAuthority accountAuthority = AccountAuthority.builder()
+                .authority(authority)
+                .manager(this)
+                .build();
+        authorities.add(accountAuthority);
+        accountAuthority.setManager(this);
+    }
+
+    public void register_profile(String profile, String profileOriginName) {
         this.profileUrl = profile;
-        this.profileOrignName = profileOrignName;
+        this.profileOriginName = profileOriginName;
     }
 
 
@@ -87,21 +102,5 @@ public class Manager {
         this.onelineIntroduce = manager.getOneline_introduce();
         this.introduce = manager.getIntroduce();
     }
-
-    @Builder
-    public Manager(String position, Gym gym, String name, String profileOrignName, String password, String nickname, String profile, String oneline_introduce, String introduce, Integer age, String email, Set<Authority> authorities) {
-        this.name = name;
-        this.position = position;
-        this.gym = gym;
-        this.profileOrignName = profileOrignName;
-        this.createdTime = LocalDateTime.now();
-        this.password = password;
-        this.nickname = nickname;
-        this.profileUrl = profile;
-        this.onelineIntroduce = oneline_introduce;
-        this.introduce = introduce;
-        this.authorities = authorities;
-    }
-
 
 }

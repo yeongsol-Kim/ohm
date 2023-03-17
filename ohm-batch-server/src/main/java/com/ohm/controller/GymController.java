@@ -33,7 +33,7 @@ public class GymController {
     }
 
     @GetMapping("/currentCountManage")
-    @PreAuthorize("hasRole('ROLE_MANAGER')")
+//    @PreAuthorize("hasRole('ROLE_MANAGER')")
     public String myGymManageCurrentCountPage(Model model) {
 
         Long gymId = SecurityUtil.getCurrentGymId().orElse(null);

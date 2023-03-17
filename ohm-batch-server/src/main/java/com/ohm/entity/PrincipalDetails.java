@@ -1,11 +1,13 @@
 package com.ohm.entity;
 
+import com.ohm.entity.Manager.AccountAuthority;
 import com.ohm.entity.Manager.Authority;
 import com.ohm.entity.Manager.Manager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -26,9 +28,17 @@ public class PrincipalDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new ArrayList<>();
 
-//        user.getAuthorities().stream().map(a -> log.info(a.getAuthorityName()));
 
-        user.getAuthorities().stream().map(a -> collection.add(new SimpleGrantedAuthority(a.getAuthorityName())));
+//        log.info("aaaa");
+        for(AccountAuthority a : user.getAuthorities()) {
+//            log.info(a.getAuthority().getAuthorityName());
+            collection.add(new SimpleGrantedAuthority(a.getAuthority().getAuthorityName()));
+        }
+//        log.info("dddd");
+
+//        user.getAuthorities().stream().map(a ->
+//                collection.add(new SimpleGrantedAuthority(a.getAuthority().getAuthorityName()))
+//        );
 
         return collection;
     }

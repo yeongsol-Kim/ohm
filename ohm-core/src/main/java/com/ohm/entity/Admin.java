@@ -26,8 +26,4 @@ public class Admin {
     private String nickname;
 
     private String email;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "admin",cascade = CascadeType.PERSIST,orphanRemoval = true)
-    private List<Manager> managers = new ArrayList<Manager>();
 }

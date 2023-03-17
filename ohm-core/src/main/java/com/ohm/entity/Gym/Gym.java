@@ -67,8 +67,7 @@ public class Gym{
 //    @JoinColumn(name = "statistics_id")
 //    private Statistics statistics;
 
-    @OneToOne
-    @JoinColumn(name = "gymtime_id")
+    @OneToOne(mappedBy = "gym")
     private GymTime gymTime;
 
     @JsonIgnore

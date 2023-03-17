@@ -1,15 +1,14 @@
 package com.ohm.entity.Gym;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class GymTime {
 
@@ -35,22 +34,9 @@ public class GymTime {
     //공휴일
     private String holiday;
 
-    @OneToOne(mappedBy = "gymTime")
+    @OneToOne
+    @JoinColumn(name = "gym_id")
     private Gym gym;
-
-    @Builder
-    public GymTime(Gym gym,String CLOSEDDAYS,String SUNDAY,String SATURDAY,String monday,String tuesday,String wednesday,String thursday,String friday,String HOLIDAY){
-        this.closeddays =CLOSEDDAYS;
-        this.sunday = SUNDAY;
-        this.gym = gym;
-        this.saturday = SATURDAY;
-        this.monday = monday;
-        this.tuesday = tuesday;
-        this.wednesday = wednesday;
-        this.thursday = thursday;
-        this.friday = friday;
-        this.holiday = HOLIDAY;
-    }
 
     public void update(GymTime gymTime){
 
@@ -67,10 +53,6 @@ public class GymTime {
         this.friday = gymTime.friday;
 
     }
-
-
-
-
 }
 
 

@@ -39,9 +39,9 @@ public class CeoApiController {
     }
 
 
-    @ApiOperation(value = "ceo 회원가입", response = ManagerDto.class)
-    @PostMapping("/ceo")
-    public ResponseEntity<ManagerDto> ceo_signup(@Valid @RequestBody ManagerRequestDto managerDto) {
-        return ResponseEntity.ok(managerService.ceo_save(managerDto));
-    }
+//    @ApiOperation(value = "ceo 회원가입", response = ManagerDto.class)
+//    @PostMapping("/ceo")
+//    public ResponseEntity<ManagerDto> ceo_signup(@Valid @RequestBody ManagerRequestDto managerDto) {
+//        return ResponseEntity.ok(managerService.ceo_save(managerDto));
+//    }
 }
