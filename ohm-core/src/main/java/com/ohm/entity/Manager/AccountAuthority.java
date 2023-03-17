@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "account_authority")
 public class AccountAuthority implements Serializable {
 
 //    @Id

@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Entity
 @Getter
-//@Table(name = "")
 @NoArgsConstructor
+@Table(name = "gym_img")
 public class GymImg {
 
     @Id

@@ -12,6 +12,7 @@ import java.util.List;
 //코무무 계정
 @Entity
 @Getter
+@Table(name = "admin")
 public class Admin {
 
     @Id

@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 //인가에 사용되는 권한들을 DB로 관리하고자 생성한 엔티티이다.
@@ -16,6 +13,7 @@ import java.util.Set;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "authority")
 public class Authority {
 
     @Id

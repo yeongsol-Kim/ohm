@@ -25,6 +25,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "manager")
 public class Manager {
 
 

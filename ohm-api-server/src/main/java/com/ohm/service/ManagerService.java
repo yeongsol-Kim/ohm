@@ -99,10 +99,9 @@ public class ManagerService implements UserDetailsService {
     //Trainer 회원가입
     public ManagerDto trainer_save(ManagerRequestDto managerDto, Long gymId) {
         managerDto.setGym(gymRepository.findById(gymId).orElse(null));
-        Authority authority = Authority.builder().authorityName("ROLE_CEO").build();
+        Authority authority = Authority.builder().authorityName("ROLE_TRAINER").build();
 
         return saveManagerAndReturnDto(managerDto, authority);
-
     }
 
     private ManagerDto saveManagerAndReturnDto(ManagerRequestDto managerDto, Authority authority) {
@@ -116,7 +115,7 @@ public class ManagerService implements UserDetailsService {
                 .password(passwordEncoder.encode(managerDto.getPassword()))
                 .nickname(managerDto.getNickname())
                 .profileUrl(managerDto.getProfile())
-                .onelineIntroduce(managerDto.getOneline_introduce())
+                .onelineIntroduce(managerDto.getOnelineIntroduce())
                 .introduce(managerDto.getIntroduce())
                 .build();
 

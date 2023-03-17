@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
+@Table(name = "answer")
 public class Answer {
 
     @Id

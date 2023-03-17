@@ -20,6 +20,7 @@ import java.util.Set;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "ceo")
 public class Ceo {
 
 
@@ -87,7 +88,7 @@ public class Ceo {
         this.name = manager.getName();
         this.lastModifiedTime = LocalDateTime.now();
         this.nickname = manager.getNickname();
-        this.onelineIntroduce = manager.getOneline_introduce();
+        this.onelineIntroduce = manager.getOnelineIntroduce();
         this.introduce = manager.getIntroduce();
     }
 

@@ -62,7 +62,7 @@ public class CeoService implements UserDetailsService {
                 .age(managerDto.getAge())
                 .email(managerDto.getEmail())
                 .profile(managerDto.getProfile())
-                .oneline_introduce(managerDto.getOneline_introduce())
+                .oneline_introduce(managerDto.getOnelineIntroduce())
                 .introduce(managerDto.getIntroduce())
                 .authorities(Collections.singleton(authority))
                 .build();

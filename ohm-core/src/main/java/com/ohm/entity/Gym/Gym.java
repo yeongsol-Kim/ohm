@@ -19,6 +19,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
+@Table(name = "gym")
 public class Gym{
 
     @Id
