@@ -205,6 +205,7 @@ public class ManagerService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("loaduserbyname");
         return managerRepository.findOneWithAuthoritiesByName(username)
                 .map(user -> createUser(username, user))
                 .orElseThrow(() -> new UsernameNotFoundException(username + "DB에서 찾을수 없다."));

@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @DynamicInsert
+@Table(name = "statistics")
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class Statistics {
 
