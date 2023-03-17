@@ -69,7 +69,7 @@ public class Manager {
 //            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
 //    private Set<Authority> authorities;
 
-//    @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //    @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Builder.Default
     @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<AccountAuthority> authorities = new ArrayList<>();;

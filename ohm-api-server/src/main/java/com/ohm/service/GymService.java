@@ -301,15 +301,15 @@ public class GymService {
 
         GymTime gymTime = GymTime.builder()
                 .gym(byId.get())
+                .HOLIDAY(gymTimeDto.getHoliday())
                 .monday(gymTimeDto.getMonday())
                 .tuesday(gymTimeDto.getTuesday())
                 .wednesday(gymTimeDto.getWednesday())
                 .thursday(gymTimeDto.getThursday())
                 .friday(gymTimeDto.getFriday())
-                .saturday(gymTimeDto.getSaturday())
-                .sunday(gymTimeDto.getSunday())
-                .holiday(gymTimeDto.getHoliday())
-                .closeddays(gymTimeDto.getCloseddays())
+                .SATURDAY(gymTimeDto.getSaturday())
+                .SUNDAY(gymTimeDto.getSunday())
+                .CLOSEDDAYS(gymTimeDto.getCloseddays())
                 .build();
 
 

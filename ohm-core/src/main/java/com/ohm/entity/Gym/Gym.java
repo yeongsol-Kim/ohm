@@ -2,7 +2,6 @@ package com.ohm.entity.Gym;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ohm.entity.Ceo.Ceo;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,15 +10,14 @@ import com.ohm.entity.Manager.Manager;
 import com.ohm.entity.Post.Post;
 import com.ohm.entity.Question.Question;
 import com.ohm.entity.Statistics.Statistics;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-@Table(name = "gym")
 public class Gym{
 
     @Id
@@ -65,17 +63,17 @@ public class Gym{
     @OneToOne(mappedBy = "gym")
     private Statistics statistics;
 
+//    @OneToOne
+//    @JoinColumn(name = "statistics_id")
+//    private Statistics statistics;
 
-    @OneToOne(mappedBy = "gym")
+    @OneToOne
+    @JoinColumn(name = "gymtime_id")
     private GymTime gymTime;
 
     @JsonIgnore
     @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
     private List<Manager> managers = new ArrayList<Manager>();
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ceo_id")
-    private Ceo ceo;
 
 
     @JsonIgnore
@@ -92,6 +90,18 @@ public class Gym{
     public void register_time(GymTime gymTime){
         this.gymTime = gymTime;
 
+
+
+    }
+
+    public int increase_count(){
+        this.current_count = this.current_count + 1;
+        return current_count;
+    }
+
+    public int decrease_count(){
+        this.current_count = this.current_count - 1;
+        return current_count;
     }
 
     public void update(Gym gym){
@@ -104,16 +114,6 @@ public class Gym{
         this.introduce = gym.getIntroduce();
         this.count = gym.getCount();
         this.code = gym.getCode();
-    }
-
-    public int increase_count(){
-        this.current_count = this.current_count + 1;
-        return current_count;
-    }
-
-    public int decrease_count(){
-        this.current_count = this.current_count - 1;
-        return current_count;
     }
 
     @Builder

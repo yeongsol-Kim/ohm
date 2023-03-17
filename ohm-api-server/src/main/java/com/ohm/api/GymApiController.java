@@ -113,8 +113,8 @@ public class GymApiController {
     @ApiOperation(value = "현재 Gym 인원증가", response = Integer.class)
     @PostMapping("/gym/count-increase/{gymId}")
     public ResponseEntity<Integer> increase_count(@PathVariable Long gymId) throws Exception {
-
         gymService.increase_count(gymId);
+
         int current_count = gymService.findById_count(gymId);
         statisticsService.add_statistics(gymId,current_count);
         return ResponseEntity.ok(current_count);

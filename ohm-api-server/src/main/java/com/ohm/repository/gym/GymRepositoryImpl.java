@@ -1,9 +1,11 @@
 //package com.ohm.repository.gym;
 //
+////import com.querydsl.jpa.JPQLQueryFactory;
 //import lombok.RequiredArgsConstructor;
 //import com.ohm.entity.Gym.Gym;
 //
-//
+////import static com.ohm.entity.Gym.QGym.gym;
+////import static com.ohm.entity.Gym.QGymImg.gymImg;
 //
 //import java.util.List;
 //

@@ -1,14 +1,14 @@
 server:
-#    address: [ip address]
+  #    address: [ip address]
   port: 8080
 
 
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/jpashop;MODE=MYSQL
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://database-ohm.cqlwy82kbfnf.ap-northeast-2.rds.amazonaws.com:3306/testdb?allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: admin
+    password: dudthfalstjr12
 
 
   thymeleaf:
@@ -29,6 +29,7 @@ spring:
         physical-strategy : org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: none
 
+
     properties:
       hibernate:
         show-sql:true
@@ -38,8 +39,8 @@ cloud:
     s3:
       bucket: ohm-image
     credentials:
-      access-key: [access-key]
-      secret-key: [secret-key]
+      access-key: AKIA2UIUJNLYDGDHMSWI
+      secret-key: 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
     region:
       static: ap-northeast-2
       auto: false
@@ -60,5 +61,6 @@ logging:
 
 jwt:
   header: Authorization
-  secret: [secret-key]
+  secret: Z2ZkZmdkZmxrZ2pkbGZrZ2pzYXNkamtoYXNrZGphaHNka2fahgvfahvduyasdffjkhsgdfjkhasgfjkphaGRhc2Rhc2Rhc2Rhc2Rhc2ZhZmdzZAo=
   access-token-validity-in-seconds: 86400
+

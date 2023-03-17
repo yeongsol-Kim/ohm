@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -26,19 +26,6 @@
             border: 1px solid #232323;
         }
 
-        .touch-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 15rem;
-            width: 15rem;
-            margin: 3rem;
-            font-size: 5rem;
-            border: 1px solid #232323;
-        }
-
-
-
         .text-title {
             font-size:4rem;
         }
@@ -47,20 +34,14 @@
 <body>
     <div class="container">
         <br/><br/>
-        <div class="text-title" th:text="${gym.name}">헬스장 이름</div>
-        <br>
-        <div class="text-title" th:text="|현재 인원 ${gym.current_count}명|">현재 인원 30명</div>
+        <div class="text-title">현재 인원 30명</div>
         <div class="flex-container">
-            <a th:href="@{/gym/increaseCurrentCount}">
-                <div class="touch-button">
-                    입실
-                </div>
-            </a>
-            <a th:href="@{/gym/decreaseCurrentCount}">
-                <div class="touch-button">
-                    퇴실
-                </div>
-            </a>
+            <div class="touch-button">
+                입실
+            </div>
+            <div class="touch-button">
+                퇴실
+            </div>
         </div>
     </div>
 </body>

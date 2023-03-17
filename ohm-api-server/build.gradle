@@ -33,11 +33,11 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 	implementation 'mysql:mysql-connector-java'
 
-	//추가됨
-//	runtimeOnly 'mysql:mysql-connector-java'
-
-// QueryDSL
-// querydsl 이놈
+//	//추가됨
+////	runtimeOnly 'mysql:mysql-connector-java'
+//
+//// QueryDSL
+//// querydsl 이놈
 //	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 //	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 
@@ -70,7 +70,7 @@ tasks.named('test') {
 //	jpa = true
 //	querydslSourcesDir = querydslDir
 //}
-//
+
 //sourceSets {
 //	main.java.srcDir querydslDir
 //}
@@ -80,4 +80,4 @@ tasks.named('test') {
 //	options.annotationProcessorPath = configurations.querydsl
 //}
 //
-//
+

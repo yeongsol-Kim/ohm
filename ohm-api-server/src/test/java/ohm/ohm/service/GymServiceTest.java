@@ -2,6 +2,8 @@ package ohm.ohm.service;
 
 import com.ohm.config.AppConfig;
 import com.ohm.service.GymService;
+import ohm.ohm.dto.GymDto.GymDto;
+import ohm.ohm.entity.Gym.Gym;
 import com.ohm.repository.gym.GymRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
