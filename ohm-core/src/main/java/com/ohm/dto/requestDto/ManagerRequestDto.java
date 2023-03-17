@@ -21,7 +21,7 @@ public class ManagerRequestDto {
 
     private String profile;
 
-    private String oneline_introduce;
+    private String onelineIntroduce;
 
     private String introduce;
 

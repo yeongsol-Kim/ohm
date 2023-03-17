@@ -147,6 +147,7 @@ public class ManagerService implements UserDetailsService {
         return appConfig.modelMapper().map(savedManager, ManagerDto.class);
     }
 
+
     //현재 시큐리티에 담겨져있는 계정 권한 가져오는 메서드
     @Transactional
     public ManagerDto getMyManagerWithAuthorities() {
