@@ -45,9 +45,7 @@ public class QuestionApicontroller {
     ) throws Exception {
         QuestionDto question = questionService.find_question(questionId);
         return ResponseEntity.ok(question);
-
     }
-
 
 
     @ApiOperation(value = "Question 모두 조회", response = QuestionDto.class,responseContainer = "List")

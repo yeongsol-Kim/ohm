@@ -9,7 +9,7 @@ plugins {
 	id 'java'
 //	id 'org.springframework.boot' version '2.7.5'
 //	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-//	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'ohm'
@@ -33,13 +33,13 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 	implementation 'mysql:mysql-connector-java'
 
-//	//추가됨
-////	runtimeOnly 'mysql:mysql-connector-java'
-//
-//// QueryDSL
-//// querydsl 이놈
-//	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
-//	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+	//추가됨
+//	runtimeOnly 'mysql:mysql-connector-java'
+
+// QueryDSL
+// querydsl 이놈
+	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
@@ -63,21 +63,21 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-////이놈
-//def querydslDir =  "$buildDir/generated/querydsl"
-//
-//querydsl {
-//	jpa = true
-//	querydslSourcesDir = querydslDir
-//}
+//이놈
+def querydslDir =  "$buildDir/generated/querydsl"
 
-//sourceSets {
-//	main.java.srcDir querydslDir
-//}
-//
-//
-//compileQuerydsl {
-//	options.annotationProcessorPath = configurations.querydsl
-//}
-//
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+	main.java.srcDir querydslDir
+}
+
+
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
+}
+
 

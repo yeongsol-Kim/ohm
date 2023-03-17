@@ -2,6 +2,7 @@ package com.ohm.entity.Gym;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ohm.entity.Ceo.Ceo;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -63,9 +64,6 @@ public class Gym{
     @OneToOne(mappedBy = "gym")
     private Statistics statistics;
 
-//    @OneToOne
-//    @JoinColumn(name = "statistics_id")
-//    private Statistics statistics;
 
     @OneToOne(mappedBy = "gym")
     private GymTime gymTime;
@@ -73,6 +71,10 @@ public class Gym{
     @JsonIgnore
     @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
     private List<Manager> managers = new ArrayList<Manager>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ceo_id")
+    private Ceo ceo;
 
 
     @JsonIgnore

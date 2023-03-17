@@ -11,11 +11,16 @@ import java.util.List;
 
 public interface GymRepository extends JpaRepository<Gym,Long> {
 
+
+    //fetch join을 어노테이션으로 대체@EntityGraph
     @EntityGraph(attributePaths = "imgs")
     List<Gym> findByNameContaining(String name);
 
     @Query("select g from Gym g left join fetch g.imgs")
     List<Gym> findAllFetchJoin();
+
+//    @Query("select g from Gym g left join fetch g.imgs")
+//    List<Gym> findAllFetchJoin();
 
     @Query("select g from Gym g left join fetch g.imgs where g.id = :id")
     Gym findGymFetchJoin(@Param("id")Long id);
