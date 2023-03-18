@@ -2,7 +2,6 @@ package com.ohm.dto.requestDto;
 
 
 import com.ohm.entity.Gym.Gym;
-import com.ohm.entity.Manager.Authority;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

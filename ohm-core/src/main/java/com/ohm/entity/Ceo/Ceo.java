@@ -3,8 +3,9 @@ package com.ohm.entity.Ceo;
 
 import com.ohm.dto.ManagerDto.ManagerDto;
 import com.ohm.entity.Admin;
+import com.ohm.entity.Enum.Role;
 import com.ohm.entity.Gym.Gym;
-import com.ohm.entity.Manager.Authority;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,10 +16,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "ceo")
 public class Ceo {
@@ -42,8 +45,6 @@ public class Ceo {
     //프로필사진
     private String profileUrl;
 
-    //프사이름
-    private String profileOrignName;
 
     //한줄소개
     private String onelineIntroduce;
@@ -56,29 +57,20 @@ public class Ceo {
     //실제이름
     private String nickname;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-//    @ManyToMany
-//    @JoinTable( // JoinTable은 테이블과 테이블 사이에 별도의 조인 테이블을 만들어 양 테이블간의 연관관계를 설정 하는 방법
-//            name = "account_authority",
-//            joinColumns = {@JoinColumn(name = "ceo_id", referencedColumnName = "manager_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
-//    private Set<Authority> authorities;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "gym_id")
-//    private Gym gym;
-
     @OneToMany(mappedBy = "ceo",cascade = CascadeType.PERSIST,orphanRemoval = true)
     private List<Gym> gyms = new ArrayList<>();
 
     public void register_profile(String profile, String profileOrignName) {
         this.profileUrl = profile;
-        this.profileOrignName = profileOrignName;
     }
 
 
@@ -92,18 +84,18 @@ public class Ceo {
         this.introduce = manager.getIntroduce();
     }
 
-    @Builder
-    public Ceo(String position, Gym gym, String name, String profileOrignName, String password, String nickname, String profile, String oneline_introduce, String introduce, Integer age, String email, Set<Authority> authorities) {
-        this.name = name;
-        this.position = position;
-        this.profileOrignName = profileOrignName;
-        this.createdTime = LocalDateTime.now();
-        this.password = password;
-        this.nickname = nickname;
-        this.profileUrl = profile;
-        this.onelineIntroduce = oneline_introduce;
-        this.introduce = introduce;
-    }
+//    @Builder
+//    public Ceo(String position, Gym gym, String name, String profileOrignName, String password, String nickname, String profile, String oneline_introduce, String introduce, Integer age, String email, Set<Authority> authorities) {
+//        this.name = name;
+//        this.position = position;
+//        this.profileOrignName = profileOrignName;
+//        this.createdTime = LocalDateTime.now();
+//        this.password = password;
+//        this.nickname = nickname;
+//        this.profileUrl = profile;
+//        this.onelineIntroduce = oneline_introduce;
+//        this.introduce = introduce;
+//    }
 
 
 }

@@ -12,4 +12,6 @@ public interface CeoRepository extends JpaRepository<Ceo,Long> {
 
     @EntityGraph(attributePaths = "authorities")
     Optional<Ceo> findOneWithAuthoritiesByName(String name);
+
+    Optional<Ceo> findByName(String name);
 }

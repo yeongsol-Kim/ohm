@@ -9,7 +9,6 @@ import com.ohm.dto.PostDto.PostDto;
 import com.ohm.dto.requestDto.ManagerRequestDto;
 import com.ohm.dto.responseDto.TrainerResponseDto;
 import com.ohm.entity.Gym.Gym;
-import com.ohm.entity.Manager.Authority;
 import com.ohm.entity.Manager.Manager;
 import com.ohm.jwt.TokenProvider;
 import com.ohm.service.ManagerService;
@@ -30,13 +29,13 @@ public class ManagerApiController {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
 
-    @ApiOperation(value = "manager 회원가입", response = ManagerDto.class)
-    @PostMapping("/manager/{gymId}")
-    public ResponseEntity<ManagerDto> manager_signup(
-            @PathVariable Long gymId,
-            @Valid @RequestBody ManagerRequestDto managerDto) {
-        return ResponseEntity.ok(managerService.manager_save(managerDto,gymId));
-    }
+//    @ApiOperation(value = "manager 회원가입", response = ManagerDto.class)
+//    @PostMapping("/manager/{gymId}")
+//    public ResponseEntity<ManagerDto> manager_signup(
+//            @PathVariable Long gymId,
+//            @Valid @RequestBody ManagerRequestDto managerDto) {
+//        return ResponseEntity.ok(managerService.manager_save(managerDto,gymId));
+//    }
 
 
 

@@ -54,9 +54,10 @@ public class TokenProvider implements InitializingBean {
     //Authentication객체의 권한 정보를 이용해 토큰을 생성하는 createToken 메소드
     public String createToken(Authentication authentication) {
 
+        System.out.println("createToken1");
         //권한들
         String autorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(","));
-
+        System.out.println("createToken1");
 
         //만료시간을 설정
         long now = (new Date()).getTime();

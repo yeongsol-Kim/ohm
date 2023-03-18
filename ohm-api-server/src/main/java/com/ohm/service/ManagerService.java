@@ -10,7 +10,6 @@ import com.ohm.dto.ManagerDto.ManagerDto;
 import com.ohm.dto.requestDto.ManagerRequestDto;
 import com.ohm.dto.responseDto.TrainerResponseDto;
 import com.ohm.entity.Code;
-import com.ohm.entity.Manager.Authority;
 import com.ohm.entity.Manager.Manager;
 import com.ohm.repository.manager.CodeRepository;
 import com.ohm.repository.gym.GymRepository;
@@ -89,42 +88,42 @@ public class ManagerService implements UserDetailsService {
     }
 
     //Manager 회원가입
-    public ManagerDto manager_save(ManagerRequestDto managerDto, Long gymId) {
-        managerDto.setGym(gymRepository.findById(gymId).orElse(null));
-        Authority authority = Authority.builder().authorityName("ROLE_MANAGER").build();
-
-        return saveManagerAndReturnDto(managerDto, authority);
-    }
+//    public ManagerDto manager_save(ManagerRequestDto managerDto, Long gymId) {
+//        managerDto.setGym(gymRepository.findById(gymId).orElse(null));
+//        Authority authority = Authority.builder().authorityName("ROLE_MANAGER").build();
+//
+//        return saveManagerAndReturnDto(managerDto, authority);
+//    }
 
     //Trainer 회원가입
-    public ManagerDto trainer_save(ManagerRequestDto managerDto, Long gymId) {
-        managerDto.setGym(gymRepository.findById(gymId).orElse(null));
-        Authority authority = Authority.builder().authorityName("ROLE_TRAINER").build();
+//    public ManagerDto trainer_save(ManagerRequestDto managerDto, Long gymId) {
+//        managerDto.setGym(gymRepository.findById(gymId).orElse(null));
+//        Authority authority = Authority.builder().authorityName("ROLE_TRAINER").build();
+//
+//        return saveManagerAndReturnDto(managerDto, authority);
+//    }
 
-        return saveManagerAndReturnDto(managerDto, authority);
-    }
-
-    private ManagerDto saveManagerAndReturnDto(ManagerRequestDto managerDto, Authority authority) {
-        if (managerRepository.findOneWithAuthoritiesByName(managerDto.getName()).orElse(null) != null) {
-            throw new RuntimeException("이미 가입되어 있는 " + authority.getAuthorityName() + "입니다.");
-        }
-
-        Manager manager = Manager.builder()
-                .name(managerDto.getName())
-                .position(managerDto.getPosition())
-                .password(passwordEncoder.encode(managerDto.getPassword()))
-                .nickname(managerDto.getNickname())
-                .profileUrl(managerDto.getProfile())
-                .onelineIntroduce(managerDto.getOnelineIntroduce())
-                .introduce(managerDto.getIntroduce())
-                .build();
-
-        manager.addAuthority(authority);
-
-
-        Manager savedManager = managerRepository.save(manager);
-        return appConfig.modelMapper().map(savedManager, ManagerDto.class);
-    }
+//    private ManagerDto saveManagerAndReturnDto(ManagerRequestDto managerDto, Authority authority) {
+//        if (managerRepository.findOneWithAuthoritiesByName(managerDto.getName()).orElse(null) != null) {
+//            throw new RuntimeException("이미 가입되어 있는 " + authority.getAuthorityName() + "입니다.");
+//        }
+//
+//        Manager manager = Manager.builder()
+//                .name(managerDto.getName())
+//                .position(managerDto.getPosition())
+//                .password(passwordEncoder.encode(managerDto.getPassword()))
+//                .nickname(managerDto.getNickname())
+//                .profileUrl(managerDto.getProfile())
+//                .onelineIntroduce(managerDto.getOnelineIntroduce())
+//                .introduce(managerDto.getIntroduce())
+//                .build();
+//
+//        manager.addAuthority(authority);
+//
+//
+//        Manager savedManager = managerRepository.save(manager);
+//        return appConfig.modelMapper().map(savedManager, ManagerDto.class);
+//    }
 
 
     //현재 시큐리티에 담겨져있는 계정 권한 가져오는 메서드
@@ -196,10 +195,8 @@ public class ManagerService implements UserDetailsService {
 
     // ------------시큐리티에서 사용되는 메서드 --------------
     private User createUser(String username, Manager manager) {
-        List<GrantedAuthority> grantedAuthorities = manager.getAuthorities().stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getAuthority().getAuthorityName()))
-                .collect(Collectors.toList());
-        return new User(manager.getName(), manager.getPassword(), grantedAuthorities);
+        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(manager.getRole().toString());
+        return new User(manager.getName(), manager.getPassword(), Collections.singleton(grantedAuthority));
     }
 
 

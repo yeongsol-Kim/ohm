@@ -4,7 +4,7 @@ import com.ohm.dto.CeoDto.CeoDto;
 import com.ohm.dto.requestDto.ManagerRequestDto;
 import com.ohm.entity.Ceo.Ceo;
 import com.ohm.entity.Code;
-import com.ohm.entity.Manager.Authority;
+import com.ohm.entity.Enum.Role;
 import com.ohm.repository.ceo.CeoRepository;
 import com.ohm.repository.gym.GymRepository;
 import com.ohm.repository.manager.CodeRepository;
@@ -18,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -45,30 +44,26 @@ public class CeoService implements UserDetailsService {
 
     //Manager 회원가입
     public CeoDto ceo_save(ManagerRequestDto managerDto) {
-        if (ceoRepository.findOneWithAuthoritiesByName(managerDto.getName()).orElse(null) != null) {
+        if (ceoRepository.findByName(managerDto.getName()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어 있는 아이디.");
         }
 
-        Authority authority = Authority.builder()
-                .authorityName("ROLE_CEO")
-                .build();
-
-
+//
+        System.out.println("111");
         Ceo ceo = Ceo.builder()
                 .name(managerDto.getName())
                 .position(managerDto.getPosition())
                 .password(passwordEncoder.encode(managerDto.getPassword()))
                 .nickname(managerDto.getNickname())
-                .age(managerDto.getAge())
-                .email(managerDto.getEmail())
-                .profile(managerDto.getProfile())
-                .oneline_introduce(managerDto.getOnelineIntroduce())
+                .profileUrl(managerDto.getProfile())
+                .onelineIntroduce(managerDto.getOnelineIntroduce())
                 .introduce(managerDto.getIntroduce())
-                .authorities(Collections.singleton(authority))
+                .role(Role.ROLE_CEO)
                 .build();
-
+        System.out.println("222");
 
         Ceo save = ceoRepository.save(ceo);
+        System.out.println("333");
         return appConfig.modelMapper().map(save, CeoDto.class);
 
     }

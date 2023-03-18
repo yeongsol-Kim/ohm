@@ -25,12 +25,12 @@ public class TrainerApiController {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
 
-    @ApiOperation(value = "trainer 회원가입", response = ManagerDto.class)
-    @PostMapping("/trainer/{gymId}")
-    public ResponseEntity<ManagerDto> trainer_signup(
-            @PathVariable Long gymId,
-            @Valid @RequestBody ManagerRequestDto managerDto) {
-        return ResponseEntity.ok(managerService.trainer_save(managerDto,gymId));
-    }
+//    @ApiOperation(value = "trainer 회원가입", response = ManagerDto.class)
+//    @PostMapping("/trainer/{gymId}")
+//    public ResponseEntity<ManagerDto> trainer_signup(
+//            @PathVariable Long gymId,
+//            @Valid @RequestBody ManagerRequestDto managerDto) {
+//        return ResponseEntity.ok(managerService.trainer_save(managerDto,gymId));
+//    }
 
 }
