@@ -1,6 +1,8 @@
 package com.ohm.api;
 
 
+import com.ohm.dto.CeoDto.CeoDto;
+import com.ohm.service.CeoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.util.List;
 
+
+
+//ceo,manager 공통API
 @RestController
 @RequestMapping("/api")
 @Api(tags = {"ADMIN API"})
@@ -33,6 +38,7 @@ public class AdminApiController {
 
 
     private final ManagerService managerService;
+    private final CeoService ceoService;
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
@@ -45,6 +51,8 @@ public class AdminApiController {
                 new UsernamePasswordAuthenticationToken(loginDto.getName(), loginDto.getPassword());
 
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        System.out.println(authentication);
+        System.out.println("authentication");
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.createToken(authentication);
@@ -56,23 +64,16 @@ public class AdminApiController {
     }
 
 
-    @ApiOperation(value = "profile(image) 등록", response = String.class)
-    @PostMapping("/admin/image/{managerId}")
-    public ResponseEntity<String> save_img(
-            @PathVariable Long managerId,
-            @RequestPart(value = "images",required = false) MultipartFile file
-    ) throws Exception {
-        managerService.profile_save(managerId,file);
-        return ResponseEntity.ok("image upload!");
-    }
+
 
 
     //현재 로그인된 Manager 정보조회
     @ApiOperation(value = "로그인된 정보조회", response = ManagerDto.class)
     @GetMapping("/admin")
     @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_TRAINER','ROLE_CEO')")
-    public ResponseEntity<ManagerDto> getManagerInfo() {
-        return ResponseEntity.ok(managerService.getMyManagerWithAuthorities());
+    public ResponseEntity<CeoDto> getManagerInfo() {
+        System.out.println("start api");
+        return ResponseEntity.ok(ceoService.getMyManagerWithAuthorities());
     }
 
 
@@ -88,6 +89,8 @@ public class AdminApiController {
     }
 
 
+
+    //분리
     @ApiOperation(value = "profile(image) 수정", response = String.class)
     @PatchMapping("/admin/image/{managerId}")
     @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_TRAINER','ROLE_CEO')")
@@ -102,6 +105,7 @@ public class AdminApiController {
 
 
 
+    //분리
     @ApiOperation(value = "Admin 수정", response = String.class)
     @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_TRAINER','ROLE_CEO')")
     @PatchMapping("/admin")

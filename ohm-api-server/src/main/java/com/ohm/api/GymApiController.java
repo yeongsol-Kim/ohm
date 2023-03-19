@@ -1,5 +1,7 @@
 package com.ohm.api;
 
+import com.ohm.dto.CeoDto.CeoDto;
+import com.ohm.service.CeoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,7 @@ public class GymApiController {
     private final GymService gymService;
     private  final StatisticsService statisticsService;
     private final ManagerService managerService;
+    private final CeoService ceoService;
 
 
     @ApiOperation(value = "Gym 등록(ROLE_CEO만 사용)", response = Long.class)
@@ -39,13 +42,15 @@ public class GymApiController {
             @Valid @RequestBody GymRequestDto gymRequestDto
     ) throws Exception {
 
-        ManagerDto managerDto = managerService.getMyManagerWithAuthorities();
+
+        CeoDto myManagerWithAuthorities = ceoService.getMyManagerWithAuthorities();
 
         Long save = gymService.save(gymRequestDto);
 
         statisticsService.register_table(save);
 
-        managerService.register_gym(save, managerDto.getId());
+
+     //   managerService.register_gym(save, myManagerWithAuthorities.getId());
 
         return ResponseEntity.ok(save);
 
