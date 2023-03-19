@@ -18,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -55,16 +54,10 @@ public class CeoService implements UserDetailsService {
 
 
         Ceo ceo = Ceo.builder()
-                .name(managerDto.getName())
-                .position(managerDto.getPosition())
+                .username(managerDto.getName())
                 .password(passwordEncoder.encode(managerDto.getPassword()))
                 .nickname(managerDto.getNickname())
-                .age(managerDto.getAge())
-                .email(managerDto.getEmail())
-                .profile(managerDto.getProfile())
-                .oneline_introduce(managerDto.getOnelineIntroduce())
-                .introduce(managerDto.getIntroduce())
-                .authorities(Collections.singleton(authority))
+                .profileOriginName(managerDto.getProfile())
                 .build();
 
 

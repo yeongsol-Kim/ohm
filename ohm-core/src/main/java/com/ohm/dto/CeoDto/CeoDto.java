@@ -12,7 +12,7 @@ public class CeoDto {
 
     private Long id;
 
-    private String name;
+    private String username;
 
     private String position;
 
@@ -34,7 +34,7 @@ public class CeoDto {
     @Builder
     public CeoDto(String profile, String oneline_introduce, String introduce, String nickname, Long id, String name, GymDto gymDto, Set<Authority> authorities) {
         this.id = id;
-        this.name = name;
+        this.username = name;
         this.nickname = nickname;
         this.profile = profile;
         this.oneline_introduce = oneline_introduce;
@@ -45,16 +45,16 @@ public class CeoDto {
     //
     public CeoDto(Long id, String name, String email, String password, Integer age, GymDto gymDto, Set<Authority> authorities) {
         this.id = id;
-        this.name = name;
+        this.username = name;
         this.authorities = authorities;
     }
 
     public CeoDto(String name, String email) {
-        this.name = name;
+        this.username = name;
     }
 
     public CeoDto(Long id, String name, String email) {
         this.id = id;
-        this.name = name;
+        this.username = name;
     }
 }
