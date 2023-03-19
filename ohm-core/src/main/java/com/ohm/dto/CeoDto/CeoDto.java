@@ -16,7 +16,7 @@ public class CeoDto {
 
     private Long id;
 
-    private String name;
+    private String username;
 
     private String position;
 
@@ -37,7 +37,7 @@ public class CeoDto {
     @Builder
     public CeoDto(String profile, String oneline_introduce, String introduce, String nickname, Long id, String name, GymDto gymDto, Role role) {
         this.id = id;
-        this.name = name;
+        this.username = name;
         this.nickname = nickname;
         this.profile = profile;
         this.onelineIntroduce = oneline_introduce;
@@ -48,16 +48,18 @@ public class CeoDto {
     //
     public CeoDto(Long id, String name, String email, String password, Integer age, GymDto gymDto, Role role) {
         this.id = id;
+
         this.name = name;
         this.role = role;
+
     }
 
     public CeoDto(String name, String email) {
-        this.name = name;
+        this.username = name;
     }
 
     public CeoDto(Long id, String name, String email) {
         this.id = id;
-        this.name = name;
+        this.username = name;
     }
 }

@@ -30,6 +30,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -80,14 +81,16 @@ public class CeoService  {
 
 //
         Ceo ceo = Ceo.builder()
-                .name(managerDto.getName())
-                .position(managerDto.getPosition())
+                .username(managerDto.getName())
                 .password(passwordEncoder.encode(managerDto.getPassword()))
                 .nickname(managerDto.getNickname())
+
                 .profileUrl(managerDto.getProfile())
                 .onelineIntroduce(managerDto.getOnelineIntroduce())
                 .introduce(managerDto.getIntroduce())
                 .role(Role.ROLE_CEO)
+
+
                 .build();
 
         Ceo save = ceoRepository.save(ceo);
