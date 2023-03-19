@@ -1,6 +1,7 @@
 package com.ohm.dto.requestDto;
 
 
+import com.ohm.entity.Enum.Role;
 import com.ohm.entity.Gym.Gym;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,8 @@ public class ManagerRequestDto {
     private String introduce;
 
     private int age;
+
+    private Role role;
 
     private String code;
 

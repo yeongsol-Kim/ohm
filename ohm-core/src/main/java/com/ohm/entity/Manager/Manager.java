@@ -58,28 +58,14 @@ public class Manager {
     //실제이름
     private String nickname;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Role role;
-
-
-//    @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @Builder.Default
-//    @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private List<AccountAuthority> authorities = new ArrayList<>();;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gym_id")
     private Gym gym;
 
-//    public void addAuthority(Authority authority) {
-//        AccountAuthority accountAuthority = AccountAuthority.builder()
-//                .authority(authority)
-//                .manager(this)
-//                .build();
-//        authorities.add(accountAuthority);
-//        accountAuthority.setManager(this);
-//    }
 
     public void register_profile(String profile, String profileOriginName) {
         this.profileUrl = profile;

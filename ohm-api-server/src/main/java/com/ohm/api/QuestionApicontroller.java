@@ -30,7 +30,6 @@ public class QuestionApicontroller {
             @Valid @RequestBody QuestionDto questionDto
 
     ) throws Exception {
-
         Long aLong = questionService.save_question(gymId, questionDto);
         return ResponseEntity.ok(aLong);
 

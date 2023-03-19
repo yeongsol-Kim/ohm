@@ -20,12 +20,11 @@ public class CeoDto {
 
     private String position;
 
-
     private String nickname;
 
     private String profile;
 
-    private String oneline_introduce;
+    private String onelineIntroduce;
 
     private String introduce;
 
@@ -41,7 +40,7 @@ public class CeoDto {
         this.name = name;
         this.nickname = nickname;
         this.profile = profile;
-        this.oneline_introduce = oneline_introduce;
+        this.onelineIntroduce = oneline_introduce;
         this.introduce = introduce;
         this.role = role;
     }

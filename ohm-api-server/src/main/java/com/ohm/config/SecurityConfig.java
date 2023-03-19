@@ -8,8 +8,6 @@ import com.ohm.jwt.TokenProvider;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -22,24 +20,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-@Order(Ordered.HIGHEST_PRECEDENCE)//@PreAuthorize어노테이션 사용을 위해 선언
+@EnableGlobalMethodSecurity(prePostEnabled = true) //@PreAuthorize어노테이션 사용을 위해 선언
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final TokenProvider tokenProvider;
 
-    private final JwtSecurityConfig jwtSecurityConfig;
     //에러 반환 클래스들 선언후 주입
     private final JwtAuthenticationEntry jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
     public SecurityConfig(
             TokenProvider tokenProvider,
-            JwtSecurityConfig jwtSecurityConfig, JwtAuthenticationEntry jwtAuthenticationEntryPoint,
+            JwtAuthenticationEntry jwtAuthenticationEntryPoint,
             JwtAccessDeniedHandler jwtAccessDeniedHandler
     ) {
         this.tokenProvider = tokenProvider;
-        this.jwtSecurityConfig = jwtSecurityConfig;
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
     }
@@ -97,12 +92,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/api/manager/code/{code}","/api/ceo/code/{code}","/api/manager/image/{managerId}","/api/manager","/api/ceo", "/api/manager/login", "/api/trainer/{gymId}", "/api/manager/findall/{gymId}", "/api/manager/{managerId}").permitAll()
                 .antMatchers("/api/post/{gymId}", "/api/posts/{gymId}").permitAll()
                 .antMatchers("/api/admin/findall/{gymId}","/api/admin/{managerId}","/api/admin/login", "/api/admin/image/{managerId}","/api/admin").permitAll()
-                .antMatchers("/api/ceo/code/{code}", "/api/ceo","/api/ceo/login").permitAll()
+                .antMatchers("/api/ceo/code/{code}", "/api/ceo").permitAll()
                 .antMatchers("/api/question/{gymId}","/api/question/{questionId}","/api/question/all/{gymId}").permitAll()
                 .anyRequest().authenticated() // 나머지 경로는 jwt 인증 해야함
 
                 .and()
-                .apply( jwtSecurityConfig);
+                .apply(new JwtSecurityConfig(tokenProvider));
     }
 
 

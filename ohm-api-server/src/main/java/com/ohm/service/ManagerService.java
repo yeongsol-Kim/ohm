@@ -1,6 +1,8 @@
 package com.ohm.service;
 
 
+import com.ohm.entity.Enum.Role;
+import com.ohm.repository.ceo.CeoRepository;
 import com.ohm.s3.AmazonS3ResourceStorage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,12 +38,13 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 @Transactional
-public class ManagerService implements UserDetailsService {
+public class ManagerService{
+
+    private final CeoRepository ceoRepository;
     private final AmazonS3ResourceStorage amazonS3ResourceStorage;
     private final ManagerRepository managerRepository;
     private final GymRepository gymRepository;
     private final AppConfig appConfig;
-    private final CodeRepository codeRepository;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -87,48 +90,47 @@ public class ManagerService implements UserDetailsService {
         byId.get().register_profile(current_date + File.separator + uuid_string + ext, multipartFile.getOriginalFilename());
     }
 
-    //Manager 회원가입
-//    public ManagerDto manager_save(ManagerRequestDto managerDto, Long gymId) {
-//        managerDto.setGym(gymRepository.findById(gymId).orElse(null));
-//        Authority authority = Authority.builder().authorityName("ROLE_MANAGER").build();
-//
-//        return saveManagerAndReturnDto(managerDto, authority);
-//    }
+   // Manager 회원가입
+    public ManagerDto manager_save(ManagerRequestDto managerDto, Long gymId) {
+        managerDto.setGym(gymRepository.findById(gymId).orElse(null));
+        return saveManagerAndReturnDto(managerDto, Role.ROLE_MANAGER);
+    }
 
-    //Trainer 회원가입
-//    public ManagerDto trainer_save(ManagerRequestDto managerDto, Long gymId) {
-//        managerDto.setGym(gymRepository.findById(gymId).orElse(null));
-//        Authority authority = Authority.builder().authorityName("ROLE_TRAINER").build();
-//
-//        return saveManagerAndReturnDto(managerDto, authority);
-//    }
 
-//    private ManagerDto saveManagerAndReturnDto(ManagerRequestDto managerDto, Authority authority) {
-//        if (managerRepository.findOneWithAuthoritiesByName(managerDto.getName()).orElse(null) != null) {
-//            throw new RuntimeException("이미 가입되어 있는 " + authority.getAuthorityName() + "입니다.");
-//        }
-//
-//        Manager manager = Manager.builder()
-//                .name(managerDto.getName())
-//                .position(managerDto.getPosition())
-//                .password(passwordEncoder.encode(managerDto.getPassword()))
-//                .nickname(managerDto.getNickname())
-//                .profileUrl(managerDto.getProfile())
-//                .onelineIntroduce(managerDto.getOnelineIntroduce())
-//                .introduce(managerDto.getIntroduce())
-//                .build();
-//
-//        manager.addAuthority(authority);
-//
-//
-//        Manager savedManager = managerRepository.save(manager);
-//        return appConfig.modelMapper().map(savedManager, ManagerDto.class);
-//    }
+    public ManagerDto trainer_save(ManagerRequestDto managerDto, Long gymId) {
+        managerDto.setGym(gymRepository.findById(gymId).orElse(null));
+
+
+        return saveManagerAndReturnDto(managerDto, Role.ROLE_TRAINER);
+    }
+
+    private ManagerDto saveManagerAndReturnDto(ManagerRequestDto managerDto, Role role) {
+        if (ceoRepository.findByName(managerDto.getName()).orElse(null) != null || managerRepository.findByName(managerDto.getName()).orElse(null) != null) {
+            throw new RuntimeException("이미 가입되어 있는 아이디입니다.");
+        }
+
+        Manager manager = Manager.builder()
+                .name(managerDto.getName())
+                .position(managerDto.getPosition())
+                .password(passwordEncoder.encode(managerDto.getPassword()))
+                .nickname(managerDto.getNickname())
+                .profileUrl(managerDto.getProfile())
+                .role(role)
+                .onelineIntroduce(managerDto.getOnelineIntroduce())
+                .introduce(managerDto.getIntroduce())
+                .build();
+
+
+        Manager savedManager = managerRepository.save(manager);
+        return appConfig.modelMapper().map(savedManager, ManagerDto.class);
+    }
 
 
     //현재 시큐리티에 담겨져있는 계정 권한 가져오는 메서드
     public ManagerDto getMyManagerWithAuthorities() {
-        return appConfig.modelMapper().map(SecurityUtils.getCurrentUsername().flatMap(managerRepository::findOneWithAuthoritiesByName).get(), ManagerDto.class);
+        System.out.println("SecurityUtils.getCurrentUsername()");
+        System.out.println(SecurityUtils.getCurrentUsername());
+        return appConfig.modelMapper().map(SecurityUtils.getCurrentUsername().flatMap(managerRepository::findByName).get(), ManagerDto.class);
     }
 
     public ManagerDto getManagerInfo(Long id) {
@@ -181,10 +183,10 @@ public class ManagerService implements UserDetailsService {
 
 
     //Gym을 save할때 manager와 연관관계를 맺어주는 메서드
-    public void register_gym(Long gymId, Long manager_id) {
-        managerRepository.registerByGymId(manager_id, gymId);
-
-    }
+//    public void register_gym(Long gymId, Long manager_id) {
+//        managerRepository.registerByGymId(manager_id, gymId);
+//
+//    }
 
 
     //매니저 삭제
@@ -200,11 +202,11 @@ public class ManagerService implements UserDetailsService {
     }
 
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return managerRepository.findOneWithAuthoritiesByName(username)
-                .map(user -> createUser(username, user))
-                .orElseThrow(() -> new UsernameNotFoundException(username + "DB에서 찾을수 없다."));
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        return managerRepository.findOneWithAuthoritiesByName(username)
+//                .map(user -> createUser(username, user))
+//                .orElseThrow(() -> new UsernameNotFoundException(username + "DB에서 찾을수 없다."));
+//    }
 
 }

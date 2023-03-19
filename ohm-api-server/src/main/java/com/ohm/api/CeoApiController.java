@@ -20,6 +20,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -54,22 +55,14 @@ public class CeoApiController {
         return ResponseEntity.ok(ceoService.ceo_save(managerDto));
     }
 
-    @ApiOperation(value = "ceo 로그인", response = TokenDto.class)
-    @PostMapping("/ceo/login")
-    public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginDto loginDto) {
-
-
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getName(), loginDto.getPassword());
-
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt = tokenProvider.createToken(authentication);
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer" + jwt);
-
-        return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
+    @ApiOperation(value = "profile(image) 등록", response = String.class)
+    @PostMapping("/ceo/image/{managerId}")
+    public ResponseEntity<String> save_img(
+            @PathVariable Long managerId,
+            @RequestPart(value = "images",required = false) MultipartFile file
+    ) throws Exception {
+        ceoService.profile_save(managerId,file);
+        return ResponseEntity.ok("image upload!");
     }
+
 }

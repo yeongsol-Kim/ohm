@@ -1,6 +1,9 @@
 package com.ohm.repository.manager;
+import com.ohm.entity.Ceo.Ceo;
 import com.ohm.entity.Gym.Gym;
 import com.ohm.entity.Manager.Manager;
+import org.apache.catalina.Role;
+import org.apache.catalina.users.AbstractUser;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,10 +16,8 @@ import java.util.Optional;
 public interface ManagerRepository extends JpaRepository<Manager,Long> {
 
 
-    @EntityGraph(attributePaths = "authorities")
-    Optional<Manager> findOneWithAuthoritiesByName(String name);
+    Optional<Manager> findByName(String name);
 
-//@Query(value = "select * from MANAGER inner join MANAGER.GYM_ID where MANAGER.MANAGER_ID = :manager_id",nativeQuery = true)
     @Query("select m from Manager m left join fetch m.gym where m.id = :manager_id")
     Manager findManagerFetchJoinGym(@Param("manager_id")Long manager_id);
 
