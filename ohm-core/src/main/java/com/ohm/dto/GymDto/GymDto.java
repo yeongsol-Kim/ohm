@@ -44,10 +44,10 @@ public class GymDto {
 
     private int code;
 
-    private int current_count;
+    private int currentCount;
 
 
-    private int trainer_count;
+    private int trainerCount;
 
     @JsonIgnore
     private ArrayList<ManagerDto> manager = new ArrayList<>();
@@ -70,7 +70,7 @@ public class GymDto {
     public GymDto(String name,int count,int current_count){
         this.name = name;
         this.count = count;
-        this.current_count = current_count;
+        this.currentCount = current_count;
     }
 
     //GymDto save entity 생성자ㅣ
@@ -83,14 +83,14 @@ public class GymDto {
     }
 
     public int increase_count(){
-        this.current_count = this.current_count + 1;
-        return current_count;
+        this.currentCount = this.currentCount + 1;
+        return currentCount;
     }
 
 
     public int decrease_count(){
-        this.current_count = this.current_count - 1;
-        return current_count;
+        this.currentCount = this.currentCount - 1;
+        return currentCount;
     }
 
 

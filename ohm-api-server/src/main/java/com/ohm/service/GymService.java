@@ -6,19 +6,16 @@ import com.ohm.s3.AmazonS3ResourceStorage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import com.ohm.config.AppConfig;
-import com.ohm.dto.AnswerDto.AnswerDto;
 import com.ohm.dto.GymDto.GymDto;
 import com.ohm.dto.GymDto.GymPriceDto;
 import com.ohm.dto.GymDto.GymTimeDto;
 import com.ohm.dto.requestDto.GymRequestDto;
-import com.ohm.dto.responseDto.CountResponseDto;
 import com.ohm.dto.responseDto.GymImgResponseDto;
 import com.ohm.dto.responseDto.GymResponseDto;
 import com.ohm.entity.Gym.Gym;
 import com.ohm.entity.Gym.GymImg;
 import com.ohm.entity.Gym.GymPrice;
 import com.ohm.entity.Gym.GymTime;
-import com.ohm.entity.Post.PostImg;
 import com.ohm.repository.gym.GymImgRepository;
 import com.ohm.repository.gym.GymPriceRepository;
 import com.ohm.repository.gym.GymRepository;
@@ -84,11 +81,11 @@ public class GymService {
                 .ceo(byId.get())
 
                 .code(gymDto.getCode())
-                .count(gymDto.getCount())
+                .currentCount(gymDto.getCount())
                 .name(gymDto.getName())
                 .area(gymDto.getArea())
-                .oneline_introduce(gymDto.getOneline_introduce())
-                .trainer_count(gymDto.getTrainer_count())
+                .onelineIntroduce(gymDto.getOneline_introduce())
+                .trainerCount(gymDto.getTrainer_count())
                 .introduce(gymDto.getIntroduce())
                 .build();
 
@@ -155,7 +152,7 @@ public class GymService {
                     .introduce(gym.getIntroduce())
                     .oneline_introduce(gym.getOnelineIntroduce())
                     .imgs(gymImgDtos)
-                    .count(gym.getCount()).build();
+                    .count(gym.getCurrentCount()).build();
 
             gymDtos.add(gymResponseDto);
         }
@@ -182,7 +179,7 @@ public class GymService {
                     .introduce(gym.getIntroduce())
                     .oneline_introduce(gym.getOnelineIntroduce())
                     .imgs(gymImgDtos)
-                    .count(gym.getCount()).build();
+                    .count(gym.getCurrentCount()).build();
             gymDtos.add(gymResponseDto);
         }
         return gymDtos;
@@ -199,15 +196,15 @@ public class GymService {
 
         GymResponseDto gymResponseDto = GymResponseDto.builder()
                 .address(gym.getAddress())
-                .trainer_count(gym.getTrainer_count())
+                .trainer_count(gym.getTrainerCount())
                 .code(gym.getCode())
-                .current_count(gym.getCurrent_count())
+                .current_count(gym.getCurrentCount())
                 .id(gym.getId())
                 .name(gym.getName())
                 .introduce(gym.getIntroduce())
                 .oneline_introduce(gym.getOnelineIntroduce())
                 .imgs(gymImgDtos)
-                .count(gym.getCount()).build();
+                .count(gym.getCurrentCount()).build();
 
         return gymResponseDto;
 
@@ -217,7 +214,7 @@ public class GymService {
     public int findById_count(Long id) throws Exception {
         Optional<Gym> byId = gymRepository.findById(id);
         if (byId.isPresent()) {
-            return byId.get().getCurrent_count();
+            return byId.get().getCurrentCount();
         } else {
             throw new Exception();
         }
@@ -255,7 +252,7 @@ public class GymService {
     //현재 GYM 인원수 조회
     public int current_count(Long id) throws Exception {
         Optional<Gym> byId = gymRepository.findById(id);
-        return byId.get().getCurrent_count();
+        return byId.get().getCurrentCount();
     }
 
 
@@ -276,7 +273,7 @@ public class GymService {
     @Transactional
     public void decrease_count(Long id) throws Exception {
         Optional<Gym> byId = gymRepository.findById(id);
-        if (byId.get().getCurrent_count() == 0) {
+        if (byId.get().getCurrentCount() == 0) {
             return;
         } else {
             int count = gymRepository.decrease_count(id);
@@ -315,7 +312,7 @@ public class GymService {
                 .saturday(gymTimeDto.getSaturday())
                 .sunday(gymTimeDto.getSunday())
                 .holiday(gymTimeDto.getHoliday())
-                .closeddays(gymTimeDto.getCloseddays())
+                .closeDay(gymTimeDto.getCloseddays())
                 .build();
 
 

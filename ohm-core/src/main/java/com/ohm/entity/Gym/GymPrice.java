@@ -16,11 +16,13 @@ public class GymPrice {
 
     @Id
     @GeneratedValue
-    @Column(name = "gymprice_id")
+    @Column(name = "gym_price_id")
     private Long id;
 
+    @Column(name = "during")
     private String during;
 
+    @Column(name = "price")
     private String price;
 
     @JsonIgnore

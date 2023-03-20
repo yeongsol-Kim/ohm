@@ -21,6 +21,7 @@ public class Question {
     @Column(name = "question_id")
     private Long id;
 
+    @Column(name = "content")
     private String content;
 
     @JsonIgnore

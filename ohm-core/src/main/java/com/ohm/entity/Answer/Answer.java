@@ -20,7 +20,7 @@ public class Answer {
     @Column(name = "answer_id")
     private Long id;
 
-    //헬스장이름
+    @Column(name = "content")
     private String content;
 
     @OneToOne(mappedBy = "answer")
