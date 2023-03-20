@@ -14,7 +14,7 @@ public class GymRequestDto {
 
     private int count;
 
-    private String oneline_introduce;
+    private String onelineIntroduce;
 
     //트레이너가 가입시 해당 code로 인증후 어느 헬스장인지 식별
     private int code;

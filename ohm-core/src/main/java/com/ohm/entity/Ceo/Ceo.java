@@ -53,8 +53,6 @@ public class Ceo extends BaseTime {
     private List<Gym> gyms = new ArrayList<>();
 
 
-    // == 비즈니스 로직 ==
-
 
     public void update(ManagerDto manager) {
         this.username = manager.getUsername();
