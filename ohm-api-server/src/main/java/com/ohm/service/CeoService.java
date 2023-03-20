@@ -4,10 +4,13 @@ import com.ohm.dto.CeoDto.CeoDto;
 import com.ohm.dto.GymDto.GymDto;
 import com.ohm.dto.ManagerDto.ManagerDto;
 import com.ohm.dto.requestDto.ManagerRequestDto;
+import com.ohm.dto.responseDto.GymImgResponseDto;
+import com.ohm.dto.responseDto.GymResponseDto;
 import com.ohm.entity.Ceo.Ceo;
 import com.ohm.entity.Code;
 import com.ohm.entity.Enum.Role;
 import com.ohm.entity.Gym.Gym;
+import com.ohm.entity.Gym.GymImg;
 import com.ohm.entity.Manager.Manager;
 import com.ohm.repository.ceo.CeoRepository;
 import com.ohm.repository.gym.GymRepository;
@@ -48,14 +51,32 @@ public class CeoService  {
     private final CodeRepository codeRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public List<GymDto> findall_gyms(Long ceoId){
+    public List<GymResponseDto> findall_gyms(Long ceoId){
 
-        List<GymDto> gymDtos = new ArrayList<>();
+
         List<Gym> gyms = gymRepository.findallGymsByCeoId(ceoId);
-        for(Gym gym :gyms){
-            gymDtos.add(appConfig.modelMapper().map(gym,GymDto.class));
-        }
 
+        List<GymResponseDto> gymDtos = new ArrayList<GymResponseDto>();
+
+        System.out.println(gyms.size());
+        for (Gym gym : gyms) {
+            List<GymImgResponseDto> gymImgDtos = new ArrayList<GymImgResponseDto>();
+            for (GymImg gymImg : gym.getImgs()) {
+                gymImgDtos.add(appConfig.modelMapper().map(gymImg, GymImgResponseDto.class));
+            }
+
+            GymResponseDto gymResponseDto = GymResponseDto.builder()
+                    .address(gym.getAddress())
+                    .id(gym.getId())
+                    .name(gym.getName())
+                    .introduce(gym.getIntroduce())
+                    .oneline_introduce(gym.getOnelineIntroduce())
+                    .imgs(gymImgDtos)
+                    .count(gym.getCurrentCount()).build();
+
+            gymDtos.add(gymResponseDto);
+        }
+        System.out.println(gymDtos.size());
         return gymDtos;
     }
 

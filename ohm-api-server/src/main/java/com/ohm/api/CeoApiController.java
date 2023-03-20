@@ -3,6 +3,7 @@ package com.ohm.api;
 import com.ohm.dto.CeoDto.CeoDto;
 import com.ohm.dto.ManagerDto.LoginDto;
 import com.ohm.dto.ManagerDto.TokenDto;
+import com.ohm.dto.responseDto.GymResponseDto;
 import com.ohm.jwt.JwtFilter;
 import com.ohm.jwt.TokenProvider;
 import com.ohm.service.CeoService;
@@ -22,8 +23,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -69,14 +72,14 @@ public class CeoApiController {
 
 
     @ApiOperation(value = "profile(image) 등록", response = String.class)
-    @PostMapping("/ceo/gyms/{ceoId}")
+    @GetMapping("/ceo/gyms/{ceoId}")
     @PreAuthorize("hasAnyRole('ROLE_CEO')")
-    public ResponseEntity<String> findall_gym(
+    public ResponseEntity<List<GymResponseDto>> findall_gym(
             @PathVariable Long ceoId,
             @RequestPart(value = "images",required = false) MultipartFile file
     ) throws Exception {
-        //   ceoService.profile_save(managerId,file);
-        return ResponseEntity.ok("image upload!");
+        List<GymResponseDto> gymResponseDtos = ceoService.findall_gyms(ceoId);
+        return ResponseEntity.ok(gymResponseDtos);
     }
 
 }

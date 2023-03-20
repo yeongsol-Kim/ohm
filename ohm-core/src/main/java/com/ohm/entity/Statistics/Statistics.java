@@ -21,7 +21,6 @@ public class Statistics {
     @Column(name = "statistics_id")
     private Long id;
 
-
     private double one;
     private double two;
     private double three;

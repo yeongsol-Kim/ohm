@@ -81,10 +81,11 @@ public class GymService {
                 .ceo(byId.get())
 
                 .code(gymDto.getCode())
-                .currentCount(gymDto.getCount())
+                .currentCount(0)
+                .count(gymDto.getCount())
                 .name(gymDto.getName())
                 .area(gymDto.getArea())
-                .onelineIntroduce(gymDto.getOneline_introduce())
+                .onelineIntroduce(gymDto.getOnelineIntroduce())
                 .trainerCount(gymDto.getTrainer_count())
                 .introduce(gymDto.getIntroduce())
                 .build();

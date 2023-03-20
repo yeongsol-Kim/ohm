@@ -76,7 +76,7 @@ public class Manager {
     public void update(ManagerDto manager) {
 
         this.position = manager.getPosition();
-        this.username = manager.getUsername();
+//        this.username = manager.getUsername();
         this.lastModifiedTime = LocalDateTime.now();
         this.nickname = manager.getNickname();
         this.onelineIntroduce = manager.getOnelineIntroduce();

@@ -26,12 +26,12 @@ public interface ManagerRepository extends JpaRepository<Manager,Long> {
 
 
     @Modifying(clearAutomatically = true)
-    @Query(value = "update Manager m set m.gym_id = :gym_id where m.manager_id =:manager_id",nativeQuery = true)
+    @Query(value = "update manager m set m.gym_id = :gym_id where m.manager_id =:manager_id",nativeQuery = true)
     void registerByGymId(@Param("manager_id")Long manager_id,@Param("gym_id")Long gym_id);
 
 
 
-    @Query(value = "select * from Manager where Manager.gym_id = :gym_id",nativeQuery = true)
+    @Query(value = "select * from manager where manager.gym_id = :gym_id",nativeQuery = true)
     List<Optional<Manager>> findall_byGymId(@Param("gym_id")Long gym_id);
 
 
