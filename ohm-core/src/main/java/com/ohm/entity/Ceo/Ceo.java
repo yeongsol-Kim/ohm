@@ -33,14 +33,6 @@ public class Ceo extends BaseTime {
     @Column(name = "password")
     private String password;
 
-    //프로필사진
-    @Column(name = "profile_url")
-    private String profileUrl;
-
-    //프사이름
-    @Column(name = "profile_origin_name")
-    private String profileOriginName;
-
     //실제이름
     @Column(name = "nickname")
     private String nickname;
@@ -50,11 +42,6 @@ public class Ceo extends BaseTime {
 
 
     // == 비즈니스 로직 ==
-
-    public void register_profile(String profile, String profileOriginName) {
-        this.profileUrl = profile;
-        this.profileOriginName = profileOriginName;
-    }
 
 
     public void update(ManagerDto manager) {

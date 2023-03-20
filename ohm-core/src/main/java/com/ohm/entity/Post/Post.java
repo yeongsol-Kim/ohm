@@ -26,9 +26,11 @@ public class Post {
     private Long id;
 
     //글 제목
+    @Column(name = "title")
     private String title;
 
     //글 내용
+    @Column(name = "content")
     private String content;
 
     @CreatedDate
@@ -38,7 +40,7 @@ public class Post {
     private LocalDateTime lastModifiedTime;
 
     @CreatedBy
-    @Column(updatable = false)
+    @Column(name = "create_by", updatable = false)
     private String createdBy;
 
     //글 이미지

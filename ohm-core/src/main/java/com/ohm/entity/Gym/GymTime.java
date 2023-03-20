@@ -15,24 +15,34 @@ public class GymTime {
 
     @Id
     @GeneratedValue
-    @Column(name = "gymtime_id")
+    @Column(name = "gym_time_id")
     private Long id;
 
     //휴관일
-    private String closeddays;
+    @Column(name = "close_day")
+    private String closeDay;
 
-    private String sunday;
-
-    private String saturday;
 
     //평일
+    @Column(name = "monday")
     private String monday;
+    @Column(name = "tuesday")
     private String tuesday;
+    @Column(name = "wednesday")
     private String wednesday;
+    @Column(name = "thursday")
     private String thursday;
+    @Column(name = "friday")
     private String friday;
 
+    @Column(name = "saturday")
+    private String saturday;
+    @Column(name = "sunday")
+    private String sunday;
+
     //공휴일
+
+    @Column(name = "holiday")
     private String holiday;
 
     @OneToOne
@@ -44,7 +54,6 @@ public class GymTime {
         this.id = gymTime.getId();
         this.sunday = gymTime.sunday;
        // this.gym = gym;
-        this.closeddays = gymTime.closeddays;
         this.saturday = gymTime.saturday;
         this.holiday = gymTime.holiday;
         this.monday = gymTime.monday;

@@ -16,13 +16,13 @@ public class GymImgDto {
     @JsonManagedReference
     private Gym gym;
 
-    private String origFileName;
+    private String originFileName;
 
     private String filePath;
 
     @Builder
     public GymImgDto(String origFileName,String filePath){
-        this.origFileName = origFileName;
+        this.originFileName = origFileName;
         this.filePath = filePath;
     }
 }

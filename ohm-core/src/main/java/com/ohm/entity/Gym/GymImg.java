@@ -16,7 +16,7 @@ public class GymImg {
 
     @Id
     @GeneratedValue
-    @Column(name = "gymimg_id")
+    @Column(name = "gym_img_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,14 +24,16 @@ public class GymImg {
     private Gym gym;
 
     //파일 원본명
-    private String origFileName;
+    @Column(name = "origin_file_name")
+    private String originFileName;
 
     //파일 저장 경로
+    @Column(name = "file_path")
     private String filePath;
 
     @Builder
     public GymImg(Gym gym, String origFileName, String filePath) {
-        this.origFileName = origFileName;
+        this.originFileName = origFileName;
         this.gym = gym;
         this.filePath = filePath;
     }

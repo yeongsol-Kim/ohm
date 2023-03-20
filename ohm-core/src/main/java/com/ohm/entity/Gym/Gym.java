@@ -3,10 +3,7 @@ package com.ohm.entity.Gym;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ohm.entity.Ceo.Ceo;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import com.ohm.entity.Manager.Manager;
 import com.ohm.entity.Post.Post;
 import com.ohm.entity.Question.Question;
@@ -18,7 +15,9 @@ import java.util.List;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor
 @Table(name = "gym")
 public class Gym{
 
@@ -28,15 +27,15 @@ public class Gym{
     private Long id;
 
     //헬스장이름
+    @Column(name = "name")
     private String name;
 
     //헬스장주소
+    @Column(name = "address")
     private String address;
 
-    //헬스장 총인원
-    private int count;
-
     //한줄소개
+    @Column(name = "oneline_introduce")
     private String onelineIntroduce;
 
 
@@ -44,17 +43,19 @@ public class Gym{
     private int code;
 
     //헬스장 소개 문구
+    @Column(name = "introduce")
     private String introduce;
 
-
     //헬스장 면적수
+    @Column(name = "area")
     private String area;
 
-
-    private int trainer_count;
+    @Column(name = "trainer_count")
+    private int trainerCount;
 
     //헬스장 현재 인원
-    private int current_count;
+    @Column(name = "current_count")
+    private int currentCount;
 
     //헬스장 사진
     @JsonIgnore
@@ -79,19 +80,18 @@ public class Gym{
 
 
     @JsonIgnore
-    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
-    private List<Post> posts = new ArrayList<Post>();
+    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Post> posts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
+    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<GymPrice> prices;
 
-    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
+    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Question> questions;
 
 
     public void register_time(GymTime gymTime){
         this.gymTime = gymTime;
-
     }
 
     public void update(Gym gym){
@@ -99,36 +99,20 @@ public class Gym{
         this.id = gym.getId();
         this.area = gym.getArea();
         this.onelineIntroduce = gym.getOnelineIntroduce();
-        this.trainer_count = gym.getTrainer_count();
+        this.trainerCount = gym.getTrainerCount();
         this.address = gym.getAddress();
         this.introduce = gym.getIntroduce();
-        this.count = gym.getCount();
         this.code = gym.getCode();
     }
 
-    public int increase_count(){
-        this.current_count = this.current_count + 1;
-        return current_count;
+    public int increase_count() {
+        this.currentCount = this.currentCount + 1;
+        return currentCount;
     }
 
-    public int decrease_count(){
-        this.current_count = this.current_count - 1;
-        return current_count;
+    public int decrease_count() {
+        this.currentCount = this.currentCount - 1;
+        return currentCount;
     }
-
-    @Builder
-    public Gym(Long id,GymTime gymTime,String area,String name,String address,int count,int code,String introduce,String oneline_introduce,String holiday,String weekday_time,String weekend_time,int trainer_count){
-        this.name = name;
-        this.id = id;
-        this.area = area;
-        this.gymTime = gymTime;
-        this.onelineIntroduce = oneline_introduce;
-        this.trainer_count = trainer_count;
-        this.address = address;
-        this.introduce = introduce;
-        this.count = count;
-        this.code = code;
-    }
-
 
 }

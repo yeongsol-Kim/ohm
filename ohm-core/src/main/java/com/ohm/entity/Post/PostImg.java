@@ -15,7 +15,7 @@ public class PostImg {
 
     @Id
     @GeneratedValue
-    @Column(name = "postimg_id")
+    @Column(name = "post_img_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -23,9 +23,11 @@ public class PostImg {
     private Post post;
 
     //파일 원본명
+    @Column(name = "origin_file_name")
     private String origFileName;
 
     //파일 저장 경로
+    @Column(name = "file_path")
     private String filePath;
 
 
