@@ -94,8 +94,6 @@ public class CeoService  {
                 .username(managerDto.getUsername())
                 .password(passwordEncoder.encode(managerDto.getPassword()))
                 .nickname(managerDto.getNickname())
-
-                .profileUrl(managerDto.getProfile())
                 .role(Role.ROLE_CEO)
 
 

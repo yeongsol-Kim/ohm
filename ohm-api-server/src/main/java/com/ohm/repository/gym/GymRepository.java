@@ -27,16 +27,16 @@ public interface GymRepository extends JpaRepository<Gym,Long> {
     Gym findGymFetchJoin(@Param("id")Long id);
 
     @Modifying(clearAutomatically = true)
-    @Query("update Gym g set g.current_count = g.current_count + 1 where g.id = :id")
+    @Query("update Gym g set g.currentCount = g.currentCount + 1 where g.id = :id")
     int increase_count(@Param("id")Long id);
 
 
     @Modifying(clearAutomatically = true)
-    @Query("update Gym g set g.current_count = g.current_count - 1 where g.id = :id")
+    @Query("update Gym g set g.currentCount = g.currentCount - 1 where g.id = :id")
     int decrease_count(@Param("id")Long id);
 
     @Modifying(clearAutomatically = true)
-    @Query("update Gym g set g.current_count = 0 where g.id = :id")
+    @Query("update Gym g set g.currentCount = 0 where g.id = :id")
     int reset_count(@Param("id")Long id);
 
     @Query("select g from Gym g where g.code = :code")

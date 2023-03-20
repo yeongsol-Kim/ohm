@@ -3,10 +3,7 @@ package com.ohm.entity.Gym;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ohm.entity.Ceo.Ceo;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import com.ohm.entity.Manager.Manager;
 import com.ohm.entity.Post.Post;
 import com.ohm.entity.Question.Question;
