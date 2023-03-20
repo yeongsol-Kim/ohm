@@ -15,6 +15,7 @@ import com.ohm.dto.requestDto.ManagerRequestDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -62,6 +63,19 @@ public class CeoApiController {
             @RequestPart(value = "images",required = false) MultipartFile file
     ) throws Exception {
         ceoService.profile_save(managerId,file);
+        return ResponseEntity.ok("image upload!");
+    }
+
+
+
+    @ApiOperation(value = "profile(image) 등록", response = String.class)
+    @PostMapping("/ceo/gyms/{ceoId}")
+    @PreAuthorize("hasAnyRole('ROLE_CEO')")
+    public ResponseEntity<String> findall_gym(
+            @PathVariable Long ceoId,
+            @RequestPart(value = "images",required = false) MultipartFile file
+    ) throws Exception {
+        //   ceoService.profile_save(managerId,file);
         return ResponseEntity.ok("image upload!");
     }
 

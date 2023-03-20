@@ -1,5 +1,7 @@
 package com.ohm.service;
 
+import com.ohm.entity.Ceo.Ceo;
+import com.ohm.repository.ceo.CeoRepository;
 import com.ohm.s3.AmazonS3ResourceStorage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +46,7 @@ public class GymService {
     private final GymRepository gymRepository;
     private final GymImgRepository gymImgRepository;
     private final AppConfig appConfig;
+    private final CeoRepository ceoRepository;
     private final GymTimeRepository gymTimeRepository;
     private final GymPriceRepository gymPriceRepository;
 
@@ -70,13 +73,16 @@ public class GymService {
 
     //헬스장 생성 -- ROLE이 ROLE_MANAGER인 Manager만 사용가능
     @Transactional
-    public Long save(GymRequestDto gymDto) throws Exception {
+    public Long save(GymRequestDto gymDto, Long ceoId) throws Exception {
 
+        Optional<Ceo> byId = ceoRepository.findById(ceoId);
         // gymRepository.checkCode(gymDto.getCode());
 
         //img save
         Gym gym = Gym.builder()
                 .address(gymDto.getAddress())
+                .ceo(byId.get())
+
                 .code(gymDto.getCode())
                 .count(gymDto.getCount())
                 .name(gymDto.getName())

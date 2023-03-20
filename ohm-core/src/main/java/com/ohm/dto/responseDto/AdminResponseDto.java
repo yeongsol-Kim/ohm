@@ -32,6 +32,8 @@ public class AdminResponseDto {
 
     private AdminDto admin;
 
+    private GymDto gymDto;
+
 
     private Role role;
 }

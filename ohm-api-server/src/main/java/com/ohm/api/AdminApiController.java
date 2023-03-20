@@ -2,7 +2,9 @@ package com.ohm.api;
 
 
 import com.ohm.dto.CeoDto.CeoDto;
+import com.ohm.dto.responseDto.AdminResponseDto;
 import com.ohm.service.CeoService;
+import com.ohm.service.CustomLoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +40,7 @@ public class AdminApiController {
 
 
     private final ManagerService managerService;
+    private final CustomLoginService loginService;
     private final CeoService ceoService;
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -71,9 +74,9 @@ public class AdminApiController {
     @ApiOperation(value = "로그인된 정보조회", response = ManagerDto.class)
     @GetMapping("/admin")
     @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_TRAINER','ROLE_CEO')")
-    public ResponseEntity<CeoDto> getManagerInfo() {
-        System.out.println("start api");
-        return ResponseEntity.ok(ceoService.getMyManagerWithAuthorities());
+    public ResponseEntity<AdminResponseDto> getManagerInfo() {
+
+        return ResponseEntity.ok(loginService.getMyManagerWithAuthorities());
     }
 
 
@@ -82,7 +85,6 @@ public class AdminApiController {
     @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_TRAINER','ROLE_CEO')")
     public ResponseEntity<ManagerDto> getManagerInfoById(
             @PathVariable Long managerId
-
     ) {
         ManagerDto managerInfo = managerService.getManagerInfo(managerId);
         return ResponseEntity.ok(managerInfo);

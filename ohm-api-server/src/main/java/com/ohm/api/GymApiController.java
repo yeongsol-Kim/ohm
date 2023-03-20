@@ -1,6 +1,7 @@
 package com.ohm.api;
 
 import com.ohm.dto.CeoDto.CeoDto;
+import com.ohm.repository.ceo.CeoRepository;
 import com.ohm.service.CeoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,16 +37,16 @@ public class GymApiController {
 
 
     @ApiOperation(value = "Gym 등록(ROLE_CEO만 사용)", response = Long.class)
-    @PostMapping("/gym")
+    @PostMapping("/gym/{ceoId}")
     @PreAuthorize("hasRole('ROLE_CEO')")
     public ResponseEntity<Long> save(
+            @PathVariable Long ceoId,
             @Valid @RequestBody GymRequestDto gymRequestDto
     ) throws Exception {
 
 
-        CeoDto myManagerWithAuthorities = ceoService.getMyManagerWithAuthorities();
 
-        Long save = gymService.save(gymRequestDto);
+        Long save = gymService.save(gymRequestDto,ceoId);
 
         statisticsService.register_table(save);
 

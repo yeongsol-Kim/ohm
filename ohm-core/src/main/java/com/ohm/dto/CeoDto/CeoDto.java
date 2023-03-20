@@ -49,7 +49,6 @@ public class CeoDto {
     public CeoDto(Long id, String name, String email, String password, Integer age, GymDto gymDto, Role role) {
         this.id = id;
 
-        this.name = name;
         this.role = role;
 
     }

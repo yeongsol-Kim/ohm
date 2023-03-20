@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class ManagerRequestDto {
-    private String name;
+    private String username;
 
     private String position;
 

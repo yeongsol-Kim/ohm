@@ -31,7 +31,7 @@ public class Manager {
     @Column(name = "manager_id")
     private Long id;
 
-    private String name;
+    private String username;
 
     @CreatedDate
     private LocalDateTime createdTime;
@@ -76,7 +76,7 @@ public class Manager {
     public void update(ManagerDto manager) {
 
         this.position = manager.getPosition();
-        this.name = manager.getName();
+        this.username = manager.getUsername();
         this.lastModifiedTime = LocalDateTime.now();
         this.nickname = manager.getNickname();
         this.onelineIntroduce = manager.getOnelineIntroduce();

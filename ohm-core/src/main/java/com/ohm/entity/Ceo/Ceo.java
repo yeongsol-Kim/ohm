@@ -7,6 +7,7 @@ import com.ohm.entity.Admin;
 import com.ohm.entity.Enum.Role;
 import com.ohm.entity.Gym.Gym;
 
+import com.ohm.entity.embedded.BaseTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,9 +23,7 @@ import java.util.List;
 @Builder
 
 @AllArgsConstructor
-
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "ceo")
 public class Ceo extends BaseTime {
 
@@ -43,7 +42,6 @@ public class Ceo extends BaseTime {
     //프로필사진
     @Column(name = "profile_url")
     private String profileUrl;
-
 
 
     private String position;
@@ -73,7 +71,7 @@ public class Ceo extends BaseTime {
 
 
     public void update(ManagerDto manager) {
-        this.username = manager.getName();
+        this.username = manager.getUsername();
         this.nickname = manager.getNickname();
     }
 

@@ -16,7 +16,7 @@ import java.util.Optional;
 public interface ManagerRepository extends JpaRepository<Manager,Long> {
 
 
-    Optional<Manager> findByName(String name);
+    Optional<Manager> findByUsername(String username);
 
     @Query("select m from Manager m left join fetch m.gym where m.id = :manager_id")
     Manager findManagerFetchJoinGym(@Param("manager_id")Long manager_id);

@@ -117,9 +117,10 @@ public class Gym{
     }
 
     @Builder
-    public Gym(Long id,GymTime gymTime,String area,String name,String address,int count,int code,String introduce,String oneline_introduce,String holiday,String weekday_time,String weekend_time,int trainer_count){
+    public Gym(Ceo ceo,Long id,GymTime gymTime,String area,String name,String address,int count,int code,String introduce,String oneline_introduce,String holiday,String weekday_time,String weekend_time,int trainer_count){
         this.name = name;
         this.id = id;
+        this.ceo = ceo;
         this.area = area;
         this.gymTime = gymTime;
         this.onelineIntroduce = oneline_introduce;
