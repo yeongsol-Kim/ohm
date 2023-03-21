@@ -4,7 +4,7 @@ package com.ohm.api;
 import com.ohm.dto.CeoDto.CeoDto;
 import com.ohm.dto.responseDto.AdminResponseDto;
 import com.ohm.service.CeoService;
-import com.ohm.service.CustomLoginService;
+import com.ohm.service.CustomAdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -40,8 +40,7 @@ public class AdminApiController {
 
 
     private final ManagerService managerService;
-    private final CustomLoginService loginService;
-    private final CeoService ceoService;
+    private final CustomAdminService customAdminService;
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
@@ -54,8 +53,6 @@ public class AdminApiController {
                 new UsernamePasswordAuthenticationToken(loginDto.getName(), loginDto.getPassword());
 
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        System.out.println(authentication);
-        System.out.println("authentication");
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.createToken(authentication);
@@ -76,7 +73,7 @@ public class AdminApiController {
     @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_TRAINER','ROLE_CEO')")
     public ResponseEntity<AdminResponseDto> getManagerInfo() {
 
-        return ResponseEntity.ok(loginService.getMyManagerWithAuthorities());
+        return ResponseEntity.ok(customAdminService.getMyManagerWithAuthorities());
     }
 
 
@@ -93,7 +90,7 @@ public class AdminApiController {
 
 
     //분리
-    @ApiOperation(value = "profile(image) 수정", response = String.class)
+    @ApiOperation(value = "계정프로필 사진 수정", response = String.class)
     @PatchMapping("/admin/image/{managerId}")
     @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_TRAINER','ROLE_CEO')")
     public ResponseEntity<String> profile_update(
@@ -107,8 +104,7 @@ public class AdminApiController {
 
 
 
-    //분리
-    @ApiOperation(value = "Admin 수정", response = String.class)
+    @ApiOperation(value = "계정정보 수정", response = String.class)
     @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_TRAINER','ROLE_CEO')")
     @PatchMapping("/admin")
     public ResponseEntity<String> update(
@@ -122,8 +118,8 @@ public class AdminApiController {
     @ApiOperation(value = "ADMIN 회원탈퇴", response = String.class)
     @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_TRAINER','ROLE_CEO')")
     @DeleteMapping("/admin/{managerId}")
-    public ResponseEntity<String> remove(@PathVariable Long managerId) {
-        managerService.delete(managerId);
+    public ResponseEntity<String> remove() {
+        customAdminService.delete();
         return ResponseEntity.ok("Remove!");
     }
 

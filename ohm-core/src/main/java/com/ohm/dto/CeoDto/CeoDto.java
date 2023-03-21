@@ -18,8 +18,6 @@ public class CeoDto {
 
     private String username;
 
-    private String position;
-
     private String nickname;
 
     private String profile;
@@ -28,9 +26,8 @@ public class CeoDto {
 
     private String introduce;
 
-    private AdminDto admin;
 
-    private List<GymDto> gymDto;
+    private List<GymDto> gyms;
 
     private Role role;
 
@@ -45,20 +42,6 @@ public class CeoDto {
         this.role = role;
     }
 
-    //
-    public CeoDto(Long id, String name, String email, String password, Integer age, GymDto gymDto, Role role) {
-        this.id = id;
 
-        this.role = role;
 
-    }
-
-    public CeoDto(String name, String email) {
-        this.username = name;
-    }
-
-    public CeoDto(Long id, String name, String email) {
-        this.id = id;
-        this.username = name;
-    }
 }

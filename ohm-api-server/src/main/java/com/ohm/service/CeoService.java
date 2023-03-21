@@ -89,20 +89,6 @@ public class CeoService  {
         }
     }
 
-    public void profile_save(Long managerId, MultipartFile multipartFile) throws Exception {
-        Optional<Manager> byId = managerRepository.findById(managerId);
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter dateTimeFormatter =
-                DateTimeFormatter.ofPattern("yyyyMMdd");
-        String current_date = now.format(dateTimeFormatter);
-        String uuid_string = UUID.randomUUID().toString();
-
-
-        String ext = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf("."));
-        //url,orignName
-        byId.get().register_profile(current_date + File.separator + uuid_string + ext, multipartFile.getOriginalFilename());
-        amazonS3ResourceStorage.upload(multipartFile, current_date, uuid_string + ext);
-    }
 
     //Manager 회원가입
     public CeoDto ceo_save(ManagerRequestDto managerDto) {
@@ -110,14 +96,11 @@ public class CeoService  {
             throw new RuntimeException("이미 가입되어 있는 아이디.");
         }
 
-//
         Ceo ceo = Ceo.builder()
                 .username(managerDto.getUsername())
                 .password(passwordEncoder.encode(managerDto.getPassword()))
                 .nickname(managerDto.getNickname())
                 .role(Role.ROLE_CEO)
-
-
                 .build();
 
         Ceo save = ceoRepository.save(ceo);
@@ -125,10 +108,7 @@ public class CeoService  {
 
     }
 
-    //현재 시큐리티에 담겨져있는 계정 권한 가져오는 메서드
-//    public CeoDto getMyManagerWithAuthorities() {
-//        return appConfig.modelMapper().map(SecurityUtils.getCurrentUsername().flatMap(ceoRepository::findByUsername).get(), CeoDto.class);
-//    }
+
 
 
 }

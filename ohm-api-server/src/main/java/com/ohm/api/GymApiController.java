@@ -195,7 +195,7 @@ public class GymApiController {
 
     @ApiOperation(value = "gym Time수정", response = String.class)
     @PatchMapping("/gym/time/{gymId}")
-    @PreAuthorize("hasRole('ROLE_CEO','ROLE_MANAGER','ROLE_TRAINER')")
+    @PreAuthorize("hasAnyRole('ROLE_CEO','ROLE_MANAGER','ROLE_TRAINER')")
     public ResponseEntity<String> update_time(
             @RequestBody GymTimeDto gymTimeDto,
             @PathVariable Long gymId) throws Exception {

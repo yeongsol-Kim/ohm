@@ -4,6 +4,7 @@ import com.ohm.dto.CeoDto.CeoDto;
 import com.ohm.dto.ManagerDto.LoginDto;
 import com.ohm.dto.ManagerDto.TokenDto;
 import com.ohm.dto.responseDto.GymResponseDto;
+import com.ohm.dto.responseDto.TrainerResponseDto;
 import com.ohm.jwt.JwtFilter;
 import com.ohm.jwt.TokenProvider;
 import com.ohm.service.CeoService;
@@ -31,13 +32,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@Api(tags = {"Manager API"})
+@Api(tags = {"CEO API"})
 @RequiredArgsConstructor
 public class CeoApiController {
 
     private final CeoService ceoService;
-    private final TokenProvider tokenProvider;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @ApiOperation(value = "CEO code 인증(초기가입)", response = String.class)
     @PostMapping("/ceo/code/{code}")
@@ -59,19 +58,9 @@ public class CeoApiController {
         return ResponseEntity.ok(ceoService.ceo_save(managerDto));
     }
 
-    @ApiOperation(value = "profile(image) 등록", response = String.class)
-    @PostMapping("/ceo/image/{managerId}")
-    public ResponseEntity<String> save_img(
-            @PathVariable Long managerId,
-            @RequestPart(value = "images",required = false) MultipartFile file
-    ) throws Exception {
-        ceoService.profile_save(managerId,file);
-        return ResponseEntity.ok("image upload!");
-    }
 
 
-
-    @ApiOperation(value = "profile(image) 등록", response = String.class)
+    @ApiOperation(value = "ceo가 모든 gym 조회", response = GymResponseDto.class,responseContainer = "List")
     @GetMapping("/ceo/gyms/{ceoId}")
     @PreAuthorize("hasAnyRole('ROLE_CEO')")
     public ResponseEntity<List<GymResponseDto>> findall_gym(

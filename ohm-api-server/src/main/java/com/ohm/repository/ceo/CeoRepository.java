@@ -12,11 +12,6 @@ import java.util.Optional;
 
 public interface CeoRepository extends JpaRepository<Ceo,Long> {
 
-//    @EntityGraph(attributePaths = "authorities")
-//    Optional<Ceo> findOneWithAuthoritiesByName(String name);
-
     Optional<Ceo> findByUsername(String username);
 
-    @Query("select c from Ceo c where c.username = :name")
-    Optional<AbstractUser> findAbstract(String name);
 }
