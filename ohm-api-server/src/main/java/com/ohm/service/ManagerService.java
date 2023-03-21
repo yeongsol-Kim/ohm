@@ -181,13 +181,6 @@ public class ManagerService{
 
 
 
-
-    //매니저 삭제
-    public void delete(Long id) {
-        Optional<Manager> byId = managerRepository.findById(id);
-        managerRepository.delete(byId.get());
-    }
-
     // ------------시큐리티에서 사용되는 메서드 --------------
     private User createUser(String username, Manager manager) {
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(manager.getRole().toString());

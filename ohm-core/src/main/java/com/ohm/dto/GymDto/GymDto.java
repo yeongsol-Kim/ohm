@@ -40,7 +40,7 @@ public class GymDto {
 
     private String introduce;
 
-    private String oneline_introduce;
+    private String onelineIntroduce;
 
     private int code;
 

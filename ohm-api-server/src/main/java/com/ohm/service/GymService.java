@@ -117,10 +117,10 @@ public class GymService {
                 GymImg gymImg = GymImg.builder()
                         .gym(gym.get())
                         .origFileName(multipartFile.getOriginalFilename())
-                        .filePath(current_date + File.separator +uuid_string+ext)
+                        .filePath(current_date + File.separator + uuid_string + ext)
                         .build();
 
-                amazonS3ResourceStorage.upload(multipartFile, current_date,uuid_string+ext);
+                amazonS3ResourceStorage.upload(multipartFile, current_date, uuid_string + ext);
                 gymImgRepository.save(gymImg);
             }
 
@@ -313,7 +313,7 @@ public class GymService {
                 .saturday(gymTimeDto.getSaturday())
                 .sunday(gymTimeDto.getSunday())
                 .holiday(gymTimeDto.getHoliday())
-                .closeDay(gymTimeDto.getCloseddays())
+                .closeDay(gymTimeDto.getCloseDay())
                 .build();
 
 
