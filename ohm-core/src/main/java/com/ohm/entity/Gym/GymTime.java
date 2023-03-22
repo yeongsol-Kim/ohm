@@ -53,7 +53,6 @@ public class GymTime {
 
         this.id = gymTime.getId();
         this.sunday = gymTime.sunday;
-       // this.gym = gym;
         this.saturday = gymTime.saturday;
         this.holiday = gymTime.holiday;
         this.monday = gymTime.monday;

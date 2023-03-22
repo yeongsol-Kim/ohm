@@ -118,23 +118,26 @@ public class AdminApiController {
     @ApiOperation(value = "ADMIN 회원탈퇴", response = String.class)
     @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_TRAINER','ROLE_CEO')")
     @DeleteMapping("/admin/{managerId}")
-    public ResponseEntity<String> remove() {
+    public ResponseEntity<String> remove(
+            @PathVariable Long managerId
+    ) {
         customAdminService.delete();
         return ResponseEntity.ok("Remove!");
     }
 
     @ApiOperation(value = "GymId로 해당 Gym에 소속된 manager모두조회", response = TrainerResponseDto.class,responseContainer = "List")
     @GetMapping("/admin/findall/{gymId}")
-    public ResponseEntity<List<TrainerResponseDto>> trainer_findall(
+    public ResponseEntity<List<TrainerResponseDto>> admin_findall(
             @PathVariable Long gymId
     ) {
+
         List<TrainerResponseDto> trainerResponseDtos = managerService.trainer_findall(gymId);
         return ResponseEntity.ok(trainerResponseDtos);
     }
 
     @ApiOperation(value = "Id로 Manager(ROLE이 Trainer)조회", response = TrainerResponseDto.class)
     @GetMapping("/admin/{managerId}")
-    public ResponseEntity<TrainerResponseDto> trainer_find(
+    public ResponseEntity<TrainerResponseDto> admin_find(
             @PathVariable Long managerId
     ) {
         TrainerResponseDto byID = managerService.findByID(managerId);

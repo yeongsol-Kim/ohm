@@ -18,7 +18,6 @@ import java.io.IOException;
 
 
 //JWT를 위한 커스텀 필터
-//JWT를 위한 커스텀 필터
 public class JwtFilter extends GenericFilterBean {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtFilter.class);

@@ -50,7 +50,7 @@ public class GymDto {
     private int trainerCount;
 
     @JsonIgnore
-    private ArrayList<ManagerDto> manager = new ArrayList<>();
+    private final ArrayList<ManagerDto> manager = new ArrayList<>();
 
     @JsonIgnore
     private GymTimeDto gymTime;
@@ -64,7 +64,7 @@ public class GymDto {
 
 
     @JsonIgnore
-    private List<Post> posts = new ArrayList<Post>();
+    private final List<Post> posts = new ArrayList<Post>();
 
     //테스트용 생성자
     public GymDto(String name,int count,int current_count){

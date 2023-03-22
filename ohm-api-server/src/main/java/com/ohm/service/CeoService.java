@@ -11,21 +11,13 @@ import com.ohm.entity.Code;
 import com.ohm.entity.Enum.Role;
 import com.ohm.entity.Gym.Gym;
 import com.ohm.entity.Gym.GymImg;
-import com.ohm.entity.Manager.Manager;
 import com.ohm.repository.ceo.CeoRepository;
 import com.ohm.repository.gym.GymRepository;
 import com.ohm.repository.manager.CodeRepository;
 import com.ohm.repository.manager.ManagerRepository;
 import com.ohm.s3.AmazonS3ResourceStorage;
-import com.ohm.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,14 +43,12 @@ public class CeoService  {
     private final CodeRepository codeRepository;
     private final PasswordEncoder passwordEncoder;
 
+
+    //ceoId로 ceo가 가지고있는 모든 gym 조회
     public List<GymResponseDto> findall_gyms(Long ceoId){
-
-
         List<Gym> gyms = gymRepository.findallGymsByCeoId(ceoId);
-
         List<GymResponseDto> gymDtos = new ArrayList<GymResponseDto>();
 
-        System.out.println(gyms.size());
         for (Gym gym : gyms) {
             List<GymImgResponseDto> gymImgDtos = new ArrayList<GymImgResponseDto>();
             for (GymImg gymImg : gym.getImgs()) {
@@ -76,7 +66,6 @@ public class CeoService  {
 
             gymDtos.add(gymResponseDto);
         }
-        System.out.println(gymDtos.size());
         return gymDtos;
     }
 
@@ -90,7 +79,7 @@ public class CeoService  {
     }
 
 
-    //Manager 회원가입
+    //Ceo 회원가입
     public CeoDto ceo_save(ManagerRequestDto managerDto) {
         if (ceoRepository.findByUsername(managerDto.getUsername()).orElse(null) != null || managerRepository.findByUsername(managerDto.getUsername()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어 있는 아이디.");
