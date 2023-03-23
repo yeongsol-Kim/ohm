@@ -21,8 +21,6 @@ import javax.validation.Valid;
 public class TrainerApiController {
 
     private final ManagerService managerService;
-    private final TokenProvider tokenProvider;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
 
     @ApiOperation(value = "trainer 회원가입", response = ManagerDto.class)

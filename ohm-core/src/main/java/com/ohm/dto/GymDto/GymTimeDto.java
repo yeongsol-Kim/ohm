@@ -14,7 +14,7 @@ public class GymTimeDto {
     private Long id;
 
     //휴관일
-    private String closeddays;
+    private String closeDay;
 
     private String sunday;
 

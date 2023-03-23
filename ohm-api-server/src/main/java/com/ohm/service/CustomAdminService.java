@@ -1,7 +1,6 @@
 package com.ohm.service;
 
 import com.ohm.config.AppConfig;
-import com.ohm.dto.ManagerDto.ManagerDto;
 import com.ohm.dto.responseDto.AdminResponseDto;
 import com.ohm.entity.Ceo.Ceo;
 import com.ohm.entity.Manager.Manager;
@@ -10,7 +9,6 @@ import com.ohm.repository.manager.ManagerRepository;
 import com.ohm.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.users.AbstractUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -28,11 +26,31 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @Transactional
-public class CustomLoginService implements UserDetailsService {
+public class CustomAdminService implements UserDetailsService {
 
     private final CeoRepository ceoRepository;
     private final ManagerRepository managerRepository;
     private final AppConfig appConfig;
+
+    //매니저 삭제
+    public void delete() {
+        Optional<String> currentUsername = SecurityUtils.getCurrentUsername();
+        try {
+            Optional<Ceo> ceo = ceoRepository.findByUsername(currentUsername.get());
+            ceoRepository.delete(ceo.get());
+            return;
+        }catch (Exception userException){
+
+            try {
+                Optional<Manager> manager = managerRepository.findByUsername(currentUsername.get());
+                managerRepository.delete(manager.get());
+                return;
+            }
+            catch (Exception adminException) {
+                throw new UsernameNotFoundException("No user present with username : ");
+            }
+        }
+    }
 
     //현재 시큐리티에 담겨져있는 계정 권한 가져오는 메서드
     public AdminResponseDto getMyManagerWithAuthorities() {

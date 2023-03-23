@@ -3,6 +3,8 @@ package com.ohm.api;
 import com.ohm.dto.CeoDto.CeoDto;
 import com.ohm.dto.ManagerDto.LoginDto;
 import com.ohm.dto.ManagerDto.TokenDto;
+import com.ohm.dto.responseDto.GymResponseDto;
+import com.ohm.dto.responseDto.TrainerResponseDto;
 import com.ohm.jwt.JwtFilter;
 import com.ohm.jwt.TokenProvider;
 import com.ohm.service.CeoService;
@@ -22,19 +24,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
 @RequestMapping("/api")
-@Api(tags = {"Manager API"})
+@Api(tags = {"CEO API"})
 @RequiredArgsConstructor
 public class CeoApiController {
 
     private final CeoService ceoService;
-    private final TokenProvider tokenProvider;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @ApiOperation(value = "CEO code 인증(초기가입)", response = String.class)
     @PostMapping("/ceo/code/{code}")
@@ -56,27 +58,17 @@ public class CeoApiController {
         return ResponseEntity.ok(ceoService.ceo_save(managerDto));
     }
 
-    @ApiOperation(value = "profile(image) 등록", response = String.class)
-    @PostMapping("/ceo/image/{managerId}")
-    public ResponseEntity<String> save_img(
-            @PathVariable Long managerId,
-            @RequestPart(value = "images",required = false) MultipartFile file
-    ) throws Exception {
-        ceoService.profile_save(managerId,file);
-        return ResponseEntity.ok("image upload!");
-    }
 
 
-
-    @ApiOperation(value = "profile(image) 등록", response = String.class)
-    @PostMapping("/ceo/gyms/{ceoId}")
+    @ApiOperation(value = "ceo가 모든 gym 조회", response = GymResponseDto.class,responseContainer = "List")
+    @GetMapping("/ceo/gyms/{ceoId}")
     @PreAuthorize("hasAnyRole('ROLE_CEO')")
-    public ResponseEntity<String> findall_gym(
+    public ResponseEntity<List<GymResponseDto>> findall_gym(
             @PathVariable Long ceoId,
             @RequestPart(value = "images",required = false) MultipartFile file
     ) throws Exception {
-        //   ceoService.profile_save(managerId,file);
-        return ResponseEntity.ok("image upload!");
+        List<GymResponseDto> gymResponseDtos = ceoService.findall_gyms(ceoId);
+        return ResponseEntity.ok(gymResponseDtos);
     }
 
 }

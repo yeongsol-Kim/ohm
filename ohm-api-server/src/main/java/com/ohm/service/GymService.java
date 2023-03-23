@@ -81,10 +81,11 @@ public class GymService {
                 .ceo(byId.get())
 
                 .code(gymDto.getCode())
-                .currentCount(gymDto.getCount())
+                .currentCount(0)
+                .count(gymDto.getCount())
                 .name(gymDto.getName())
                 .area(gymDto.getArea())
-                .onelineIntroduce(gymDto.getOneline_introduce())
+                .onelineIntroduce(gymDto.getOnelineIntroduce())
                 .trainerCount(gymDto.getTrainer_count())
                 .introduce(gymDto.getIntroduce())
                 .build();
@@ -116,10 +117,10 @@ public class GymService {
                 GymImg gymImg = GymImg.builder()
                         .gym(gym.get())
                         .origFileName(multipartFile.getOriginalFilename())
-                        .filePath(current_date + File.separator +uuid_string+ext)
+                        .filePath(current_date + File.separator + uuid_string + ext)
                         .build();
 
-                amazonS3ResourceStorage.upload(multipartFile, current_date,uuid_string+ext);
+                amazonS3ResourceStorage.upload(multipartFile, current_date, uuid_string + ext);
                 gymImgRepository.save(gymImg);
             }
 
@@ -134,7 +135,6 @@ public class GymService {
     //모든 GYM 조회 App에서 List형식으로 조회
     public List<GymResponseDto> findall() {
         List<Gym> gyms = gymRepository.findAllFetchJoin();
-//        List<Gym> gyms = gymRepository.findAllGymList();
 
         List<GymResponseDto> gymDtos = new ArrayList<GymResponseDto>();
 
@@ -307,7 +307,7 @@ public class GymService {
                 .saturday(gymTimeDto.getSaturday())
                 .sunday(gymTimeDto.getSunday())
                 .holiday(gymTimeDto.getHoliday())
-                .closeDay(gymTimeDto.getCloseddays())
+                .closeDay(gymTimeDto.getCloseDay())
                 .build();
 
 

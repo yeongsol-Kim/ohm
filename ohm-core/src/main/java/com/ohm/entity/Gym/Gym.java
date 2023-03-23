@@ -67,16 +67,16 @@ public class Gym{
     private List<GymImg> imgs;
 
 
-    @OneToOne(mappedBy = "gym")
+    @OneToOne(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
     private Statistics statistics;
 
 
-    @OneToOne(mappedBy = "gym")
+    @OneToOne(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
     private GymTime gymTime;
 
     @JsonIgnore
     @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
-    private List<Manager> managers = new ArrayList<Manager>();
+    private final List<Manager> managers = new ArrayList<Manager>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ceo_id")
@@ -85,7 +85,7 @@ public class Gym{
 
     @JsonIgnore
     @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<Post> posts = new ArrayList<>();
+    private final List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<GymPrice> prices;

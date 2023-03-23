@@ -32,8 +32,6 @@ public class GymApiController {
 
     private final GymService gymService;
     private  final StatisticsService statisticsService;
-    private final ManagerService managerService;
-    private final CeoService ceoService;
 
 
     @ApiOperation(value = "Gym 등록(ROLE_CEO만 사용)", response = Long.class)
@@ -45,14 +43,10 @@ public class GymApiController {
     ) throws Exception {
 
 
-
         Long save = gymService.save(gymRequestDto,ceoId);
 
+        //헬스장 통계테이블 생성
         statisticsService.register_table(save);
-
-
-     //   managerService.register_gym(save, myManagerWithAuthorities.getId());
-
         return ResponseEntity.ok(save);
 
     }
@@ -195,7 +189,7 @@ public class GymApiController {
 
     @ApiOperation(value = "gym Time수정", response = String.class)
     @PatchMapping("/gym/time/{gymId}")
-    @PreAuthorize("hasRole('ROLE_CEO','ROLE_MANAGER','ROLE_TRAINER')")
+    @PreAuthorize("hasAnyRole('ROLE_CEO','ROLE_MANAGER','ROLE_TRAINER')")
     public ResponseEntity<String> update_time(
             @RequestBody GymTimeDto gymTimeDto,
             @PathVariable Long gymId) throws Exception {

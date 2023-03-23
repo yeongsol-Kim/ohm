@@ -26,8 +26,6 @@ import javax.validation.Valid;
 public class ManagerApiController {
 
     private final ManagerService managerService;
-    private final TokenProvider tokenProvider;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
 
     @ApiOperation(value = "manager 회원가입", response = ManagerDto.class)
@@ -37,18 +35,6 @@ public class ManagerApiController {
             @Valid @RequestBody ManagerRequestDto managerDto) {
         return ResponseEntity.ok(managerService.manager_save(managerDto,gymId));
     }
-
-    //분리
-    @ApiOperation(value = "profile(image) 등록", response = String.class)
-    @PostMapping("/manager/image/{managerId}")
-    public ResponseEntity<String> save_img(
-            @PathVariable Long managerId,
-            @RequestPart(value = "images",required = false) MultipartFile file
-    ) throws Exception {
-        managerService.profile_save(managerId,file);
-        return ResponseEntity.ok("image upload!");
-    }
-
 
 
 
