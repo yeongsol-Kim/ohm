@@ -27,7 +27,7 @@ public class GymService {
         Gym gym = gymRepository.findById(id).orElse(null);
         // 널체크
 
-        gym.increase_count();
+        gym.increaseCount();
         return true;
     }
 
@@ -35,7 +35,7 @@ public class GymService {
         Gym gym = gymRepository.findById(id).orElse(null);
         // 널체크
 
-        gym.decrease_count();
+        gym.decreaseCount();
         return true;
     }
 }

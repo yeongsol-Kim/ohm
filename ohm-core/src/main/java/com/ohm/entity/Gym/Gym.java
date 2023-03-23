@@ -111,13 +111,18 @@ public class Gym{
         this.code = gym.getCode();
     }
 
-    public int increase_count() {
+    public int increaseCount() {
         this.currentCount = this.currentCount + 1;
         return currentCount;
     }
 
-    public int decrease_count() {
-        this.currentCount = this.currentCount - 1;
+    public int decreaseCount() {
+        if (this.currentCount > 0) this.currentCount = this.currentCount - 1;
+        return currentCount;
+    }
+
+    public int resetCount() {
+        this.currentCount = 0;
         return currentCount;
     }
 

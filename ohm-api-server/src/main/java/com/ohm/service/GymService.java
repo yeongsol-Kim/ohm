@@ -259,27 +259,22 @@ public class GymService {
     //현재 GYM 인원수 증가(1증가)
     @Transactional
     public void increase_count(Long id) throws Exception {
-        int count = gymRepository.increase_count(id);
-
-    }
-
-    //현재 GYM 인원수 0으로 초기화
-    @Transactional
-    public void reset_count(Long id) throws Exception {
-        int count = gymRepository.reset_count(id);
+        Gym gym = gymRepository.findById(id).orElse(null);
+        gym.increaseCount();
     }
 
     //현재 GYM 인원수 감소(1감소)
     @Transactional
     public void decrease_count(Long id) throws Exception {
-        Optional<Gym> byId = gymRepository.findById(id);
-        if (byId.get().getCurrentCount() == 0) {
-            return;
-        } else {
-            int count = gymRepository.decrease_count(id);
-        }
+        Gym gym = gymRepository.findById(id).orElse(null);
+        gym.decreaseCount();
+    }
 
-
+    //현재 GYM 인원수 0으로 초기화
+    @Transactional
+    public void reset_count(Long id) throws Exception {
+        Gym gym = gymRepository.findById(id).orElse(null);
+        gym.resetCount();
     }
 
     @Transactional

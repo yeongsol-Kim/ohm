@@ -31,6 +31,7 @@ public class Manager {
     @Column(name = "manager_id")
     private Long id;
 
+    @Column(name = "username")
     private String username;
 
     @CreatedDate
@@ -39,31 +40,40 @@ public class Manager {
     @LastModifiedBy
     private LocalDateTime lastModifiedTime;
 
+    @Column(name = "password")
     private String password;
 
     //프로필사진
+    @Column(name = "profile_url")
     private String profileUrl;
 
     //프사이름
+    @Column(name = "profile_origin_name")
     private String profileOriginName;
 
     //한줄소개
+    @Column(name = "online_introduce")
     private String onelineIntroduce;
 
     //자기소개
+    @Column(name = "introduce")
     private String introduce;
 
+    @Column(name = "position")
     private String position;
 
     //실제이름
+    @Column(name = "nickname")
     private String nickname;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private Role role;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gym_id")
+    @Column(name = "gym")
     private Gym gym;
 
 
