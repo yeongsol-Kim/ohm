@@ -30,9 +30,9 @@ public class StatisticsDto {
     private double nineteen;
     private double twenty;
     private double twenty_one;
-    private double twenty_two;
-    private double twenty_three;
-    private double twenty_four;
+    private double twentyTwo;
+    private double twentyThree;
+    private double twentyFour;
 
 
 }

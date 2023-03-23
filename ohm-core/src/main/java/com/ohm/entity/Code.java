@@ -14,5 +14,6 @@ public class Code {
     @Column(name = "code_id")
     private Long id;
 
+    @Column(name = "code")
     private String code;
 }

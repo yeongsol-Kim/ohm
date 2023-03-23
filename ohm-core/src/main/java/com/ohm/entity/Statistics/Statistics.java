@@ -21,31 +21,77 @@ public class Statistics {
     @Column(name = "statistics_id")
     private Long id;
 
-
+    @Column(name = "one")
     private double one;
+
+    @Column(name = "two")
     private double two;
+
+    @Column(name = "three")
     private double three;
+
+    @Column(name = "four")
     private double four;
+
+    @Column(name = "four")
     private double five;
+
+    @Column(name = "six")
     private double six;
+
+    @Column(name = "seven")
     private double seven;
+
+    @Column(name = "eight")
     private double eight;
+
+    @Column(name = "nine")
     private double nine;
+
+    @Column(name = "ten")
     private double ten;
+
+    @Column(name = "eleven")
     private double eleven;
+
+    @Column(name = "twelve")
     private double twelve;
+
+    @Column(name = "thirteen")
     private double thirteen;
+
+    @Column(name = "fourteen")
     private double fourteen;
+
+    @Column(name = "fifteen")
     private double fifteen;
+
+    @Column(name = "sixteen")
     private double sixteen;
+
+    @Column(name = "seventeen")
     private double seventeen;
+
+    @Column(name = "eighteen")
     private double eighteen;
+
+    @Column(name = "nineteen")
     private double nineteen;
+
+    @Column(name = "twenty")
     private double twenty;
-    private double twenty_one;
-    private double twenty_two;
-    private double twenty_three;
-    private double twenty_four;
+
+    @Column(name = "twenty_one")
+    private double twentyOne;
+
+    @Column(name = "twenty_two")
+    private double twentyTwo;
+
+    @Column(name = "twenty_three")
+    private double twentyThree;
+
+    @Column(name = "twenty_four")
+    private double twentyFour;
 
     @OneToOne
     @JoinColumn(name = "gym_id")
@@ -74,10 +120,10 @@ public class Statistics {
         this.eighteen = 0;
         this.nineteen = 0;
         this.twenty = 0;
-        this.twenty_one = 0;
-        this.twenty_two = 0;
-        this.twenty_three = 0;
-        this.twenty_four = 0;
+        this.twentyOne = 0;
+        this.twentyTwo = 0;
+        this.twentyThree = 0;
+        this.twentyFour = 0;
 
 
     }
