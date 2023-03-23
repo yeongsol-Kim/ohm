@@ -12,14 +12,14 @@ import java.util.List;
 public interface GymRepository extends JpaRepository<Gym,Long> {
 
 
-    @Query("select g from Gym g where g.ceo.id = :ceoId")
+    @Query("select distinct g from Gym g where g.ceo.id = :ceoId")
     List<Gym> findallGymsByCeoId(Long ceoId);
 
     //fetch join을 어노테이션으로 대체@EntityGraph
     @EntityGraph(attributePaths = "imgs")
     List<Gym> findByNameContaining(String name);
 
-    @Query("select g from Gym g left join fetch g.imgs")
+    @Query("select distinct g from Gym g left join fetch g.imgs")
     List<Gym> findAllFetchJoin();
 
 

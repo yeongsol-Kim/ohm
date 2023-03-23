@@ -3,6 +3,7 @@ package com.ohm.dto.CeoDto;
 import com.ohm.dto.AdminDto;
 import com.ohm.dto.GymDto.GymDto;
 import com.ohm.entity.Enum.Role;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,8 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class CeoDto {
 
     private Long id;
@@ -20,27 +23,10 @@ public class CeoDto {
 
     private String nickname;
 
-    private String profile;
-
-    private String onelineIntroduce;
-
-    private String introduce;
-
 
     private List<GymDto> gyms;
 
     private Role role;
-
-    @Builder
-    public CeoDto(String profile, String oneline_introduce, String introduce, String nickname, Long id, String name, GymDto gymDto, Role role) {
-        this.id = id;
-        this.username = name;
-        this.nickname = nickname;
-        this.profile = profile;
-        this.onelineIntroduce = oneline_introduce;
-        this.introduce = introduce;
-        this.role = role;
-    }
 
 
 

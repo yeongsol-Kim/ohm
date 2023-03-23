@@ -50,7 +50,7 @@ public class Ceo extends BaseTime {
     private Admin admin;
 
     @OneToMany(mappedBy = "ceo",cascade = CascadeType.PERSIST,orphanRemoval = true)
-    private List<Gym> gyms = new ArrayList<>();
+    private final List<Gym> gyms = new ArrayList<Gym>();
 
 
 
