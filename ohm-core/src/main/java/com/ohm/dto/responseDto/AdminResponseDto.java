@@ -18,7 +18,7 @@ public class AdminResponseDto {
 
     private Long id;
 
-    private String name;
+    private String username;
 
     private String position;
 
@@ -31,6 +31,8 @@ public class AdminResponseDto {
     private String introduce;
 
     private AdminDto admin;
+
+    private boolean showProfile;
 
     private GymDto gymDto;
 

@@ -13,6 +13,7 @@ import com.ohm.entity.Manager.Manager;
 import com.ohm.jwt.TokenProvider;
 import com.ohm.service.ManagerService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +31,7 @@ public class ManagerApiController {
 
     @ApiOperation(value = "manager 회원가입", response = ManagerDto.class)
     @PostMapping("/manager/{gymId}")
+    @PreAuthorize("hasAnyRole('ROLE_CEO','ROLE_MANAGER')")
     public ResponseEntity<ManagerDto> manager_signup(
             @PathVariable Long gymId,
             @Valid @RequestBody ManagerRequestDto managerDto) {

@@ -45,6 +45,17 @@ public class AdminApiController {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
 
+    @PostMapping("/admin/showprofile/{managerId}")
+    @PreAuthorize("hasAnyRole('ROLE_TRAINER','ROLE_MANAGER')")
+    public ResponseEntity<String> chang_showstate(
+            @PathVariable Long managerId
+    ){
+        managerService.change_showProfile(managerId);
+        return ResponseEntity.ok("Changhe!");
+
+    }
+
+
     @ApiOperation(value = "manager,trainer,ceo 로그인", response = TokenDto.class)
     @PostMapping("/admin/login")
     public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginDto loginDto) {
@@ -115,13 +126,13 @@ public class AdminApiController {
     }
 
 
-    @ApiOperation(value = "ADMIN 회원탈퇴", response = String.class)
-    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_TRAINER','ROLE_CEO')")
+    @ApiOperation(value = "Manager 회원탈퇴", response = String.class)
+    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_CEO','ROLE_TRAINER')")
     @DeleteMapping("/admin/{managerId}")
     public ResponseEntity<String> remove(
             @PathVariable Long managerId
     ) {
-        customAdminService.delete();
+        managerService.delete(managerId);
         return ResponseEntity.ok("Remove!");
     }
 
