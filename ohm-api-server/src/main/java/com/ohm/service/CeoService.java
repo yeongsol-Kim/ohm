@@ -36,7 +36,6 @@ public class CeoService  {
 
 
     private final ManagerRepository managerRepository;
-    private final AmazonS3ResourceStorage amazonS3ResourceStorage;
     private final GymRepository gymRepository;
     private final CeoRepository ceoRepository;
     private final AppConfig appConfig;

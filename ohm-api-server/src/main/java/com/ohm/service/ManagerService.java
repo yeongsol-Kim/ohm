@@ -43,6 +43,15 @@ public class ManagerService{
     private final PasswordEncoder passwordEncoder;
 
 
+    public void change_showProfile(Long managerId){
+        Optional<Manager> byId = managerRepository.findById(managerId);
+        byId.get().change_showProfile();
+    }
+
+    public void delete(Long managerId){
+        Optional<Manager> byId = managerRepository.findById(managerId);
+        managerRepository.delete(byId.get());
+    }
 
 
     public void profile_save(Long managerId, MultipartFile multipartFile) throws Exception {
@@ -100,9 +109,6 @@ public class ManagerService{
     }
 
     private ManagerDto saveManagerAndReturnDto(ManagerRequestDto managerDto, Role role) {
-        System.out.println(managerDto.getUsername());
-        System.out.println("dasd");
-        System.out.println(managerDto.getGym().getName());
         if (ceoRepository.findByUsername(managerDto.getUsername()).orElse(null) != null || managerRepository.findByUsername(managerDto.getUsername()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어 있는 아이디입니다.");
         }
@@ -110,13 +116,14 @@ public class ManagerService{
         Manager manager = Manager.builder()
                 .username(managerDto.getUsername())
                 .gym(managerDto.getGym())
+                .showProfile(true)
                 .position(managerDto.getPosition())
                 .password(passwordEncoder.encode(managerDto.getPassword()))
                 .nickname(managerDto.getNickname())
                 .profileUrl(managerDto.getProfile())
                 .role(role)
-                .onelineIntroduce(managerDto.getOnelineIntroduce())
-                .introduce(managerDto.getIntroduce())
+                .onelineIntroduce("한줄소개")
+                .introduce("자기 소개")
                 .build();
 
 

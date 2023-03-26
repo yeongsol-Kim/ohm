@@ -23,7 +23,7 @@ public interface GymRepository extends JpaRepository<Gym,Long> {
     List<Gym> findAllFetchJoin();
 
 
-    @Query("select g from Gym g left join fetch g.imgs where g.id = :id")
+    @Query("select distinct g from Gym g left join fetch g.imgs where g.id = :id")
     Gym findGymFetchJoin(@Param("id")Long id);
 
     @Modifying(clearAutomatically = true)
@@ -43,7 +43,7 @@ public interface GymRepository extends JpaRepository<Gym,Long> {
     Gym find_code(@Param("code")int code);
 
 
-    @Query("select g from Gym g left join fetch g.gymTime where g.id = :id")
+    @Query("select distinct g from Gym g left join fetch g.gymTime where g.id = :id")
     Gym findTimeByGymId(@Param("id")Long id);
 
     @Query("select g from Gym g where g.code = :code")

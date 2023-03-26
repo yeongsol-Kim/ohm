@@ -21,7 +21,7 @@ public class ManagerDto {
     private String nickname;
 
     private String profile;
-
+    private boolean showProfile;
     private String onelineIntroduce;
 
     private String introduce;

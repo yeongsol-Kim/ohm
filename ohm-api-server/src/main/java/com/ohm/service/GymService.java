@@ -79,7 +79,6 @@ public class GymService {
         Gym gym = Gym.builder()
                 .address(gymDto.getAddress())
                 .ceo(byId.get())
-
                 .code(gymDto.getCode())
                 .currentCount(0)
                 .count(gymDto.getCount())

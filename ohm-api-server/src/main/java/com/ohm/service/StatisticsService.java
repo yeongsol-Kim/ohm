@@ -57,7 +57,6 @@ public class StatisticsService {
             hour = formatedNow.toString();
         }
 
-        System.out.println("시간 = "+hour);
         switch (Integer.parseInt(hour)) {
             case 1:
                 statisticsRepository.update_1(gymId, Double.valueOf(count));
@@ -74,11 +73,9 @@ public class StatisticsService {
             case 5:
                 statisticsRepository.update_5(gymId, Double.valueOf(count));
                 break;
-
             case 6:
                 statisticsRepository.update_6(gymId, Double.valueOf(count));
                 break;
-
             case 7:
                 statisticsRepository.update_7(gymId, Double.valueOf(count));
                 break;
