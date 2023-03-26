@@ -44,7 +44,6 @@ public class Ceo extends BaseTime {
     private Role role;
 
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
     private Admin admin;
@@ -53,12 +52,9 @@ public class Ceo extends BaseTime {
     private final List<Gym> gyms = new ArrayList<Gym>();
 
 
-
     public void update(ManagerDto manager) {
         this.username = manager.getUsername();
         this.nickname = manager.getNickname();
     }
-
-
 
 }

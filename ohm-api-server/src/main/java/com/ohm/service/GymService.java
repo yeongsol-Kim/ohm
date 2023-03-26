@@ -49,7 +49,7 @@ public class GymService {
 
 
     @Transactional
-    public void delete_price(List<Long> ids) throws Exception {
+    public void deletePrice(List<Long> ids) throws Exception {
         for (Long id : ids) {
             gymPriceRepository.delete(gymPriceRepository.findById(id).get());
         }
@@ -58,7 +58,7 @@ public class GymService {
 
 
     @Transactional
-    public void delete_img(List<Long> ids) throws Exception {
+    public void deleteImg(List<Long> ids) throws Exception {
 
         for (Long id : ids) {
             GymImg gymImg = gymImgRepository.findById(id).get();
@@ -79,9 +79,8 @@ public class GymService {
         Gym gym = Gym.builder()
                 .address(gymDto.getAddress())
                 .ceo(byId.get())
-
                 .code(gymDto.getCode())
-                .currentCount(0)
+                .currentCount(0L)
                 .count(gymDto.getCount())
                 .name(gymDto.getName())
                 .area(gymDto.getArea())
@@ -96,7 +95,7 @@ public class GymService {
     }
 
     @Transactional
-    public Long save_img(Long gymId, List<MultipartFile> files) throws Exception {
+    public Long saveImg(Long gymId, List<MultipartFile> files) throws Exception {
         Optional<Gym> gym = gymRepository.findById(gymId);
         if (files == null) {
 
@@ -150,7 +149,7 @@ public class GymService {
                     .id(gym.getId())
                     .name(gym.getName())
                     .introduce(gym.getIntroduce())
-                    .oneline_introduce(gym.getOnelineIntroduce())
+                    .onelineIntroduce(gym.getOnelineIntroduce())
                     .imgs(gymImgDtos)
                     .count(gym.getCurrentCount()).build();
 
@@ -177,7 +176,7 @@ public class GymService {
                     .name(gym.getName())
                     .id(gym.getId())
                     .introduce(gym.getIntroduce())
-                    .oneline_introduce(gym.getOnelineIntroduce())
+                    .onelineIntroduce(gym.getOnelineIntroduce())
                     .imgs(gymImgDtos)
                     .count(gym.getCurrentCount()).build();
             gymDtos.add(gymResponseDto);
@@ -202,7 +201,7 @@ public class GymService {
                 .id(gym.getId())
                 .name(gym.getName())
                 .introduce(gym.getIntroduce())
-                .oneline_introduce(gym.getOnelineIntroduce())
+                .onelineIntroduce(gym.getOnelineIntroduce())
                 .imgs(gymImgDtos)
                 .count(gym.getCurrentCount()).build();
 
@@ -211,7 +210,7 @@ public class GymService {
     }
 
 
-    public int findById_count(Long id) throws Exception {
+    public Long findByIdCount(Long id) throws Exception {
         Optional<Gym> byId = gymRepository.findById(id);
         if (byId.isPresent()) {
             return byId.get().getCurrentCount();
@@ -250,7 +249,7 @@ public class GymService {
 
 
     //현재 GYM 인원수 조회
-    public int current_count(Long id) throws Exception {
+    public Long currentCount(Long id) throws Exception {
         Optional<Gym> byId = gymRepository.findById(id);
         return byId.get().getCurrentCount();
     }
@@ -258,27 +257,27 @@ public class GymService {
 
     //현재 GYM 인원수 증가(1증가)
     @Transactional
-    public void increase_count(Long id) throws Exception {
+    public void increaseCount(Long id) throws Exception {
         Gym gym = gymRepository.findById(id).orElse(null);
         gym.increaseCount();
     }
 
     //현재 GYM 인원수 감소(1감소)
     @Transactional
-    public void decrease_count(Long id) throws Exception {
+    public void decreaseCount(Long id) throws Exception {
         Gym gym = gymRepository.findById(id).orElse(null);
         gym.decreaseCount();
     }
 
     //현재 GYM 인원수 0으로 초기화
     @Transactional
-    public void reset_count(Long id) throws Exception {
+    public void resetCount(Long id) throws Exception {
         Gym gym = gymRepository.findById(id).orElse(null);
         gym.resetCount();
     }
 
     @Transactional
-    public Long register_price(Long gymId, GymPriceDto gymPriceDto) {
+    public Long registerPrice(Long gymId, GymPriceDto gymPriceDto) {
 
         Optional<Gym> byId = gymRepository.findById(gymId);
 
@@ -293,7 +292,7 @@ public class GymService {
     }
 
     @Transactional
-    public Long register_time(Long gymId, GymTimeDto gymTimeDto) {
+    public Long registerTime(Long gymId, GymTimeDto gymTimeDto) {
 
         Optional<Gym> byId = gymRepository.findById(gymId);
 
@@ -320,13 +319,13 @@ public class GymService {
         return save.getId();
     }
 
-    public GymTimeDto get_time(Long gymId) {
+    public GymTimeDto getTime(Long gymId) {
         Gym timeByGymId = gymRepository.findTimeByGymId(gymId);
         GymTime gymTime = timeByGymId.getGymTime();
         return appConfig.modelMapper().map(gymTime, GymTimeDto.class);
     }
 
-    public List<GymPriceDto> get_prices(Long gymId) {
+    public List<GymPriceDto> getPrices(Long gymId) {
         List<GymPrice> prices = gymPriceRepository.findPriceByGymId(gymId);
         List<GymPriceDto> priceDtos = new ArrayList<GymPriceDto>();
         for (GymPrice gymPrice : prices) {
@@ -336,12 +335,12 @@ public class GymService {
     }
 
 
-    public Long check_code(int code) throws Exception {
+    public Long checkCode(int code) throws Exception {
         Gym gym = gymRepository.find_code(code);
         return gym.getId();
     }
 
-    public boolean duplication_code(int code) throws Exception {
+    public boolean duplicationCode(int code) throws Exception {
         Gym gym = gymRepository.checkCode(code);
         if (gym == null) {
             return true;
@@ -351,14 +350,14 @@ public class GymService {
     }
 
     @Transactional
-    public Optional<Gym> update_gym(GymDto gymDto) {
+    public Optional<Gym> updateGym(GymDto gymDto) {
         Optional<Gym> byId = gymRepository.findById(gymDto.getId());
         byId.get().update(appConfig.modelMapper().map(gymDto, Gym.class));
         return byId;
     }
 
     @Transactional
-    public Optional<GymTime> update_time(Long gymId, GymTimeDto gymTimeDto) {
+    public Optional<GymTime> updateTime(Long gymId, GymTimeDto gymTimeDto) {
 
         Optional<GymTime> byId = gymTimeRepository.findById(gymTimeDto.getId());
         byId.get().update(appConfig.modelMapper().map(gymTimeDto, GymTime.class));

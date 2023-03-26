@@ -1,9 +1,6 @@
 package com.ohm.entity.Answer;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import com.ohm.dto.AnswerDto.AnswerDto;
 import com.ohm.entity.Question.Question;
 
@@ -12,6 +9,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Table(name = "answer")
 public class Answer {

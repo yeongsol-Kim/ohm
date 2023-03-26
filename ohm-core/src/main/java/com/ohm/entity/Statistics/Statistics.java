@@ -1,19 +1,19 @@
 package com.ohm.entity.Statistics;
 
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import com.ohm.entity.Gym.Gym;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@DynamicInsert
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Statistics {
 
     @Id
@@ -21,112 +21,163 @@ public class Statistics {
     @Column(name = "statistics_id")
     private Long id;
 
+    @Column(name = "statistics_date")
+    private LocalDate statisticsDate;
+
     @Column(name = "one")
-    private double one;
+    private Long one;
 
     @Column(name = "two")
-    private double two;
+    private Long two;
 
     @Column(name = "three")
-    private double three;
+    private Long three;
 
     @Column(name = "four")
-    private double four;
+    private Long four;
 
-    @Column(name = "four")
-    private double five;
+    @Column(name = "five")
+    private Long five;
 
     @Column(name = "six")
-    private double six;
+    private Long six;
 
     @Column(name = "seven")
-    private double seven;
+    private Long seven;
 
     @Column(name = "eight")
-    private double eight;
+    private Long eight;
 
     @Column(name = "nine")
-    private double nine;
+    private Long nine;
 
     @Column(name = "ten")
-    private double ten;
+    private Long ten;
 
     @Column(name = "eleven")
-    private double eleven;
+    private Long eleven;
 
     @Column(name = "twelve")
-    private double twelve;
+    private Long twelve;
 
     @Column(name = "thirteen")
-    private double thirteen;
+    private Long thirteen;
 
     @Column(name = "fourteen")
-    private double fourteen;
+    private Long fourteen;
 
     @Column(name = "fifteen")
-    private double fifteen;
+    private Long fifteen;
 
     @Column(name = "sixteen")
-    private double sixteen;
+    private Long sixteen;
 
     @Column(name = "seventeen")
-    private double seventeen;
+    private Long seventeen;
 
     @Column(name = "eighteen")
-    private double eighteen;
+    private Long eighteen;
 
     @Column(name = "nineteen")
-    private double nineteen;
+    private Long nineteen;
 
     @Column(name = "twenty")
-    private double twenty;
+    private Long twenty;
 
     @Column(name = "twenty_one")
-    private double twentyOne;
+    private Long twentyOne;
 
     @Column(name = "twenty_two")
-    private double twentyTwo;
+    private Long twentyTwo;
 
     @Column(name = "twenty_three")
-    private double twentyThree;
+    private Long twentyThree;
 
     @Column(name = "twenty_four")
-    private double twentyFour;
+    private Long twentyFour;
 
     @OneToOne
     @JoinColumn(name = "gym_id")
     private Gym gym;
 
-    @Builder
-    public Statistics(Gym gym) {
-        this.gym = gym;
-        this.one = 0;
-        this.two = 0;
-        this.three = 0;
-        this.four = 0;
-        this.five = 0;
-        this.six = 0;
-        this.seven = 0;
-        this.eight = 0;
-        this.nine = 0;
-        this.ten = 0;
-        this.eleven = 0;
-        this.twelve = 0;
-        this.thirteen = 0;
-        this.fourteen = 0;
-        this.fifteen = 0;
-        this.sixteen = 0;
-        this.seventeen = 0;
-        this.eighteen = 0;
-        this.nineteen = 0;
-        this.twenty = 0;
-        this.twentyOne = 0;
-        this.twentyTwo = 0;
-        this.twentyThree = 0;
-        this.twentyFour = 0;
 
+    // ========
 
+    public void setTimeCount(int time, Long count) {
+
+        switch (time) {
+            case 0:
+                twentyFour = count;
+                break;
+            case 1:
+                one = count;
+                break;
+            case 2:
+                two = count;
+                break;
+            case 3:
+                three = count;
+                break;
+            case 4:
+                four = count;
+                break;
+            case 5:
+                five = count;
+                break;
+            case 6:
+                six = count;
+                break;
+            case 7:
+                seven = count;
+                break;
+            case 8:
+                eight = count;
+                break;
+            case 9:
+                nine = count;
+                break;
+            case 10:
+                ten = count;
+                break;
+            case 11:
+                eleven = count;
+                break;
+            case 12:
+                twelve = count;
+                break;
+            case 13:
+                thirteen = count;
+                break;
+            case 14:
+                fourteen = count;
+                break;
+            case 15:
+                fifteen = count;
+                break;
+            case 16:
+                sixteen = count;
+                break;
+            case 17:
+                seventeen = count;
+                break;
+            case 18:
+                eighteen = count;
+                break;
+            case 19:
+                nineteen = count;
+                break;
+            case 20:
+                twenty = count;
+                break;
+            case 21:
+                twentyOne = count;
+                break;
+            case 22:
+                twentyTwo = count;
+                break;
+            case 23:
+                twentyThree = count;
+                break;
+        }
     }
-
-
 }

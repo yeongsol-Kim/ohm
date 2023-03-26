@@ -60,7 +60,7 @@ public class CeoService  {
                     .id(gym.getId())
                     .name(gym.getName())
                     .introduce(gym.getIntroduce())
-                    .oneline_introduce(gym.getOnelineIntroduce())
+                    .onelineIntroduce(gym.getOnelineIntroduce())
                     .imgs(gymImgDtos)
                     .count(gym.getCurrentCount()).build();
 

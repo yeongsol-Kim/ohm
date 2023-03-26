@@ -37,9 +37,9 @@ public class AnswerService {
                 .content(answerDto.getContent())
                 .question(byId.get())
                 .build();
-        Answer answwer = answerRepository.save(answer);
-        byId.get().register_answer(answwer);
-        return appConfig.modelMapper().map(answwer,AnswerDto.class);
+        Answer answerSaved = answerRepository.save(answer);
+        byId.get().register_answer(answerSaved);
+        return appConfig.modelMapper().map(answerSaved,AnswerDto.class);
     }
 
     @Transactional
