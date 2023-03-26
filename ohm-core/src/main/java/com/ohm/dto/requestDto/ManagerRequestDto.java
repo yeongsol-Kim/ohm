@@ -3,11 +3,15 @@ package com.ohm.dto.requestDto;
 
 import com.ohm.entity.Enum.Role;
 import com.ohm.entity.Gym.Gym;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class ManagerRequestDto {
     private String username;
 
@@ -25,11 +29,9 @@ public class ManagerRequestDto {
 
     private String introduce;
 
-    private int age;
+
 
     private Role role;
-
-    private String code;
 
     private Gym gym;
 

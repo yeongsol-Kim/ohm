@@ -18,6 +18,8 @@ public class ManagerGymResponseDto {
 
     private String introduce;
 
+    private boolean showProfile;
+
     private String oneline_introduce;
 
     private int code;

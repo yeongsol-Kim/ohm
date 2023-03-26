@@ -18,7 +18,7 @@ public interface ManagerRepository extends JpaRepository<Manager,Long> {
 
     Optional<Manager> findByUsername(String username);
 
-    @Query("select m from Manager m left join fetch m.gym where m.id = :manager_id")
+    @Query("select distinct m from Manager m left join fetch m.gym where m.id = :manager_id")
     Manager findManagerFetchJoinGym(@Param("manager_id")Long manager_id);
 
     @EntityGraph(attributePaths = "gym")

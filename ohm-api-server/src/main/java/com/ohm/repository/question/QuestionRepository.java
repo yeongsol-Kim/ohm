@@ -13,7 +13,7 @@ public interface QuestionRepository extends JpaRepository<Question,Long> {
     @Query("select q from Question q where q.gym.id = :gymId")
     List<Question> findQuestionfindByGymId(@Param("gymId") Long gymId);
 
-    @Query("select q from Question q left join fetch q.answer where q.gym.id =:gymId")
+    @Query("select distinct q from Question q left join fetch q.answer where q.gym.id =:gymId")
     List<Question> findQuestionFetchJoin(@Param("gymId") Long gymId);
 
 

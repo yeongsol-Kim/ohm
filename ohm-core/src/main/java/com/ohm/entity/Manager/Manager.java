@@ -62,6 +62,8 @@ public class Manager {
     @Column(name = "position")
     private String position;
 
+    private boolean showProfile;
+
     //실제이름
     @Column(name = "nickname")
     private String nickname;
@@ -76,6 +78,9 @@ public class Manager {
     @Column(name = "gym")
     private Gym gym;
 
+    public void change_showProfile(){
+        this.showProfile = !this.showProfile;
+    }
 
     public void register_profile(String profile, String profileOriginName) {
         this.profileUrl = profile;
