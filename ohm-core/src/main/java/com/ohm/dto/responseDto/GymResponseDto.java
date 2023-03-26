@@ -1,5 +1,6 @@
 package com.ohm.dto.responseDto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,8 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class GymResponseDto {
 
@@ -16,9 +19,9 @@ public class GymResponseDto {
 
     private String address;
 
-    private int count;
+    private Long count;
 
-    private int current_count;
+    private Long current_count;
 
     private int code;
 
@@ -31,18 +34,4 @@ public class GymResponseDto {
 
 
     private String onelineIntroduce;
-
-    @Builder
-    public GymResponseDto(int code,int trainer_count,Long id,int current_count,String name,String address,int count,List<GymImgResponseDto> imgs,String introduce,String oneline_introduce){
-        this.name = name;
-        this.code = code;
-        this.trainer_count = trainer_count;
-        this.id = id;
-        this.current_count = current_count;
-        this.address = address;
-        this.count = count;
-        this.imgs = imgs;
-        this.introduce = introduce;
-        this.onelineIntroduce = oneline_introduce;
-    }
 }

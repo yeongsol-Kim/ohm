@@ -59,7 +59,7 @@ public class Gym{
 
     //헬스장 현재 인원
     @Column(name = "current_count")
-    private int currentCount;
+    private Long currentCount;
 
     //헬스장 사진
     @JsonIgnore
@@ -111,18 +111,18 @@ public class Gym{
         this.code = gym.getCode();
     }
 
-    public int increaseCount() {
+    public Long increaseCount() {
         this.currentCount = this.currentCount + 1;
         return currentCount;
     }
 
-    public int decreaseCount() {
+    public Long decreaseCount() {
         if (this.currentCount > 0) this.currentCount = this.currentCount - 1;
         return currentCount;
     }
 
-    public int resetCount() {
-        this.currentCount = 0;
+    public Long resetCount() {
+        this.currentCount = 0L;
         return currentCount;
     }
 
