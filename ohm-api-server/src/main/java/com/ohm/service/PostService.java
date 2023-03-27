@@ -2,6 +2,7 @@ package com.ohm.service;
 
 
 import com.ohm.s3.AmazonS3ResourceStorage;
+import com.ohm.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import com.ohm.config.AppConfig;
 import com.ohm.dto.PostDto.PostDto;
@@ -56,7 +57,7 @@ public class PostService {
     public Long save_content(Long gymId, PostDto postDto) throws Exception {
         Optional<Gym> gym = gymRepository.findById(gymId);
         Post post = Post.builder()
-
+                .createdBy(SecurityUtils.getCurrentUsername().get())
                 .title(postDto.getTitle())
                 .content(postDto.getContent())
                 .gym(gym.get())
