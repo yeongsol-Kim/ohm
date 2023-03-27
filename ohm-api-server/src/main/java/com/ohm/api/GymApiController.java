@@ -1,5 +1,8 @@
 package com.ohm.api;
 
+import com.ohm.dto.Statistics.TotalStatisticsDto;
+import com.ohm.entity.Statistics.TotalStatistics;
+import com.ohm.service.TotalStatisticsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +30,7 @@ public class GymApiController {
 
     private final GymService gymService;
     private  final StatisticsService statisticsService;
+    private final TotalStatisticsService totalStatisticsService;
 
 
     @ApiOperation(value = "Gym 등록(ROLE_CEO만 사용)", response = Long.class)
@@ -37,11 +41,10 @@ public class GymApiController {
             @Valid @RequestBody GymRequestDto gymRequestDto
     ) throws Exception {
 
-
         Long save = gymService.save(gymRequestDto,ceoId);
 
         //헬스장 통계테이블 생성
-        statisticsService.register_table(save);
+        totalStatisticsService.register_table(save);
         return ResponseEntity.ok(save);
 
     }
@@ -68,13 +71,11 @@ public class GymApiController {
 
     @ApiOperation(value = "시간대별 평균 인원 조회", response = String.class, responseContainer = "List")
     @GetMapping("/gym/avg/{gymId}")
-    public ResponseEntity<StatisticsDto> search_avg(
+    public ResponseEntity<TotalStatisticsDto> search_avg(
             @PathVariable Long gymId
 
     ) throws Exception {
-
-
-        StatisticsDto value = statisticsService.get_statistics(gymId);
+        TotalStatisticsDto value = totalStatisticsService.get_statistics(gymId);
         return ResponseEntity.ok(value);
     }
 
@@ -133,7 +134,6 @@ public class GymApiController {
     public ResponseEntity<Long> check_code(@PathVariable int code) throws Exception {
         Long aLong = gymService.checkCode(code);
         return
-
                 ResponseEntity.ok(aLong);
     }
 

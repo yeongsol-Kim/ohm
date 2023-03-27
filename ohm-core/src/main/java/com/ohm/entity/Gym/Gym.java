@@ -3,6 +3,7 @@ package com.ohm.entity.Gym;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ohm.entity.Ceo.Ceo;
+import com.ohm.entity.Statistics.TotalStatistics;
 import lombok.*;
 import com.ohm.entity.Manager.Manager;
 import com.ohm.entity.Post.Post;
@@ -67,8 +68,8 @@ public class Gym{
     private List<GymImg> imgs;
 
 
-    @OneToOne(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
-    private Statistics statistics;
+    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
+    private List<Statistics> statistics;
 
 
     @OneToOne(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
@@ -89,6 +90,9 @@ public class Gym{
 
     @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<GymPrice> prices;
+
+    @OneToOne(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private TotalStatistics totalStatistics;
 
     @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Question> questions;

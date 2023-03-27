@@ -3,17 +3,16 @@ package com.ohm.entity.Statistics;
 
 import lombok.*;
 import com.ohm.entity.Gym.Gym;
-import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "statistics")
 public class Statistics {
 
     @Id
@@ -93,10 +92,10 @@ public class Statistics {
     @Column(name = "twenty_three")
     private Long twentyThree;
 
-    @Column(name = "twenty_four")
-    private Long twentyFour;
+    @Column(name = "zero")
+    private Long zero;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gym_id")
     private Gym gym;
 
@@ -107,7 +106,7 @@ public class Statistics {
 
         switch (time) {
             case 0:
-                twentyFour = count;
+                zero = count;
                 break;
             case 1:
                 one = count;

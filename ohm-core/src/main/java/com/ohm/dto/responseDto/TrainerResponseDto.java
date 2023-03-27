@@ -15,6 +15,8 @@ public class TrainerResponseDto {
     //아이디
     private String name;
 
+    private boolean showProfile;
+
     private String profile;
 
     private String onelineIntroduce;

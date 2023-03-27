@@ -75,7 +75,6 @@ public class Manager {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gym_id")
-    @Column(name = "gym")
     private Gym gym;
 
     public void change_showProfile(){
