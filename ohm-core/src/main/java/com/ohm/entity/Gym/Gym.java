@@ -121,7 +121,7 @@ public class Gym{
     }
 
     public Long decreaseCount() {
-        if (this.currentCount > 0) this.currentCount = this.currentCount - 1;
+        if (this.currentCount > 0L) this.currentCount = this.currentCount - 1;
         return currentCount;
     }
 

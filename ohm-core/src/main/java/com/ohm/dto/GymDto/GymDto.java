@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.ohm.dto.InputDto.InputDto;
 import com.ohm.dto.ManagerDto.ManagerDto;
 import com.ohm.entity.Post.Post;
 
@@ -60,27 +59,9 @@ public class GymDto {
     private GymPriceDto gymPrice;
 
     @JsonIgnore
-    private List<InputDto> inputs;
-
-
-    @JsonIgnore
     private final List<Post> posts = new ArrayList<Post>();
 
-    //테스트용 생성자
-    public GymDto(String name,int count,int current_count){
-        this.name = name;
-        this.count = count;
-        this.currentCount = current_count;
-    }
 
-    //GymDto save entity 생성자ㅣ
-    public GymDto(String name,String address,int count,int code){
-        this.name = name;
-        this.address = address;
-        this.count = count;
-        this.code = code;
-        //this.manager = managerDto.getGymDto().getManager();
-    }
 
     public int increase_count(){
         this.currentCount = this.currentCount + 1;

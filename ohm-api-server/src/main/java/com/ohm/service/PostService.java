@@ -36,14 +36,13 @@ public class PostService {
 
 
     private final AmazonS3ResourceStorage amazonS3ResourceStorage;
-
     private final PostRepository postRepository;
     private final GymRepository gymRepository;
     private final PostImgRepository postImgRepository;
     private final AppConfig appConfig;
 
     @Transactional
-    public void delete_imgs(List<Long> ids) throws Exception {
+    public void delete_imgs(List<Long> ids)  {
 
         for (Long id : ids) {
             PostImg postImg = postImgRepository.findById(id).get();
@@ -54,7 +53,7 @@ public class PostService {
 
     //글 등록 - manager,trainer가 사용
     @Transactional
-    public Long save_content(Long gymId, PostDto postDto) throws Exception {
+    public Long save_content(Long gymId, PostDto postDto)  {
         Optional<Gym> gym = gymRepository.findById(gymId);
         Post post = Post.builder()
                 .createdBy(SecurityUtils.getCurrentUsername().get())
@@ -121,7 +120,7 @@ public class PostService {
         return postDto;
     }
 
-    //변경감지 게시물 수정 (클라이언트에서 수정된 사항은 해당 객체에 업데이트해서 넣고 아닌 값은 원래 객체 값을 대입해서 넣어주자)
+
     @Transactional
     public Optional<Post> update_post(PostDto postDto) {
         Optional<Post> byId = postRepository.findById(postDto.getId());

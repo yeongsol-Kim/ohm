@@ -62,5 +62,4 @@ public class TotalStatisticsDto {
 
     private Long zero;
 
-//    private Gym gym;
 }

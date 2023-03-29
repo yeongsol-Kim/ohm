@@ -22,21 +22,4 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class StatisticsController {
 
-    private final GymService gymService;
-    private final StatisticsService statisticsService;
-
-    @ApiOperation(value = "Gym 등록(ROLE_CEO만 사용)", response = Long.class)
-    @PostMapping("/test")
-    @PreAuthorize("hasRole('ROLE_CEO')")
-    public ResponseEntity<String> save(
-
-    ) throws Exception {
-        statisticsService.hourlyStatistics();
-//        Long save = gymService.save(gymRequestDto,ceoId);
-
-        //헬스장 통계테이블 생성
-//        statisticsService.register_table(save);
-        return ResponseEntity.ok("ok");
-
-    }
 }

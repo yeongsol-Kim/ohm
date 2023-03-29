@@ -60,6 +60,7 @@ public class CeoApiController {
 
 
 
+    //관리자 어플에서 ceo만 사용
     @ApiOperation(value = "ceo가 모든 gym 조회", response = GymResponseDto.class,responseContainer = "List")
     @GetMapping("/ceo/gyms/{ceoId}")
     @PreAuthorize("hasAnyRole('ROLE_CEO')")

@@ -68,6 +68,7 @@ public class CeoService  {
         return gymDtos;
     }
 
+    //ceo 회원가입시 코드 인증 로직
     public boolean check_code(String code) {
         Optional<Code> code1 = codeRepository.findCode(code);
         if (code1.get() == null) {
@@ -92,6 +93,7 @@ public class CeoService  {
                 .build();
 
         Ceo save = ceoRepository.save(ceo);
+
         return appConfig.modelMapper().map(save, CeoDto.class);
 
     }
