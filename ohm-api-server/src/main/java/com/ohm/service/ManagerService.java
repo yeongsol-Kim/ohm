@@ -15,7 +15,6 @@ import com.ohm.dto.responseDto.TrainerResponseDto;
 import com.ohm.entity.Manager.Manager;
 import com.ohm.repository.gym.GymRepository;
 import com.ohm.repository.manager.ManagerRepository;
-import com.ohm.utils.SecurityUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -54,21 +53,6 @@ public class ManagerService{
     }
 
 
-    public void profile_save(Long managerId, MultipartFile multipartFile) throws Exception {
-        Optional<Manager> byId = managerRepository.findById(managerId);
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter dateTimeFormatter =
-                DateTimeFormatter.ofPattern("yyyyMMdd");
-        String current_date = now.format(dateTimeFormatter);
-        String uuid_string = UUID.randomUUID().toString();
-
-
-        String ext = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf("."));
-        //url,orignName
-        byId.get().register_profile(current_date + File.separator + uuid_string + ext, multipartFile.getOriginalFilename());
-        amazonS3ResourceStorage.upload(multipartFile, current_date, uuid_string + ext);
-    }
-
     public void profile_edit(Long managerId, MultipartFile multipartFile) throws Exception {
         Optional<Manager> byId = managerRepository.findById(managerId);
         String profileUrl = byId.get().getProfileUrl();
@@ -94,19 +78,20 @@ public class ManagerService{
         byId.get().register_profile(current_date + File.separator + uuid_string + ext, multipartFile.getOriginalFilename());
     }
 
-   // Manager 회원가입
+   // Manager 계정등록
     public ManagerDto manager_save(ManagerRequestDto managerDto, Long gymId) {
         managerDto.setGym(gymRepository.findById(gymId).orElse(null));
         return saveManagerAndReturnDto(managerDto, Role.ROLE_MANAGER);
     }
 
 
+    //Trainer 계정등록
     public ManagerDto trainer_save(ManagerRequestDto managerDto, Long gymId) {
         managerDto.setGym(gymRepository.findById(gymId).orElse(null));
-
-
         return saveManagerAndReturnDto(managerDto, Role.ROLE_TRAINER);
     }
+
+
 
     private ManagerDto saveManagerAndReturnDto(ManagerRequestDto managerDto, Role role) {
         if (ceoRepository.findByUsername(managerDto.getUsername()).orElse(null) != null || managerRepository.findByUsername(managerDto.getUsername()).orElse(null) != null) {
@@ -122,24 +107,16 @@ public class ManagerService{
                 .nickname(managerDto.getNickname())
                 .profileUrl(managerDto.getProfile())
                 .role(role)
-                .onelineIntroduce("한줄소개")
+                .onelineIntroduce("한줄 소개")
                 .introduce("자기 소개")
                 .build();
-
-
         Manager savedManager = managerRepository.save(manager);
         return appConfig.modelMapper().map(savedManager, ManagerDto.class);
     }
 
 
-    //현재 시큐리티에 담겨져있는 계정 권한 가져오는 메서드
-    public ManagerDto getMyManagerWithAuthorities() {
-        return appConfig.modelMapper().map(SecurityUtils.getCurrentUsername().flatMap(managerRepository::findByUsername).get(), ManagerDto.class);
-    }
-
     public ManagerDto getManagerInfo(Long id) {
 
-//        Manager findmanager = managerRepository.findManagerFetchJoinGym(id);
         Optional<Manager> findmanager = managerRepository.findOneWithGymById(id);
 
         ManagerDto managerDto = ManagerDto.builder()

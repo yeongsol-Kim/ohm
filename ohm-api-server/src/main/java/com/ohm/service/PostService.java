@@ -115,17 +115,18 @@ public class PostService {
 
     //post id로 조회
     public PostResponseDto findById(Long id) {
+
         Optional<Post> byId = postRepository.findById(id);
-        PostResponseDto postDto = appConfig.modelMapper().map(byId.get(), PostResponseDto.class);
-        return postDto;
+
+        return appConfig.modelMapper().map(byId.get(), PostResponseDto.class);
     }
 
 
     @Transactional
-    public Optional<Post> update_post(PostDto postDto) {
+    public void update_post(PostDto postDto) {
         Optional<Post> byId = postRepository.findById(postDto.getId());
         byId.get().update(appConfig.modelMapper().map(postDto, Post.class));
-        return byId;
+
     }
 
     @Transactional

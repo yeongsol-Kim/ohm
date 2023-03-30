@@ -35,6 +35,8 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-devtools'
         implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+        //현재 api-server 모듈에도 의존되어 있다. 테스트 후 db관련 라이브러리를 어디다 배치할지 생각해보자.
         implementation 'mysql:mysql-connector-java'
         implementation 'org.springframework.boot:spring-boot-starter-security'
         runtimeOnly 'com.h2database:h2'

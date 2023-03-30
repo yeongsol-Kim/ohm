@@ -29,7 +29,7 @@ public class QuestionService {
 
 
     @Transactional
-    public Long save_question(Long gymId,QuestionDto questionDto){
+    public Long saveQuestion(Long gymId,QuestionDto questionDto){
         Optional<Gym> byId = gymRepository.findById(gymId);
 
         Question question = Question.builder()
@@ -44,7 +44,8 @@ public class QuestionService {
     }
 
     @Transactional
-    public void delete_question(Long questionId){
+    public void deleteQuestion(Long questionId){
+
         questionRepository.delete(questionRepository.findById(questionId).get());
 
     }

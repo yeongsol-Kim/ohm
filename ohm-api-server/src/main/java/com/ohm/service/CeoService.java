@@ -15,17 +15,11 @@ import com.ohm.repository.ceo.CeoRepository;
 import com.ohm.repository.gym.GymRepository;
 import com.ohm.repository.manager.CodeRepository;
 import com.ohm.repository.manager.ManagerRepository;
-import com.ohm.s3.AmazonS3ResourceStorage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -44,7 +38,7 @@ public class CeoService  {
 
 
     //ceoId로 ceo가 가지고있는 모든 gym 조회
-    public List<GymResponseDto> findall_gyms(Long ceoId){
+    public List<GymResponseDto> findallGyms(Long ceoId){
         List<Gym> gyms = gymRepository.findallGymsByCeoId(ceoId);
         List<GymResponseDto> gymDtos = new ArrayList<GymResponseDto>();
 
@@ -69,7 +63,7 @@ public class CeoService  {
     }
 
     //ceo 회원가입시 코드 인증 로직
-    public boolean check_code(String code) {
+    public boolean checkCode(String code) {
         Optional<Code> code1 = codeRepository.findCode(code);
         if (code1.get() == null) {
             return false;
@@ -80,7 +74,7 @@ public class CeoService  {
 
 
     //Ceo 회원가입
-    public CeoDto ceo_save(ManagerRequestDto managerDto) {
+    public CeoDto ceoSave(ManagerRequestDto managerDto) {
         if (ceoRepository.findByUsername(managerDto.getUsername()).orElse(null) != null || managerRepository.findByUsername(managerDto.getUsername()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어 있는 아이디.");
         }

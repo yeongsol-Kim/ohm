@@ -1,10 +1,3 @@
--- 팔수 --
-// manager Entity getAuthorities 함수 제대로 작성
-ceo등록시 코드 인증 매커니즘 변경
-// 권한 조인테이블 연관관계 다대다->다대일로 변경
-// GymTime, Gym 연관관계 반대로 설정
-// AccountAuthority 레코드 생성시 managerId 값이 제대로 들어가지 않음
-
-
--- 권장 --
-ManagerService - Manager 생성함수 따로 빼기
+entity 애그리거트 역할과 경계 정확히 분리후 리팩토링
+(같은 생성,삭제,수정 플로우를 갖는다면 같은 애그리거트 루트! -> 직접참조(객체참조))
+(다른 애그리거트 루트 끼리의 매핑은 ->간접참조(ID로 참조))

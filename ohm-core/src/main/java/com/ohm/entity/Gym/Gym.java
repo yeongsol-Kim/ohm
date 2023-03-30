@@ -55,8 +55,6 @@ public class Gym{
     @Column(name = "area")
     private String area;
 
-    @Column(name = "trainer_count")
-    private int trainerCount;
 
     //헬스장 현재 인원
     @Column(name = "current_count")
@@ -68,32 +66,38 @@ public class Gym{
     private List<GymImg> imgs;
 
 
+    @OneToOne(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
+    private GymTime gymTime;
+    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<GymPrice> prices;
+
+
+    //다른 애그리거트
     @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
     private List<Statistics> statistics;
 
-
-    @OneToOne(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
-    private GymTime gymTime;
-
+    //다른 애그리거트
     @JsonIgnore
     @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
     private final List<Manager> managers = new ArrayList<Manager>();
 
+    //다른 애그리거트
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ceo_id")
     private Ceo ceo;
 
 
+    //다른 애그리거트
     @JsonIgnore
     @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
     private final List<Post> posts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<GymPrice> prices;
 
+    //다른 애그리거트
     @OneToOne(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
     private TotalStatistics totalStatistics;
 
+    //다른 애그리거트
     @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Question> questions;
 
@@ -108,7 +112,6 @@ public class Gym{
         this.id = gym.getId();
         this.area = gym.getArea();
         this.onelineIntroduce = gym.getOnelineIntroduce();
-        this.trainerCount = gym.getTrainerCount();
         this.address = gym.getAddress();
         this.introduce = gym.getIntroduce();
         this.count = gym.getCount();

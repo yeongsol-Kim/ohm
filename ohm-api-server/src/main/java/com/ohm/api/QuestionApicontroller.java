@@ -28,7 +28,7 @@ public class QuestionApicontroller {
             @Valid @RequestBody QuestionDto questionDto
 
     ) throws Exception {
-        Long aLong = questionService.save_question(gymId, questionDto);
+        Long aLong = questionService.saveQuestion(gymId, questionDto);
         return ResponseEntity.ok(aLong);
 
     }
@@ -50,7 +50,7 @@ public class QuestionApicontroller {
     public ResponseEntity<List<QuestionDto>> findall(
             @PathVariable Long gymId
 
-    ) throws Exception {
+    )  {
 
         List<QuestionDto> questionDtos = questionService.findall_question(gymId);
         return ResponseEntity.ok(questionDtos);
@@ -66,8 +66,8 @@ public class QuestionApicontroller {
 
     ) throws Exception {
 
-        questionService.delete_question(questionId);
-        return ResponseEntity.ok("DELETE!");
+        questionService.deleteQuestion(questionId);
+        return ResponseEntity.ok("DELETE Question!");
 
     }
 }

@@ -62,6 +62,7 @@ public class Manager {
     @Column(name = "position")
     private String position;
 
+    @Column(name = "show_profile")
     private boolean showProfile;
 
     //실제이름
@@ -76,6 +77,7 @@ public class Manager {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gym_id")
     private Gym gym;
+
 
     public void change_showProfile(){
         this.showProfile = !this.showProfile;

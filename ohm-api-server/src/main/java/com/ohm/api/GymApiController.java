@@ -41,10 +41,10 @@ public class GymApiController {
             @Valid @RequestBody GymRequestDto gymRequestDto
     ) throws Exception {
 
-        Long save = gymService.save(gymRequestDto,ceoId);
+        Long save = gymService.registerGym(gymRequestDto,ceoId);
 
         //헬스장 통계테이블 생성
-        totalStatisticsService.register_table(save);
+        totalStatisticsService.registerTable(save);
         return ResponseEntity.ok(save);
 
     }
@@ -75,7 +75,7 @@ public class GymApiController {
             @PathVariable Long gymId
 
     ) throws Exception {
-        TotalStatisticsDto value = totalStatisticsService.get_statistics(gymId);
+        TotalStatisticsDto value = totalStatisticsService.getStatistics(gymId);
         return ResponseEntity.ok(value);
     }
 
@@ -217,7 +217,7 @@ public class GymApiController {
         return ResponseEntity.ok("UPDATE!");
     }
 
-    @ApiOperation(value = "gym price등록", response = Long.class)
+    @ApiOperation(value = "Gym Price 등록", response = Long.class)
     @PostMapping("/gym/price/{gymId}")
     @PreAuthorize("hasRole('ROLE_CEO')")
     public ResponseEntity<Long> register_price(
