@@ -44,7 +44,7 @@ public class GymDto {
 
     private int code;
 
-    private int currentCount;
+    private Long currentCount;
 
 
     private int trainerCount;
@@ -67,7 +67,7 @@ public class GymDto {
     private final List<Post> posts = new ArrayList<Post>();
 
     //테스트용 생성자
-    public GymDto(String name,int count,int current_count){
+    public GymDto(String name,int count, Long current_count){
         this.name = name;
         this.count = count;
         this.currentCount = current_count;
@@ -80,17 +80,6 @@ public class GymDto {
         this.count = count;
         this.code = code;
         //this.manager = managerDto.getGymDto().getManager();
-    }
-
-    public int increase_count(){
-        this.currentCount = this.currentCount + 1;
-        return currentCount;
-    }
-
-
-    public int decrease_count(){
-        this.currentCount = this.currentCount - 1;
-        return currentCount;
     }
 
 

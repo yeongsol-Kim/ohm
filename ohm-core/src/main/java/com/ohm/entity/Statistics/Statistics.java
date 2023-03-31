@@ -3,9 +3,11 @@ package com.ohm.entity.Statistics;
 
 import lombok.*;
 import com.ohm.entity.Gym.Gym;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -22,6 +24,9 @@ public class Statistics {
 
     @Column(name = "statistics_date")
     private LocalDate statisticsDate;
+
+    @Column(name = "zero")
+    private Long zero;
 
     @Column(name = "one")
     private Long one;
@@ -92,10 +97,7 @@ public class Statistics {
     @Column(name = "twenty_three")
     private Long twentyThree;
 
-    @Column(name = "zero")
-    private Long zero;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "gym_id")
     private Gym gym;
 
