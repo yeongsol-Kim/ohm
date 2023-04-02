@@ -35,9 +35,11 @@ public class Manager {
     private String username;
 
     @CreatedDate
+    @Column(name = "created_time")
     private LocalDateTime createdTime;
 
     @LastModifiedBy
+    @Column(name = "last_modified_time")
     private LocalDateTime lastModifiedTime;
 
     @Column(name = "password")
@@ -62,6 +64,7 @@ public class Manager {
     @Column(name = "position")
     private String position;
 
+    @Column(name = "show_profile")
     private boolean showProfile;
 
     //실제이름
@@ -90,7 +93,7 @@ public class Manager {
     public void update(ManagerDto manager) {
 
         this.position = manager.getPosition();
-        this.username = manager.getUsername();
+//        this.username = manager.getUsername();
         this.lastModifiedTime = LocalDateTime.now();
         this.nickname = manager.getNickname();
         this.onelineIntroduce = manager.getOnelineIntroduce();

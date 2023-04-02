@@ -109,9 +109,6 @@ public class ManagerService{
     }
 
     private ManagerDto saveManagerAndReturnDto(ManagerRequestDto managerDto, Role role) {
-        System.out.println(managerDto.getUsername());
-        System.out.println("dasd");
-        System.out.println(managerDto.getGym().getName());
         if (ceoRepository.findByUsername(managerDto.getUsername()).orElse(null) != null || managerRepository.findByUsername(managerDto.getUsername()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어 있는 아이디입니다.");
         }

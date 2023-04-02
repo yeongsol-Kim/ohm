@@ -20,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 @Table(name = "gym")
-public class Gym {
+public class Gym{
 
     @Id
     @GeneratedValue

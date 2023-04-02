@@ -1,9 +1,14 @@
 package com.ohm.controller;
 
+import com.ohm.entity.Manager.Manager;
+import com.ohm.repository.GymRepository;
 import com.ohm.repository.ManagerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -16,9 +21,4 @@ public class LoginController {
         return "login/loginPage";
     }
 
-    @GetMapping("/aa")
-    public void aa() {
-        System.out.println(managerRepository.findByUsername("asdd11").orElse(null).getUsername());
-
-    }
 }

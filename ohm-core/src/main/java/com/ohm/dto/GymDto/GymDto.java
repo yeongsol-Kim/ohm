@@ -67,10 +67,10 @@ public class GymDto {
     private final List<Post> posts = new ArrayList<Post>();
 
     //테스트용 생성자
-    public GymDto(String name,int count, Long current_count){
+    public GymDto(String name,int count, Long currentCount){
         this.name = name;
         this.count = count;
-        this.currentCount = current_count;
+        this.currentCount = currentCount;
     }
 
     //GymDto save entity 생성자ㅣ
@@ -80,6 +80,17 @@ public class GymDto {
         this.count = count;
         this.code = code;
         //this.manager = managerDto.getGymDto().getManager();
+    }
+
+    public Long increase_count(){
+        this.currentCount = this.currentCount + 1;
+        return currentCount;
+    }
+
+
+    public Long decrease_count(){
+        this.currentCount = this.currentCount - 1;
+        return currentCount;
     }
 
 

@@ -36,7 +36,7 @@ public class StatisticsDto {
     private double twenty_one;
     private double twentyTwo;
     private double twentyThree;
-    private double zero;
+    private double twentyFour;
 
 
 }
