@@ -25,10 +25,6 @@ public class GymRequestDto {
     //헬스장 면적수
     private String area;
 
-    private int trainer_count;
-
-    //헬스장 현재 인원
-    private int current_count;
 
     //휴관일
     private String CLOSEDDAYS;

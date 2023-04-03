@@ -1,12 +1,12 @@
-package com.ohm.dto.requestDto;
-
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-@Getter
-@NoArgsConstructor
-public class ImageIdRequestDto {
-
-    private Long id;
-}
+//package com.ohm.dto.requestDto;
+//
+//
+//import lombok.Getter;
+//import lombok.NoArgsConstructor;
+//
+//@Getter
+//@NoArgsConstructor
+//public class ImageIdRequestDto {
+//
+//    private Long id;
+//}

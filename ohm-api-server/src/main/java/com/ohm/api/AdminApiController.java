@@ -142,7 +142,7 @@ public class AdminApiController {
             @PathVariable Long gymId
     ) {
 
-        List<TrainerResponseDto> trainerResponseDtos = managerService.trainer_findall(gymId);
+        List<TrainerResponseDto> trainerResponseDtos = managerService.managerFindall(gymId);
         return ResponseEntity.ok(trainerResponseDtos);
     }
 

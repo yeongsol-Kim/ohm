@@ -44,7 +44,7 @@ public class CeoService  {
 
 
     //ceoId로 ceo가 가지고있는 모든 gym 조회
-    public List<GymResponseDto> findall_gyms(Long ceoId){
+    public List<GymResponseDto> findallGyms(Long ceoId){
         List<Gym> gyms = gymRepository.findallGymsByCeoId(ceoId);
         List<GymResponseDto> gymDtos = new ArrayList<GymResponseDto>();
 
@@ -68,7 +68,7 @@ public class CeoService  {
         return gymDtos;
     }
 
-    public boolean check_code(String code) {
+    public boolean checkCode(String code) {
         Optional<Code> code1 = codeRepository.findCode(code);
         if (code1.get() == null) {
             return false;
@@ -79,7 +79,7 @@ public class CeoService  {
 
 
     //Ceo 회원가입
-    public CeoDto ceo_save(ManagerRequestDto managerDto) {
+    public CeoDto ceoSave(ManagerRequestDto managerDto) {
         if (ceoRepository.findByUsername(managerDto.getUsername()).orElse(null) != null || managerRepository.findByUsername(managerDto.getUsername()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어 있는 아이디.");
         }
