@@ -17,7 +17,6 @@ public class ManagerRequestDto {
 
     private String position;
 
-    private String email;
 
     private String password;
 
@@ -28,7 +27,6 @@ public class ManagerRequestDto {
     private String onelineIntroduce;
 
     private String introduce;
-
 
 
     private Role role;

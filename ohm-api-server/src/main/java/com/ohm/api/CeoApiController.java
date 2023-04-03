@@ -43,7 +43,7 @@ public class CeoApiController {
     public ResponseEntity<String> check_code(
             @PathVariable String code) {
 
-        boolean bool = ceoService.check_code(code);
+        boolean bool = ceoService.checkCode(code);
         if(bool == true){
             return ResponseEntity.ok("true");
         } else {
@@ -55,7 +55,7 @@ public class CeoApiController {
     @ApiOperation(value = "ceo 회원가입", response = ManagerDto.class)
     @PostMapping("/ceo")
     public ResponseEntity<CeoDto> ceo_signup(@Valid @RequestBody ManagerRequestDto managerDto) {
-        return ResponseEntity.ok(ceoService.ceo_save(managerDto));
+        return ResponseEntity.ok(ceoService.ceoSave(managerDto));
     }
 
 
@@ -67,7 +67,7 @@ public class CeoApiController {
             @PathVariable Long ceoId,
             @RequestPart(value = "images",required = false) MultipartFile file
     ) throws Exception {
-        List<GymResponseDto> gymResponseDtos = ceoService.findall_gyms(ceoId);
+        List<GymResponseDto> gymResponseDtos = ceoService.findallGyms(ceoId);
         return ResponseEntity.ok(gymResponseDtos);
     }
 

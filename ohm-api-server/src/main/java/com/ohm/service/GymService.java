@@ -68,12 +68,12 @@ public class GymService {
     }
 
 
-    //헬스장 생성 -- ROLE이 ROLE_MANAGER인 Manager만 사용가능
+    //헬스장 생성 -- CEO만 사용가능
+    //현재 다른 트랜잭션에서 time,price,img등을 저장중임 -> 하나의 트랜잭션에서 저장되게끔 개선(1번의 API요청으로 등록)
     @Transactional
-    public Long save(GymRequestDto gymDto, Long ceoId) throws Exception {
+    public Long registerGym(GymRequestDto gymDto, Long ceoId) throws Exception {
 
         Optional<Ceo> byId = ceoRepository.findById(ceoId);
-        // gymRepository.checkCode(gymDto.getCode());
 
         //img save
         Gym gym = Gym.builder()
@@ -84,16 +84,18 @@ public class GymService {
                 .count(gymDto.getCount())
                 .name(gymDto.getName())
                 .area(gymDto.getArea())
+
                 .onelineIntroduce(gymDto.getOnelineIntroduce())
-                .trainerCount(gymDto.getTrainer_count())
                 .introduce(gymDto.getIntroduce())
                 .build();
 
-        Gym save = gymRepository.save(gym);
-        return save.getId();
+
+
+        return gymRepository.save(gym).getId();
 
     }
 
+    //List<GymImg> 로 리턴타입 변경 후 registerGym Builder에 넣어주자.
     @Transactional
     public Long saveImg(Long gymId, List<MultipartFile> files) throws Exception {
         Optional<Gym> gym = gymRepository.findById(gymId);
@@ -137,7 +139,6 @@ public class GymService {
 
         List<GymResponseDto> gymDtos = new ArrayList<GymResponseDto>();
 
-        System.out.println(gyms.size());
         for (Gym gym : gyms) {
             List<GymImgResponseDto> gymImgDtos = new ArrayList<GymImgResponseDto>();
             for (GymImg gymImg : gym.getImgs()) {
@@ -195,8 +196,6 @@ public class GymService {
 
         GymResponseDto gymResponseDto = GymResponseDto.builder()
                 .address(gym.getAddress())
-                .trainer_count(gym.getTrainerCount())
-                .code(gym.getCode())
                 .current_count(gym.getCurrentCount())
                 .id(gym.getId())
                 .name(gym.getName())
@@ -220,36 +219,9 @@ public class GymService {
     }
 
 
-//    public CountResponseDto find_countresponse(Long gymId) throws Exception {
-//        Optional<Gym> byId = gymRepository.findById(gymId);
-//        String avgCount;
-//        //현재인원
-//        int current_count = byId.get().getCurrent_count();
-//
-//        //평균
-//        Double dateavg = inputRepository.dateavg(inputService.dayofweek(), gymId);
-//        System.out.println(dateavg);
-//        System.out.println(current_count);
-//        System.out.println("current_countcurrent_count");
-//        if((double) current_count <= dateavg){
-//            avgCount = "현재 헬스장은 원활합니다.";
-//        }else{
-//            avgCount = "현재 헬스장은 혼잡합니다";
-//        }
-//        CountResponseDto countResponseDto = CountResponseDto.builder()
-//                .count(current_count)
-//                .avgCount(avgCount)
-//                .build();
-//        if (byId.isPresent()) {
-//            return countResponseDto;
-//        } else {
-//            throw new Exception();
-//        }
-//    }
-
 
     //현재 GYM 인원수 조회
-    public Long currentCount(Long id) throws Exception {
+    public Long currentCount(Long id) {
         Optional<Gym> byId = gymRepository.findById(id);
         return byId.get().getCurrentCount();
     }
@@ -257,30 +229,28 @@ public class GymService {
 
     //현재 GYM 인원수 증가(1증가)
     @Transactional
-    public void increaseCount(Long id) throws Exception {
+    public void increaseCount(Long id)  {
         Gym gym = gymRepository.findById(id).orElse(null);
         gym.increaseCount();
     }
 
     //현재 GYM 인원수 감소(1감소)
     @Transactional
-    public void decreaseCount(Long id) throws Exception {
+    public void decreaseCount(Long id)  {
         Gym gym = gymRepository.findById(id).orElse(null);
         gym.decreaseCount();
     }
 
     //현재 GYM 인원수 0으로 초기화
     @Transactional
-    public void resetCount(Long id) throws Exception {
+    public void resetCount(Long id)  {
         Gym gym = gymRepository.findById(id).orElse(null);
         gym.resetCount();
     }
 
     @Transactional
     public Long registerPrice(Long gymId, GymPriceDto gymPriceDto) {
-
         Optional<Gym> byId = gymRepository.findById(gymId);
-
         GymPrice gymPrice_builder = GymPrice.builder()
                 .price(gymPriceDto.getPrice())
                 .during(gymPriceDto.getDuring())

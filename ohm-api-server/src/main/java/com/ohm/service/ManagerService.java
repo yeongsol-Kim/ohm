@@ -96,6 +96,7 @@ public class ManagerService{
 
    // Manager 회원가입
     public ManagerDto manager_save(ManagerRequestDto managerDto, Long gymId) {
+        //헬스장 정보 주입
         managerDto.setGym(gymRepository.findById(gymId).orElse(null));
         return saveManagerAndReturnDto(managerDto, Role.ROLE_MANAGER);
     }
@@ -132,14 +133,13 @@ public class ManagerService{
     }
 
 
-    //현재 시큐리티에 담겨져있는 계정 권한 가져오는 메서드
-    public ManagerDto getMyManagerWithAuthorities() {
-        return appConfig.modelMapper().map(SecurityUtils.getCurrentUsername().flatMap(managerRepository::findByUsername).get(), ManagerDto.class);
-    }
+//    //현재 시큐리티에 담겨져있는 계정 권한 가져오는 메서드
+//    public ManagerDto getMyManagerWithAuthorities() {
+//        return appConfig.modelMapper().map(SecurityUtils.getCurrentUsername().flatMap(managerRepository::findByUsername).get(), ManagerDto.class);
+//    }
 
     public ManagerDto getManagerInfo(Long id) {
 
-//        Manager findmanager = managerRepository.findManagerFetchJoinGym(id);
         Optional<Manager> findmanager = managerRepository.findOneWithGymById(id);
 
         ManagerDto managerDto = ManagerDto.builder()
@@ -164,7 +164,7 @@ public class ManagerService{
         return appConfig.modelMapper().map(byId.get(), TrainerResponseDto.class);
     }
 
-    public List<TrainerResponseDto> trainer_findall(Long gymId) {
+    public List<TrainerResponseDto> managerFindall(Long gymId) {
         List<Optional<Manager>> managers = managerRepository.findall_byGymId(gymId);
         List<TrainerResponseDto> trainerResponseDtos = new ArrayList<TrainerResponseDto>();
 
@@ -178,10 +178,7 @@ public class ManagerService{
 
     //매니저 정보수정
     public Optional<Manager> update(ManagerDto updateDto) {
-
-
         Optional<Manager> byId = managerRepository.findById(updateDto.getId());
-        //update생성자로 변경감지
         byId.get().update(updateDto);
         return byId;
     }
@@ -189,10 +186,10 @@ public class ManagerService{
 
 
     // ------------시큐리티에서 사용되는 메서드 --------------
-    private User createUser(String username, Manager manager) {
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(manager.getRole().toString());
-        return new User(manager.getUsername(), manager.getPassword(), Collections.singleton(grantedAuthority));
-    }
+//    private User createUser(String username, Manager manager) {
+//        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(manager.getRole().toString());
+//        return new User(manager.getUsername(), manager.getPassword(), Collections.singleton(grantedAuthority));
+//    }
 
 
 

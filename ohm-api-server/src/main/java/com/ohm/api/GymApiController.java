@@ -29,7 +29,6 @@ import java.util.List;
 public class GymApiController {
 
     private final GymService gymService;
-    private  final StatisticsService statisticsService;
     private final TotalStatisticsService totalStatisticsService;
 
 
@@ -41,7 +40,7 @@ public class GymApiController {
             @Valid @RequestBody GymRequestDto gymRequestDto
     ) throws Exception {
 
-        Long save = gymService.save(gymRequestDto,ceoId);
+        Long save = gymService.registerGym(gymRequestDto,ceoId);
 
         //헬스장 통계테이블 생성
         totalStatisticsService.register_table(save);
@@ -219,7 +218,7 @@ public class GymApiController {
 
     @ApiOperation(value = "gym price등록", response = Long.class)
     @PostMapping("/gym/price/{gymId}")
-    @PreAuthorize("hasRole('ROLE_CEO')")
+    @PreAuthorize("hasAnyRole('ROLE_CEO','ROLE_MANAGER','ROLE_TRAINER')")
     public ResponseEntity<Long> register_price(
             @RequestBody GymPriceDto gymPriceDto,
             @PathVariable Long gymId) throws Exception {
@@ -228,7 +227,8 @@ public class GymApiController {
     }
 
     //Post Price 수정
-    @ApiOperation(value = "GymPrice 수정", response = String.class)
+    //현재 삭제
+    @ApiOperation(value = "GymPrice 삭제", response = String.class)
     @PreAuthorize("hasAnyRole('ROLE_CEO','ROLE_MANAGER','ROLE_TRAINER')")
     @PatchMapping("/gym/price/{gymId}")
     public ResponseEntity<String> update_price(

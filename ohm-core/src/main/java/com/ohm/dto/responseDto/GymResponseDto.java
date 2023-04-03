@@ -23,15 +23,9 @@ public class GymResponseDto {
 
     private Long current_count;
 
-    private int code;
-
-    private int trainer_count;
-
-
     private List<GymImgResponseDto> imgs;
 
     private String introduce;
-
 
     private String onelineIntroduce;
 }

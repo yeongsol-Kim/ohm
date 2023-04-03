@@ -1,0 +1,13 @@
+애그리거트 재설계
+
+루트애그리거트끼리의 참조는 ID참조(간접참조)로 변경
+같은 애그리거트에 속한 객체들은 객체참조(직접 참조)로 변경
+(위와 같이 변경하는 이유는 JPA에서의 끝없이 탐색하는 기능이슈를 해결하기위함)
+
+루트 애그리거트 ( Gym , Post , Ceo , Manager , Question , Staticies , TotalStatics )
+
+메서드 플로우 파악
+
+Ceo Service
+
+1.findallGyms

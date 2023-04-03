@@ -5,8 +5,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import com.ohm.dto.AnswerDto.AnswerDto;
-import com.ohm.dto.ManagerDto.ManagerDto;
-import com.ohm.dto.requestDto.GymRequestDto;
 import com.ohm.service.AnswerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
