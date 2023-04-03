@@ -18,12 +18,15 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/login").permitAll()
+        http.authorizeRequests().antMatchers("/login", "/aa").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login")
-                .usernameParameter("name")
+                .formLogin()//.loginPage("/login")
+                .usernameParameter("username")
+                .defaultSuccessUrl("/login/success")
                 .and()
                 .logout();
 

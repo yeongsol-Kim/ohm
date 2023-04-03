@@ -35,9 +35,11 @@ public class Manager {
     private String username;
 
     @CreatedDate
+    @Column(name = "created_time")
     private LocalDateTime createdTime;
 
     @LastModifiedBy
+    @Column(name = "last_modified_time")
     private LocalDateTime lastModifiedTime;
 
     @Column(name = "password")
@@ -62,6 +64,7 @@ public class Manager {
     @Column(name = "position")
     private String position;
 
+    @Column(name = "show_profile")
     private boolean showProfile;
 
     //실제이름
