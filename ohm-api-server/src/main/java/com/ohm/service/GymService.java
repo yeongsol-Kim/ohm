@@ -48,6 +48,7 @@ public class GymService {
     private final GymPriceRepository gymPriceRepository;
 
 
+    //어플에서 선택한 price id를 가져와 삭제함
     @Transactional
     public void deletePrice(List<Long> ids) throws Exception {
         for (Long id : ids) {
@@ -68,34 +69,29 @@ public class GymService {
     }
 
 
-    //헬스장 생성 -- CEO만 사용가능
-    //현재 다른 트랜잭션에서 time,price,img등을 저장중임 -> 하나의 트랜잭션에서 저장되게끔 개선(1번의 API요청으로 등록)
     @Transactional
     public Long registerGym(GymRequestDto gymDto, Long ceoId) throws Exception {
 
         Optional<Ceo> byId = ceoRepository.findById(ceoId);
 
-        //img save
+        //Builder entity 영역으로 이동(리팩토링)
         Gym gym = Gym.builder()
                 .address(gymDto.getAddress())
+                //간접참조로 변경후 리팩토링
                 .ceo(byId.get())
-                .code(gymDto.getCode())
                 .currentCount(0L)
                 .count(gymDto.getCount())
                 .name(gymDto.getName())
                 .area(gymDto.getArea())
-
                 .onelineIntroduce(gymDto.getOnelineIntroduce())
                 .introduce(gymDto.getIntroduce())
                 .build();
-
 
 
         return gymRepository.save(gym).getId();
 
     }
 
-    //List<GymImg> 로 리턴타입 변경 후 registerGym Builder에 넣어주자.
     @Transactional
     public Long saveImg(Long gymId, List<MultipartFile> files) throws Exception {
         Optional<Gym> gym = gymRepository.findById(gymId);
@@ -104,17 +100,14 @@ public class GymService {
         } else {
 
             for (MultipartFile multipartFile : files) {
+                //로직분리(리팩토링)
                 LocalDateTime now = LocalDateTime.now();
                 DateTimeFormatter dateTimeFormatter =
                         DateTimeFormatter.ofPattern("yyyyMMdd");
                 String current_date = now.format(dateTimeFormatter);
                 String uuid_string = UUID.randomUUID().toString();
-
-
                 String ext = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf("."));
-                //url,orignName
 
-                // 파일 DTO 생성
                 GymImg gymImg = GymImg.builder()
                         .gym(gym.get())
                         .origFileName(multipartFile.getOriginalFilename())
@@ -124,17 +117,15 @@ public class GymService {
                 amazonS3ResourceStorage.upload(multipartFile, current_date, uuid_string + ext);
                 gymImgRepository.save(gymImg);
             }
-
         }
 
-
         return gym.get().getId();
-
     }
 
 
-    //모든 GYM 조회 App에서 List형식으로 조회
     public List<GymResponseDto> findall() {
+        //fetch join으로 gym img를 한번에 가져옴
+        //fetch join으로 안가져와도 proxy 저장후 지연로딩으로 가져오지만 최적화를 위해 fetch join 사용
         List<Gym> gyms = gymRepository.findAllFetchJoin();
 
         List<GymResponseDto> gymDtos = new ArrayList<GymResponseDto>();
@@ -156,7 +147,6 @@ public class GymService {
 
             gymDtos.add(gymResponseDto);
         }
-        System.out.println(gymDtos.size());
         return gymDtos;
     }
 
@@ -219,7 +209,6 @@ public class GymService {
     }
 
 
-
     //현재 GYM 인원수 조회
     public Long currentCount(Long id) {
         Optional<Gym> byId = gymRepository.findById(id);
@@ -229,21 +218,21 @@ public class GymService {
 
     //현재 GYM 인원수 증가(1증가)
     @Transactional
-    public void increaseCount(Long id)  {
+    public void increaseCount(Long id) {
         Gym gym = gymRepository.findById(id).orElse(null);
         gym.increaseCount();
     }
 
     //현재 GYM 인원수 감소(1감소)
     @Transactional
-    public void decreaseCount(Long id)  {
+    public void decreaseCount(Long id) {
         Gym gym = gymRepository.findById(id).orElse(null);
         gym.decreaseCount();
     }
 
     //현재 GYM 인원수 0으로 초기화
     @Transactional
-    public void resetCount(Long id)  {
+    public void resetCount(Long id) {
         Gym gym = gymRepository.findById(id).orElse(null);
         gym.resetCount();
     }
@@ -260,6 +249,7 @@ public class GymService {
         GymPrice save = gymPriceRepository.save(gymPrice_builder);
         return save.getId();
     }
+
 
     @Transactional
     public Long registerTime(Long gymId, GymTimeDto gymTimeDto) {
@@ -278,14 +268,8 @@ public class GymService {
                 .holiday(gymTimeDto.getHoliday())
                 .closeDay(gymTimeDto.getCloseDay())
                 .build();
-
-
         GymTime save = gymTimeRepository.save(gymTime);
-
-        //변경감지
         byId.get().register_time(save);
-
-
         return save.getId();
     }
 
@@ -304,20 +288,6 @@ public class GymService {
         return priceDtos;
     }
 
-
-    public Long checkCode(int code) throws Exception {
-        Gym gym = gymRepository.find_code(code);
-        return gym.getId();
-    }
-
-    public boolean duplicationCode(int code) throws Exception {
-        Gym gym = gymRepository.checkCode(code);
-        if (gym == null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     @Transactional
     public Optional<Gym> updateGym(GymDto gymDto) {

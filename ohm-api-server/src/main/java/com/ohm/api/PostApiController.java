@@ -45,7 +45,7 @@ public class PostApiController {
             @PathVariable Long postId,
             @RequestPart(value = "images", required = false) List<MultipartFile> files
     ) throws Exception {
-        Long save = postService.save_img(postId, files);
+        Long save = postService.saveImg(postId, files);
         return ResponseEntity.ok(save);
     }
 
@@ -71,7 +71,7 @@ public class PostApiController {
     public ResponseEntity<String> update(
             @RequestBody PostDto postDto
     ) {
-        postService.update_post(postDto);
+        postService.updatePost(postDto);
         return ResponseEntity.ok("Update!");
     }
 
@@ -86,7 +86,7 @@ public class PostApiController {
             @RequestPart(value = "images", required = false) List<MultipartFile> files
     ) throws Exception {
         postService.delete_imgs(imgIds);
-        postService.save_img(postId, files);
+        postService.saveImg(postId, files);
         return ResponseEntity.ok("Remove!");
     }
 

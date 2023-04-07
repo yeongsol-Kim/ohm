@@ -8,7 +8,6 @@ import com.ohm.config.AppConfig;
 import com.ohm.dto.PostDto.PostDto;
 import com.ohm.dto.responseDto.PostResponseDto;
 import com.ohm.entity.Gym.Gym;
-import com.ohm.entity.Gym.GymImg;
 import com.ohm.entity.Post.Post;
 import com.ohm.entity.Post.PostImg;
 import com.ohm.repository.gym.GymRepository;
@@ -69,7 +68,7 @@ public class PostService {
 
 
     @Transactional
-    public Long save_img(Long postId, List<MultipartFile> files) throws Exception {
+    public Long saveImg(Long postId, List<MultipartFile> files) throws Exception {
         Optional<Post> post = postRepository.findById(postId);
         if (files == null) {
 
@@ -123,7 +122,7 @@ public class PostService {
 
     //변경감지 게시물 수정 (클라이언트에서 수정된 사항은 해당 객체에 업데이트해서 넣고 아닌 값은 원래 객체 값을 대입해서 넣어주자)
     @Transactional
-    public Optional<Post> update_post(PostDto postDto) {
+    public Optional<Post> updatePost(PostDto postDto) {
         Optional<Post> byId = postRepository.findById(postDto.getId());
         byId.get().update(appConfig.modelMapper().map(postDto, Post.class));
         return byId;

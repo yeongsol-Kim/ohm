@@ -5,6 +5,7 @@ import com.ohm.dto.ManagerDto.LoginDto;
 import com.ohm.dto.ManagerDto.TokenDto;
 import com.ohm.dto.responseDto.GymResponseDto;
 import com.ohm.dto.responseDto.TrainerResponseDto;
+import com.ohm.entity.Gym.Gym;
 import com.ohm.jwt.JwtFilter;
 import com.ohm.jwt.TokenProvider;
 import com.ohm.service.CeoService;
@@ -52,6 +53,8 @@ public class CeoApiController {
     }
 
 
+
+
     @ApiOperation(value = "ceo 회원가입", response = ManagerDto.class)
     @PostMapping("/ceo")
     public ResponseEntity<CeoDto> ceo_signup(@Valid @RequestBody ManagerRequestDto managerDto) {
@@ -70,5 +73,7 @@ public class CeoApiController {
         List<GymResponseDto> gymResponseDtos = ceoService.findallGyms(ceoId);
         return ResponseEntity.ok(gymResponseDtos);
     }
+
+
 
 }

@@ -6,8 +6,8 @@
 
 루트 애그리거트 ( Gym , Post , Ceo , Manager , Question , Staticies , TotalStatics )
 
-메서드 플로우 파악
+현재 Service 계층에 Builder를 사용한 엔티티 생성 플로우가 형성되어 있습니다.이와 같은 설계의 문제점은 Post라는 객체 Builder를 사용하는 service메서드가 3개가 있는 상황속
+Post의 entity정보가 바뀌게 되면 3가지 메서드를 모두 수정해야되는 번거로운 일이 있다. 따라서 Builder를이용한 생성자는 service 영역이 아닌 entity 또는 dto 영역에 유연하게 넣어주쟝
 
-Ceo Service
 
-1.findallGyms
+Spring Security를 현재

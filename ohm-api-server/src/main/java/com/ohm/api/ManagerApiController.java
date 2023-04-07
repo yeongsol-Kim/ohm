@@ -32,13 +32,11 @@ public class ManagerApiController {
     @ApiOperation(value = "manager 회원가입", response = ManagerDto.class)
     @PostMapping("/manager/{gymId}")
     @PreAuthorize("hasAnyRole('ROLE_CEO','ROLE_MANAGER')")
-    public ResponseEntity<ManagerDto> manager_signup(
+    public ResponseEntity<ManagerDto> managerSignup(
             @PathVariable Long gymId,
             @Valid @RequestBody ManagerRequestDto managerDto) {
-        return ResponseEntity.ok(managerService.manager_save(managerDto,gymId));
+        return ResponseEntity.ok(managerService.managerSave(managerDto,gymId));
     }
-
-
 
 
 

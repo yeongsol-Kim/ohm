@@ -29,7 +29,7 @@ public class QuestionService {
 
 
     @Transactional
-    public Long save_question(Long gymId,QuestionDto questionDto){
+    public Long saveQuestion(Long gymId,QuestionDto questionDto){
         Optional<Gym> byId = gymRepository.findById(gymId);
 
         Question question = Question.builder()
@@ -44,13 +44,13 @@ public class QuestionService {
     }
 
     @Transactional
-    public void delete_question(Long questionId){
+    public void deleteQuestion(Long questionId){
         questionRepository.delete(questionRepository.findById(questionId).get());
 
     }
 
 
-    public List<QuestionDto> findall_question(Long gymId){
+    public List<QuestionDto> findallQuestion(Long gymId){
 
         List<QuestionDto> questionDtos = new ArrayList<QuestionDto>();
         List<Question> questions = questionRepository.findQuestionFetchJoin(gymId);
@@ -62,7 +62,7 @@ public class QuestionService {
     }
 
 
-    public QuestionDto find_question(Long questionId){
+    public QuestionDto findQuestion(Long questionId){
         return appConfig.modelMapper().map(questionRepository.findById(questionId).get(),QuestionDto.class);
     }
 }

@@ -33,7 +33,6 @@ public class GymController {
     }
 
     @GetMapping("/currentCountManage")
-//    @PreAuthorize("hasRole('ROLE_MANAGER')")
     public String myGymManageCurrentCountPage(Model model) {
 
         Long gymId = SecurityUtil.getCurrentGymId().orElse(null);
@@ -56,7 +55,6 @@ public class GymController {
     }
 
     @GetMapping("/gym/decreaseCurrentCount")
-//    @PreAuthorize("hasRole('ROLE_MANAGER')")
     public String decreaseMyGymCurrentCount(HttpServletRequest request) {
         Long gymId = SecurityUtil.getCurrentGymId().orElse(null);
         if (gymId.equals(null)) return "error/400";

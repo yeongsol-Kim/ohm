@@ -1,7 +1,6 @@
 package com.ohm.service;
 
 
-import com.ohm.dto.CeoDto.CeoDto;
 import com.ohm.entity.Enum.Role;
 import com.ohm.repository.ceo.CeoRepository;
 import com.ohm.s3.AmazonS3ResourceStorage;
@@ -15,10 +14,6 @@ import com.ohm.dto.responseDto.TrainerResponseDto;
 import com.ohm.entity.Manager.Manager;
 import com.ohm.repository.gym.GymRepository;
 import com.ohm.repository.manager.ManagerRepository;
-import com.ohm.utils.SecurityUtils;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,14 +90,14 @@ public class ManagerService{
     }
 
    // Manager 회원가입
-    public ManagerDto manager_save(ManagerRequestDto managerDto, Long gymId) {
+    public ManagerDto managerSave(ManagerRequestDto managerDto, Long gymId) {
         //헬스장 정보 주입
         managerDto.setGym(gymRepository.findById(gymId).orElse(null));
         return saveManagerAndReturnDto(managerDto, Role.ROLE_MANAGER);
     }
 
 
-    public ManagerDto trainer_save(ManagerRequestDto managerDto, Long gymId) {
+    public ManagerDto trainerSave(ManagerRequestDto managerDto, Long gymId) {
         managerDto.setGym(gymRepository.findById(gymId).orElse(null));
 
 
@@ -132,11 +127,6 @@ public class ManagerService{
         return appConfig.modelMapper().map(savedManager, ManagerDto.class);
     }
 
-
-//    //현재 시큐리티에 담겨져있는 계정 권한 가져오는 메서드
-//    public ManagerDto getMyManagerWithAuthorities() {
-//        return appConfig.modelMapper().map(SecurityUtils.getCurrentUsername().flatMap(managerRepository::findByUsername).get(), ManagerDto.class);
-//    }
 
     public ManagerDto getManagerInfo(Long id) {
 
@@ -184,12 +174,6 @@ public class ManagerService{
     }
 
 
-
-    // ------------시큐리티에서 사용되는 메서드 --------------
-//    private User createUser(String username, Manager manager) {
-//        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(manager.getRole().toString());
-//        return new User(manager.getUsername(), manager.getPassword(), Collections.singleton(grantedAuthority));
-//    }
 
 
 

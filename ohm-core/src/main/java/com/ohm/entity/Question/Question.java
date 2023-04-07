@@ -40,7 +40,10 @@ public class Question {
         this.answer = answer;
     }
 
+    //Question Answer 답변 메서드
     public void register_answer(Answer answer){
         this.answer = answer;
     }
+
+
 }

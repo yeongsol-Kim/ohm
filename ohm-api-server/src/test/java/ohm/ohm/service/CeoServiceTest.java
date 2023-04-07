@@ -1,105 +1,111 @@
-//package ohm.ohm.service;
-//
-//
-//import com.ohm.config.AppConfig;
-//import com.ohm.dto.CeoDto.CeoDto;
-//import com.ohm.dto.requestDto.ManagerRequestDto;
-//import com.ohm.entity.Ceo.Ceo;
-//import com.ohm.entity.Enum.Role;
-//import com.ohm.repository.ceo.CeoRepository;
-//import com.ohm.repository.manager.ManagerRepository;
-//import com.ohm.service.CeoService;
-//import com.ohm.service.ManagerService;
-//import org.junit.jupiter.api.Assertions;
-//import org.junit.jupiter.api.DisplayName;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.junit.jupiter.MockitoExtension;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//
-//import javax.swing.*;
-//import java.util.Optional;
-//
-//import static org.mockito.ArgumentMatchers.any;
-//import static org.mockito.BDDMockito.given;
-//
-//
-//@ExtendWith(MockitoExtension.class)
-//public class CeoServiceTest {
-//
-//    //@Mock 어노테이션은 Mock클래스로 생성해야하는 가짜 객체임을 알려준다.
-//    @Mock
-//    private CeoRepository ceoRepository;
-//
-//    //@InjectMocks 어노테이션은 Mock 객체를 주입받을 객체에 사용한다.
-//    //Service 클래스를 @InjectMocks로 선언함으로써 @Mock으로 선언된 가짜 객체들을 의존한 Service객체가 생성된다.
-//    @InjectMocks
-//    private CeoService ceoService;
-//
-//    @Mock
-//    private ManagerRepository managerRepository;
-//    @Mock
-//    private PasswordEncoder passwordEncoder;
-//    @Mock
-//    private AppConfig appConfig;
-//
-//
-//
-//
-//    @Test
-//    @DisplayName("Ceo save service test")
-//    public void ceo생성() throws Exception{
-//        //given
-//        ManagerRequestDto ceoRequest = createRequestDto();
-//        Ceo ceo =  createCeoEntity(ceoRequest);
-//        CeoDto ceoDto2 = createCeoDto(ceoRequest);
-//
-//
-//
-//        given(ceoRepository.findByUsername(any())).willReturn(Optional.ofNullable(null));
-//        given(managerRepository.findByUsername(any())).willReturn(Optional.ofNullable(null));
-//        given(ceoRepository.save(any())).willReturn(ceo);
-//        given(passwordEncoder.encode(any())).willReturn("1234");
-//        given(appConfig.modelMapper().map(any(),any())).willReturn(ceoDto2);
-//
-//        //when
-//        CeoDto ceoDto = ceoService.ceo_save(ceoRequest);
-//
-//        Assertions.assertEquals(ceoDto.getNickname(),ceoRequest.getNickname());
-//
-//
-//        //then
-//
+package ohm.ohm.service;
+import com.ohm.config.AppConfig;
+import com.ohm.dto.CeoDto.CeoDto;
+import com.ohm.dto.requestDto.ManagerRequestDto;
+import com.ohm.entity.Ceo.Ceo;
+import com.ohm.entity.Enum.Role;
+import com.ohm.repository.ceo.CeoRepository;
+import com.ohm.repository.gym.GymRepository;
+import com.ohm.repository.manager.ManagerRepository;
+import com.ohm.service.CeoService;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+
+
+@ExtendWith(MockitoExtension.class)
+public class CeoServiceTest {
+
+    //가짜 객체를 만듬
+    @Mock
+    private CeoRepository ceoRepository;
+
+    @Mock
+    private GymRepository gymRepository;
+
+    @Mock
+    private ManagerRepository managerRepository;
+
+    @Spy
+    private  AppConfig appConfig;
+
+    @Mock
+    private  PasswordEncoder passwordEncoder;
+
+    //만든 가짜 객체를 주입함
+    @InjectMocks
+    private CeoService ceoService;
+
+
+
+    @Test
+    public void ceo생성() throws Exception{
+        //given
+        Ceo ceo = createCeoEntity();
+        ManagerRequestDto managerRequestDto = createManagerRequestEntity();
+
+        //when
+        given(ceoRepository.findByUsername(any())).willReturn(Optional.empty());
+        given(managerRepository.findByUsername(any())).willReturn(Optional.empty());
+        given(ceoRepository.save(any())).willReturn(ceo);
+
+        CeoDto ceoDto = ceoService.ceoSave(managerRequestDto);
+
+        //then
+        Assertions.assertEquals(ceoDto.getUsername(),ceo.getUsername());
+    }
+
+    @Test
+    public void ceoId로모든gym조회(){
+        Ceo ceo = createCeoEntity();
+    }
+
+
+    private ManagerRequestDto createManagerRequestEntity(){
+        ManagerRequestDto managerRequestDto = ManagerRequestDto
+                .builder()
+
+                .nickname("username")
+                .password("1234")
+                .username("testuser")
+                .build();
+        return managerRequestDto;
+    }
+
+//    private List<Gym> createListGyms(){
+//        List<Gym> gyms = new ArrayList<>();
+//        for(int i = 0;i<3;i++){
+//            Gym gym = Gym.builder()
+//                    .count(100)
+//                    .build();
+//        }
 //    }
 //
-//    private Ceo createCeoEntity(ManagerRequestDto ceoRequest){
-//        return Ceo.builder()
-//                .nickname(ceoRequest.getNickname())
-//                .username(ceoRequest.getUsername())
-//                .build();
-//
-//    }
-//
-//    private CeoDto createCeoDto(ManagerRequestDto ceoRequest){
-//        return CeoDto.builder()
-//                .nickname(ceoRequest.getNickname())
-//                .username(ceoRequest.getUsername())
-//                .build();
-//    }
-//
-//    private ManagerRequestDto createRequestDto(){
-//        //실제 요청에선 ManagerRequestDto로 받음
-//        ManagerRequestDto managerDto = ManagerRequestDto.builder()
-//                .nickname("테스트nickname")
-//                .username("테스트name")
-//                .role(Role.ROLE_CEO)
-//                .password("1234")
-//                .build();
-//
-//        return managerDto;
-//        //Entity 변환
-//    }
-//
-//}
+
+
+
+    private Ceo createCeoEntity(){
+        Ceo ceo = Ceo.builder()
+                .username("username")
+                .id(1L)
+                .role(Role.ROLE_CEO)
+                .password("1234")
+                .nickname("testuser")
+                .build();
+
+        return ceo;
+
+    }
+
+
+}

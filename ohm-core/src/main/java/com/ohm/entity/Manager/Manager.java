@@ -80,20 +80,22 @@ public class Manager {
     @JoinColumn(name = "gym_id")
     private Gym gym;
 
+    //프로필 노출여부 변경메서드
     public void change_showProfile(){
         this.showProfile = !this.showProfile;
     }
 
+    //프로필 사진 등록 메서드
     public void register_profile(String profile, String profileOriginName) {
         this.profileUrl = profile;
         this.profileOriginName = profileOriginName;
     }
 
 
+    //프로필 수정 메서드
     public void update(ManagerDto manager) {
 
         this.position = manager.getPosition();
-//        this.username = manager.getUsername();
         this.lastModifiedTime = LocalDateTime.now();
         this.nickname = manager.getNickname();
         this.onelineIntroduce = manager.getOnelineIntroduce();

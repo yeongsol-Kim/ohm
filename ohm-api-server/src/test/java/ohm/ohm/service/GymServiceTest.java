@@ -3,43 +3,24 @@ package ohm.ohm.service;
 import com.ohm.config.AppConfig;
 import com.ohm.service.GymService;
 import com.ohm.repository.gym.GymRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 
-@SpringBootTest
-@Transactional
-@Rollback(value = false)
+@ExtendWith(MockitoExtension.class)
 public class GymServiceTest {
 
-    @Autowired
-    GymService gymService;
+    @Mock
+    private GymRepository gymRepository;
 
-    @Autowired
-    GymRepository gymRepository;
+    @Spy
+    private AppConfig appConfig;
 
-    @Autowired
-    AppConfig appConfig;
-
-
-
-
-
-
-
-
-//    @Test
-//    public void currentcount_test() throws Exception{
-//        GymDto gymDto = new GymDto("HIGYM",10,5);
-//        Gym map = appConfig.modelMapper().map(gymDto, Gym.class);
-//        Gym save = gymRepository.save(map);
-//
-//        int i = gymService.current_count(save.getId());
-//        Assertions.assertThat(i).isEqualTo(5);
-//    }
-
+    @InjectMocks
+    private GymService gymService;
 
 
 

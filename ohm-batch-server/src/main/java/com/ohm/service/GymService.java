@@ -26,7 +26,6 @@ public class GymService {
     public Boolean increaseCurrentCount(Long id) {
         Gym gym = gymRepository.findById(id).orElse(null);
         // 널체크
-
         gym.increaseCount();
         return true;
     }

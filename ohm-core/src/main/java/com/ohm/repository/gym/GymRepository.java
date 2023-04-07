@@ -39,13 +39,13 @@ public interface GymRepository extends JpaRepository<Gym,Long> {
     @Query("update Gym g set g.currentCount = 0 where g.id = :id")
     int reset_count(@Param("id")Long id);
 
-    @Query("select g from Gym g where g.code = :code")
-    Gym find_code(@Param("code")int code);
+//    @Query("select g from Gym g where g.code = :code")
+//    Gym find_code(@Param("code")int code);
 
 
     @Query("select distinct g from Gym g left join fetch g.gymTime where g.id = :id")
     Gym findTimeByGymId(@Param("id")Long id);
 
-    @Query("select g from Gym g where g.code = :code")
-    Gym checkCode(@Param("code") int code);
+//    @Query("select g from Gym g where g.code = :code")
+//    Gym checkCode(@Param("code") int code);
 }

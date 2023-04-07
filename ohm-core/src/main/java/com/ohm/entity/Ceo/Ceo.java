@@ -3,6 +3,7 @@ package com.ohm.entity.Ceo;
 
 import com.ohm.dto.ManagerDto.ManagerDto;
 
+import com.ohm.dto.requestDto.ManagerRequestDto;
 import com.ohm.entity.Admin;
 import com.ohm.entity.Enum.Role;
 import com.ohm.entity.Gym.Gym;

@@ -25,11 +25,9 @@ public class Post {
     @Column(name = "post_id")
     private Long id;
 
-    //글 제목
     @Column(name = "title")
     private String title;
 
-    //글 내용
     @Column(name = "content")
     private String content;
 
@@ -55,7 +53,6 @@ public class Post {
 
     @Builder
     public Post(String title, String content, Gym gym, LocalDateTime createdTime,String createdBy) {
-        //this.getCreatedBy() = String.valueOf(LocalDate.now());
         this.title = title;
         this.createdTime = LocalDateTime.now();
         this.createdBy = createdBy;
@@ -63,6 +60,8 @@ public class Post {
         this.gym = gym;
     }
 
+
+    //게시글 변경 메세드
     public void update(Post post) {
         this.id = post.getId();
         this.lastModifiedTime = LocalDateTime.now();

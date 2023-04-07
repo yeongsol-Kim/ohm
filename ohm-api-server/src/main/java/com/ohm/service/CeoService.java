@@ -1,8 +1,6 @@
 package com.ohm.service;
 import com.ohm.config.AppConfig;
 import com.ohm.dto.CeoDto.CeoDto;
-import com.ohm.dto.GymDto.GymDto;
-import com.ohm.dto.ManagerDto.ManagerDto;
 import com.ohm.dto.requestDto.ManagerRequestDto;
 import com.ohm.dto.responseDto.GymImgResponseDto;
 import com.ohm.dto.responseDto.GymResponseDto;
@@ -15,17 +13,12 @@ import com.ohm.repository.ceo.CeoRepository;
 import com.ohm.repository.gym.GymRepository;
 import com.ohm.repository.manager.CodeRepository;
 import com.ohm.repository.manager.ManagerRepository;
-import com.ohm.s3.AmazonS3ResourceStorage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -50,10 +43,10 @@ public class CeoService  {
 
         for (Gym gym : gyms) {
             List<GymImgResponseDto> gymImgDtos = new ArrayList<GymImgResponseDto>();
+            //프록시로 가지고 있다가 여기 시점에 쿼리를 날려 연관관계 조회
             for (GymImg gymImg : gym.getImgs()) {
                 gymImgDtos.add(appConfig.modelMapper().map(gymImg, GymImgResponseDto.class));
             }
-
             GymResponseDto gymResponseDto = GymResponseDto.builder()
                     .address(gym.getAddress())
                     .id(gym.getId())

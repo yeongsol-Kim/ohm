@@ -30,7 +30,7 @@ public class TrainerApiController {
     public ResponseEntity<ManagerDto> trainer_signup(
             @PathVariable Long gymId,
             @Valid @RequestBody ManagerRequestDto managerDto) {
-        return ResponseEntity.ok(managerService.trainer_save(managerDto,gymId));
+        return ResponseEntity.ok(managerService.trainerSave(managerDto,gymId));
     }
 
 }
