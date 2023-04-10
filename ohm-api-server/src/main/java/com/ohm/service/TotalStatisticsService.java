@@ -26,6 +26,7 @@ public class TotalStatisticsService {
     private final StatisticsRepository statisticsRepository;
     private final AppConfig appConfig;
 
+    //localDateTime 은 rds 시간,ec2 시간,spring start 시간등을 서울 시간으로 설정해줘야함
     @Transactional
     public void registerTable(Long gymId) {
 
@@ -37,11 +38,13 @@ public class TotalStatisticsService {
         totalStatisticsRepository.save(build);
     }
 
+    //totalStatistics 조회
     public TotalStatisticsDto getStatistics(Long gymId) {
         TotalStatistics statistics = totalStatisticsRepository.get_statistics(gymId);
         return appConfig.modelMapper().map(statistics, TotalStatisticsDto.class);
     }
 
+    //updateStatistics 업데이트 한시간마다.
     public void updateStatistics(Long gymId, Long statisticsId) {
         Optional<Statistics> byId = statisticsRepository.findById(statisticsId);
         TotalStatistics totalStatistics = totalStatisticsRepository.get_statistics(gymId);

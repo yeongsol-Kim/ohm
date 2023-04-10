@@ -58,12 +58,10 @@ public class CustomAdminService implements UserDetailsService {
         System.out.println(currentUsername);
 
         try {
-            Optional<Ceo> byUsername = ceoRepository.findByUsername(currentUsername.get());
             return appConfig.modelMapper().map(currentUsername.flatMap(ceoRepository::findByUsername).get(), AdminResponseDto.class);
         }catch (Exception userException){
 
             try {
-                Optional<Manager> byUsername = managerRepository.findByUsername(currentUsername.get());
                 return appConfig.modelMapper().map(currentUsername.flatMap(managerRepository::findByUsername).get(), AdminResponseDto.class);
             }
             catch (Exception adminException) {

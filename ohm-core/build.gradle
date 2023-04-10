@@ -1,12 +1,10 @@
-buildscript { // 이놈
+buildscript {
     ext {
-//        queryDslVersion = "5.0.0"
     }
 }
 
 plugins {
     id 'java'
-//    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group 'org.example'
@@ -17,10 +15,10 @@ repositories {
 }
 
 dependencies {
-    // QueryDSL
-    // querydsl 이놈
-//    compile "com.querydsl:querydsl-jpa:${queryDslVersion}"
-//    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+    //db와 관련된 라이브러리들
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'mysql:mysql-connector-java'
+    runtimeOnly 'com.h2database:h2'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
@@ -29,24 +27,3 @@ test {
     useJUnitPlatform()
 }
 
-
-////이놈
-//def querydslDir =  "$buildDir/generated/querydsl"
-//
-//
-//querydsl {
-//    jpa = true
-//    querydslSourcesDir = querydslDir
-//}
-//
-//sourceSets {
-//    main.java.srcDir querydslDir
-//}
-//
-//configurations {
-//    querydsl.extendsFrom compileClasspath
-//}
-//
-//compileQuerydsl {
-//    options.annotationProcessorPath = configurations.querydsl
-//}

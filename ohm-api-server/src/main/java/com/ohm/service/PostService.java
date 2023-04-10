@@ -42,7 +42,7 @@ public class PostService {
     private final AppConfig appConfig;
 
     @Transactional
-    public void delete_imgs(List<Long> ids) throws Exception {
+    public void delete_imgs(List<Long> ids)  {
 
         for (Long id : ids) {
             PostImg postImg = postImgRepository.findById(id).get();
@@ -53,7 +53,7 @@ public class PostService {
 
     //글 등록 - manager,trainer가 사용
     @Transactional
-    public Long save_content(Long gymId, PostDto postDto) throws Exception {
+    public Long save_content(Long gymId, PostDto postDto)  {
         Optional<Gym> gym = gymRepository.findById(gymId);
         Post post = Post.builder()
                 .createdBy(SecurityUtils.getCurrentUsername().get())

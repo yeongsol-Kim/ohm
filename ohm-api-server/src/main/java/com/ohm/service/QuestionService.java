@@ -40,7 +40,6 @@ public class QuestionService {
         Question save = questionRepository.save(question);
 
         return save.getId();
-
     }
 
     @Transactional

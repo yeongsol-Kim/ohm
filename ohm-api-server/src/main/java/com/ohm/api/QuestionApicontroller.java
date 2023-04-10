@@ -50,7 +50,7 @@ public class QuestionApicontroller {
     public ResponseEntity<List<QuestionDto>> findall(
             @PathVariable Long gymId
 
-    ) throws Exception {
+    )  {
 
         List<QuestionDto> questionDtos = questionService.findallQuestion(gymId);
         return ResponseEntity.ok(questionDtos);
