@@ -2,7 +2,7 @@ package com.ohm.service;
 
 import com.ohm.dto.GymDto.GymDto;
 import com.ohm.entity.Gym.Gym;
-import com.ohm.repository.GymRepository;
+import com.ohm.repository.gym.GymRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +26,6 @@ public class GymService {
     public Boolean increaseCurrentCount(Long id) {
         Gym gym = gymRepository.findById(id).orElse(null);
         // 널체크
-
         gym.increaseCount();
         return true;
     }

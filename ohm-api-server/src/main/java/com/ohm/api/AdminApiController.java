@@ -1,9 +1,7 @@
 package com.ohm.api;
 
 
-import com.ohm.dto.CeoDto.CeoDto;
 import com.ohm.dto.responseDto.AdminResponseDto;
-import com.ohm.service.CeoService;
 import com.ohm.service.CustomAdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

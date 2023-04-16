@@ -11,10 +11,10 @@ import com.ohm.repository.gym.GymRepository;
 import com.ohm.repository.question.QuestionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 
 
 @Service
@@ -29,40 +29,39 @@ public class QuestionService {
 
 
     @Transactional
-    public Long save_question(Long gymId,QuestionDto questionDto){
+    public Long saveQuestion(Long gymId, QuestionDto questionDto) {
         Optional<Gym> byId = gymRepository.findById(gymId);
 
         Question question = Question.builder()
                 .content(questionDto.getContent())
-                .gym(byId.get())
+                .gymId(byId.get().getId())
                 .build();
 
         Question save = questionRepository.save(question);
 
         return save.getId();
-
     }
 
     @Transactional
-    public void delete_question(Long questionId){
+    public void deleteQuestion(Long questionId) {
         questionRepository.delete(questionRepository.findById(questionId).get());
 
     }
 
 
-    public List<QuestionDto> findall_question(Long gymId){
+    public List<QuestionDto> findallQuestion(Long gymId) {
 
         List<QuestionDto> questionDtos = new ArrayList<QuestionDto>();
         List<Question> questions = questionRepository.findQuestionFetchJoin(gymId);
-        for(Question question : questions){
-            questionDtos.add(appConfig.modelMapper().map(question,QuestionDto.class));
+        for (Question question : questions) {
+            questionDtos.add(appConfig.modelMapper().map(question, QuestionDto.class));
         }
 
         return questionDtos;
     }
 
 
-    public QuestionDto find_question(Long questionId){
-        return appConfig.modelMapper().map(questionRepository.findById(questionId).get(),QuestionDto.class);
+    public QuestionDto findQuestion(Long questionId) {
+        return appConfig.modelMapper().map(questionRepository.findById(questionId).get(), QuestionDto.class);
     }
 }

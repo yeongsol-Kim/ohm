@@ -1,7 +1,6 @@
 package com.ohm.api;
 
 import com.ohm.dto.Statistics.TotalStatisticsDto;
-import com.ohm.entity.Statistics.TotalStatistics;
 import com.ohm.service.TotalStatisticsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,11 +8,9 @@ import lombok.RequiredArgsConstructor;
 import com.ohm.dto.GymDto.GymDto;
 import com.ohm.dto.GymDto.GymPriceDto;
 import com.ohm.dto.GymDto.GymTimeDto;
-import com.ohm.dto.Statistics.StatisticsDto;
 import com.ohm.dto.requestDto.GymRequestDto;
 import com.ohm.dto.responseDto.GymResponseDto;
 import com.ohm.service.GymService;
-import com.ohm.service.StatisticsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -41,9 +38,8 @@ public class GymApiController {
     ) throws Exception {
 
         Long save = gymService.registerGym(gymRequestDto,ceoId);
-
         //헬스장 통계테이블 생성
-        totalStatisticsService.register_table(save);
+        totalStatisticsService.registerTable(save);
         return ResponseEntity.ok(save);
 
     }
@@ -74,7 +70,7 @@ public class GymApiController {
             @PathVariable Long gymId
 
     ) throws Exception {
-        TotalStatisticsDto value = totalStatisticsService.get_statistics(gymId);
+        TotalStatisticsDto value = totalStatisticsService.getStatistics(gymId);
         return ResponseEntity.ok(value);
     }
 
@@ -111,7 +107,6 @@ public class GymApiController {
 
         gymService.increaseCount(gymId);
         Long currentCount = gymService.findByIdCount(gymId);
-//        statisticsService.add_statistics(gymId,current_count);
         return ResponseEntity.ok(currentCount);
     }
 
@@ -121,38 +116,10 @@ public class GymApiController {
     public ResponseEntity<Long> decrease_count(@PathVariable Long gymId) throws Exception {
         gymService.decreaseCount(gymId);
         Long currentCount = gymService.findByIdCount(gymId);
-//        statisticsService.add_statistics(gymId,current_count);
-       // inputService.insert_data(current_count, gymId, "output");
         return ResponseEntity.ok(currentCount);
     }
 
 
-    //Trainer가 회원가입시 code
-    @ApiOperation(value = "code로 GymId조회", response = Long.class)
-    @GetMapping("/gym/code/{code}")
-    public ResponseEntity<Long> check_code(@PathVariable int code) throws Exception {
-        Long aLong = gymService.checkCode(code);
-        return
-                ResponseEntity.ok(aLong);
-    }
-
-
-    //CEO가 Gym등록시 가입코드 중복 조회
-    @ApiOperation(value = "Gym가입코드 조회", response = Long.class)
-    @PostMapping("/gym/code/{code}")
-    @PreAuthorize("hasRole('ROLE_CEO')")
-    public ResponseEntity<String> duplication_code(
-            @PathVariable int code
-    ) throws Exception {
-
-        boolean bool = gymService.duplicationCode(code);
-        if (bool == true) {
-            return ResponseEntity.ok("OK");
-        } else {
-            return ResponseEntity.ok("NO");
-        }
-
-    }
 
 
     @ApiOperation(value = "gymId로 GymTime 조회", response = GymTimeDto.class)
@@ -206,7 +173,7 @@ public class GymApiController {
     @ApiOperation(value = "GymImg 수정", response = String.class)
     @PreAuthorize("hasAnyRole('ROLE_CEO','ROLE_MANAGER','ROLE_TRAINER')")
     @PostMapping("/gym/image/update/{gymId}")
-    public ResponseEntity<String> update_img(
+    public ResponseEntity<String> updateImg(
             @RequestParam List<Long> imgIds,
             @PathVariable Long gymId,
             @RequestPart(value = "images", required = false) List<MultipartFile> files
@@ -219,19 +186,17 @@ public class GymApiController {
     @ApiOperation(value = "gym price등록", response = Long.class)
     @PostMapping("/gym/price/{gymId}")
     @PreAuthorize("hasAnyRole('ROLE_CEO','ROLE_MANAGER','ROLE_TRAINER')")
-    public ResponseEntity<Long> register_price(
+    public ResponseEntity<Long> registerPrice(
             @RequestBody GymPriceDto gymPriceDto,
             @PathVariable Long gymId) throws Exception {
         Long aLong = gymService.registerPrice(gymId, gymPriceDto);
         return ResponseEntity.ok(aLong);
     }
 
-    //Post Price 수정
-    //현재 삭제
     @ApiOperation(value = "GymPrice 삭제", response = String.class)
     @PreAuthorize("hasAnyRole('ROLE_CEO','ROLE_MANAGER','ROLE_TRAINER')")
     @PatchMapping("/gym/price/{gymId}")
-    public ResponseEntity<String> update_price(
+    public ResponseEntity<String> updatePrice(
             @RequestParam List<Long> priceIds,
             @PathVariable Long gymId
 
@@ -241,11 +206,10 @@ public class GymApiController {
         return ResponseEntity.ok("DELETE!");
     }
 
-    //Post Price 수정
     @ApiOperation(value = "현재 인원수 0으로 초기화", response = String.class)
     @PreAuthorize("hasAnyRole('ROLE_CEO','ROLE_MANAGER','ROLE_TRAINER')")
     @PostMapping("/gym/reset/{gymId}")
-    public ResponseEntity<String> reset_count(
+    public ResponseEntity<String> resetCount(
             @PathVariable Long gymId
     ) throws Exception {
         gymService.resetCount(gymId);

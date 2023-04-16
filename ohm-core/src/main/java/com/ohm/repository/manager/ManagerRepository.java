@@ -18,18 +18,6 @@ public interface ManagerRepository extends JpaRepository<Manager,Long> {
 
     Optional<Manager> findByUsername(String username);
 
-    @Query("select distinct m from Manager m left join fetch m.gym where m.id = :manager_id")
-    Manager findManagerFetchJoinGym(@Param("manager_id")Long manager_id);
-
-    @EntityGraph(attributePaths = "gym")
-    Optional<Manager> findOneWithGymById(Long id);
-
-
-    @Modifying(clearAutomatically = true)
-    @Query(value = "update manager m set m.gym_id = :gym_id where m.manager_id =:manager_id",nativeQuery = true)
-    void registerByGymId(@Param("manager_id")Long manager_id,@Param("gym_id")Long gym_id);
-
-
 
     @Query(value = "select * from manager where manager.gym_id = :gym_id",nativeQuery = true)
     List<Optional<Manager>> findall_byGymId(@Param("gym_id")Long gym_id);

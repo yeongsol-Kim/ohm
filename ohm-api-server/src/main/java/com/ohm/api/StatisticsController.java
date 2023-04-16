@@ -18,18 +18,5 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class StatisticsController {
 
-    private final GymService gymService;
-    private final StatisticsService statisticsService;
 
-    @ApiOperation(value = "Gym 등록(ROLE_CEO만 사용)", response = Long.class)
-    @PostMapping("/test")
-    @PreAuthorize("hasRole('ROLE_CEO')")
-    public ResponseEntity<String> save(
-
-    ) throws Exception {
-        statisticsService.hourlyStatistics();
-
-        return ResponseEntity.ok("ok");
-
-    }
 }

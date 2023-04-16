@@ -11,8 +11,6 @@ buildscript {
 }
 
 
-
-
 //setting.gradle에 include 된 프로젝트를 전부 관리한다.
 //rootproject까지 적용시키고 싶은 경오 allprojects로 등록하면 된다.
 subprojects {
@@ -31,16 +29,16 @@ subprojects {
 
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-        implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-devtools'
         implementation 'org.springframework.boot:spring-boot-starter-validation'
-        implementation 'mysql:mysql-connector-java'
-        implementation 'org.springframework.boot:spring-boot-starter-security'
-        runtimeOnly 'com.h2database:h2'
+
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
+
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
     }
@@ -57,7 +55,7 @@ project(':ohm-core') {
     jar { enabled = true }
 
     dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter-web'
+
     }
 }
 

@@ -72,6 +72,8 @@ public class TokenProvider implements InitializingBean {
     }
 
 
+
+
     //Token에 담겨있는 정보를 이용해 Authentication객체를 리턴하는 메소드 생성 ,createToken 메서드와 상반된 관계
     public Authentication getAuthentication(String token) {
 

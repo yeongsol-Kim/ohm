@@ -6,11 +6,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import com.ohm.dto.ManagerDto.ManagerDto;
 import com.ohm.dto.requestDto.ManagerRequestDto;
-import com.ohm.jwt.TokenProvider;
 import com.ohm.service.ManagerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,7 +28,7 @@ public class TrainerApiController {
     public ResponseEntity<ManagerDto> trainer_signup(
             @PathVariable Long gymId,
             @Valid @RequestBody ManagerRequestDto managerDto) {
-        return ResponseEntity.ok(managerService.trainer_save(managerDto,gymId));
+        return ResponseEntity.ok(managerService.trainerSave(managerDto,gymId));
     }
 
 }

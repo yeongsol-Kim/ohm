@@ -34,6 +34,8 @@ public class GymDto {
 
     private String area;
 
+    private Long ceoId;
+
 
     @JsonIgnore
     private List<GymImgDto> imgs;
@@ -42,7 +44,6 @@ public class GymDto {
 
     private String onelineIntroduce;
 
-    private int code;
 
     private Long currentCount;
 
@@ -65,34 +66,6 @@ public class GymDto {
 
     @JsonIgnore
     private final List<Post> posts = new ArrayList<Post>();
-
-    //테스트용 생성자
-    public GymDto(String name,int count, Long currentCount){
-        this.name = name;
-        this.count = count;
-        this.currentCount = currentCount;
-    }
-
-    //GymDto save entity 생성자ㅣ
-    public GymDto(String name,String address,int count,int code){
-        this.name = name;
-        this.address = address;
-        this.count = count;
-        this.code = code;
-        //this.manager = managerDto.getGymDto().getManager();
-    }
-
-    public Long increase_count(){
-        this.currentCount = this.currentCount + 1;
-        return currentCount;
-    }
-
-
-    public Long decrease_count(){
-        this.currentCount = this.currentCount - 1;
-        return currentCount;
-    }
-
 
 
 

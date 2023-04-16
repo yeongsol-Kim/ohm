@@ -24,32 +24,35 @@ public class AnswerService {
     private final QuestionRepository questionRepository;
     private final AppConfig appConfig;
 
-    public AnswerDto find_answer(Long id){
-        Optional<Answer> byId = answerRepository.findById(id);
-        return appConfig.modelMapper().map(byId.get(),AnswerDto.class);
-    }
-
 
     @Transactional
-    public AnswerDto save(AnswerDto answerDto,Long questionId){
+    public AnswerDto save(AnswerDto answerDto, Long questionId) {
+        //질문을 찾는다.
         Optional<Question> byId = questionRepository.findById(questionId);
+
+        //Answer 객체를 생성한다.
         Answer answer = Answer.builder()
                 .content(answerDto.getContent())
                 .question(byId.get())
                 .build();
+
+        //entity를 저장한다.
         Answer answerSaved = answerRepository.save(answer);
+
+        //Question에 Answer과의 연관관계를 설정해준다.
         byId.get().register_answer(answerSaved);
-        return appConfig.modelMapper().map(answerSaved,AnswerDto.class);
+
+        return appConfig.modelMapper().map(answerSaved, AnswerDto.class);
     }
 
     @Transactional
-    public void delete(Long answerId){
+    public void delete(Long answerId) {
         answerRepository.delete(answerRepository.findById(answerId).get());
         return;
     }
 
     @Transactional
-    public void update(Long answerId,AnswerDto answerDto){
+    public void update(Long answerId, AnswerDto answerDto) {
         Optional<Answer> byId = answerRepository.findById(answerId);
         byId.get().update(answerDto);
         return;

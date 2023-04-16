@@ -25,11 +25,9 @@ public class Post {
     @Column(name = "post_id")
     private Long id;
 
-    //글 제목
     @Column(name = "title")
     private String title;
 
-    //글 내용
     @Column(name = "content")
     private String content;
 
@@ -47,22 +45,21 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<PostImg> imgs;
 
-    //Gym과 연관관계
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gym_id")
-    private Gym gym;
+    @Column(name = "gym_id")
+    private Long gymId;
+
 
     @Builder
-    public Post(String title, String content, Gym gym, LocalDateTime createdTime,String createdBy) {
-        //this.getCreatedBy() = String.valueOf(LocalDate.now());
+    public Post(String title, String content, Long gymId, LocalDateTime createdTime,String createdBy) {
         this.title = title;
         this.createdTime = LocalDateTime.now();
         this.createdBy = createdBy;
         this.content = content;
-        this.gym = gym;
+        this.gymId = gymId;
     }
 
+
+    //게시글 변경 메세드
     public void update(Post post) {
         this.id = post.getId();
         this.lastModifiedTime = LocalDateTime.now();

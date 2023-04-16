@@ -35,16 +35,11 @@ public class Gym{
     @Column(name = "address")
     private String address;
 
-    //헬스장 총인원
     private int count;
 
-    //한줄소개
     @Column(name = "oneline_introduce")
     private String onelineIntroduce;
 
-
-    //트레이너가 가입시 해당 code로 인증후 어느 헬스장인지 식별
-    private int code;
 
     //헬스장 소개 문구
     @Column(name = "introduce")
@@ -68,34 +63,19 @@ public class Gym{
     private List<GymImg> imgs;
 
 
-    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
-    private List<Statistics> statistics;
-
 
     @OneToOne(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
     private GymTime gymTime;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
-    private final List<Manager> managers = new ArrayList<Manager>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ceo_id")
-    private Ceo ceo;
+    @Column(name = "ceo_id")
+    private Long ceoId;
 
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private final List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<GymPrice> prices;
 
-    @OneToOne(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private TotalStatistics totalStatistics;
-
-    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<Question> questions;
 
 
     public void register_time(GymTime gymTime){
@@ -112,7 +92,6 @@ public class Gym{
         this.address = gym.getAddress();
         this.introduce = gym.getIntroduce();
         this.count = gym.getCount();
-        this.code = gym.getCode();
     }
 
     public Long increaseCount() {

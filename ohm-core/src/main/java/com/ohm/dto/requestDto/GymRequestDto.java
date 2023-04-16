@@ -1,10 +1,14 @@
 package com.ohm.dto.requestDto;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class GymRequestDto {
 
@@ -16,8 +20,6 @@ public class GymRequestDto {
 
     private String onelineIntroduce;
 
-    //트레이너가 가입시 해당 code로 인증후 어느 헬스장인지 식별
-    private int code;
 
     //헬스장 소개 문구
     private String introduce;

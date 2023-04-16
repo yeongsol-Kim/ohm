@@ -20,7 +20,6 @@ public class AdminDto {
 
     private String name;
 
-    private List<ManagerDto> managers = new ArrayList<ManagerDto>();
 
     public AdminDto(String name){
         this.name = name;

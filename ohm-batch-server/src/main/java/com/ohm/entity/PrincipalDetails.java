@@ -19,42 +19,16 @@ public class PrincipalDetails implements UserDetails {
     }
 
     public Long getGymId() {
-        return user.getGym().getId();
+        return user.getGymId();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new ArrayList<>();
-
-
-//        log.info("aaaa");
-//        for(AccountAuthority a : user.getAuthorities()) {
-////            log.info(a.getAuthority().getAuthorityName());
         collection.add(new SimpleGrantedAuthority(user.getRole().toString()));
-//        }
-//        log.info("dddd");
-
-//        user.getAuthorities().stream().map(a ->
-//                collection.add(new SimpleGrantedAuthority(a.getAuthority().getAuthorityName()))
-//        );
-
         return collection;
     }
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        ArrayList<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
-//        user.getAuthorities().stream().map(s -> authList.add(new GrantedAuthority() {
-//                @Override
-//                public String getAuthority() {
-//                    System.out.println(s.getAuthorityName());
-//                    return s.getAuthorityName();
-//                }
-//            })
-//        );
-//
-//        return authList;
-//    }
 
     @Override
     public String getPassword() {
