@@ -1,7 +1,7 @@
 package com.ohm.entity.Answer;
 
-import lombok.*;
 import com.ohm.dto.AnswerDto.AnswerDto;
+import lombok.*;
 import com.ohm.entity.Question.Question;
 
 import javax.persistence.*;

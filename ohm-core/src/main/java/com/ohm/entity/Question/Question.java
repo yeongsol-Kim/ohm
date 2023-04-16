@@ -24,19 +24,18 @@ public class Question {
     @Column(name = "content")
     private String content;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gym_id")
-    private Gym gym;
+
+    @Column(name = "gym_id")
+    private Long gymId;
 
     @OneToOne
     @JoinColumn(name = "answer_id")
     private Answer answer;
 
     @Builder
-    public Question(String content,Gym gym,Answer answer){
+    public Question(String content,Long gymId,Answer answer){
         this.content = content;
-        this.gym = gym;
+        this.gymId = gymId;
         this.answer = answer;
     }
 

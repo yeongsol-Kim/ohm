@@ -1,10 +1,8 @@
 package com.ohm.dto.PostDto;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.ohm.dto.GymDto.GymDto;
 
 import java.util.List;
 
@@ -21,8 +19,7 @@ public class PostDto {
 
     private List<PostImgDto> imgs;
 
-    @JsonIgnore
-    private GymDto gym;
+    private Long gymId;
 
     public PostDto(String title,String content){
         this.title = title;
@@ -37,11 +34,11 @@ public class PostDto {
 
 
     //Post 저장 생성자
-    public PostDto(String title,String content,GymDto gymDto){
+    public PostDto(String title,String content,Long gymId){
         this.id = id;
         this.title = title;
         this.content = content;
-        this.gym = gymDto;
+        this.gymId = gymId;
     }
 
 

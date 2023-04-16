@@ -96,9 +96,11 @@ public class TotalStatistics {
     private Long twentyThree;
 
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gym_id")
-    private Gym gym;
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "gym_id")
+//    private Gym gym;
+    @Column(name = "gym_id")
+    private Long gymId;
 
     public void update(Statistics statistics){
         if(statistics.getZero() == 0L){

@@ -55,7 +55,6 @@ public class CustomAdminService implements UserDetailsService {
     //현재 시큐리티에 담겨져있는 계정 권한 가져오는 메서드
     public AdminResponseDto getMyManagerWithAuthorities() {
         Optional<String> currentUsername = SecurityUtils.getCurrentUsername();
-        System.out.println(currentUsername);
 
         try {
             return appConfig.modelMapper().map(currentUsername.flatMap(ceoRepository::findByUsername).get(), AdminResponseDto.class);

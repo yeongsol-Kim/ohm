@@ -45,19 +45,17 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<PostImg> imgs;
 
-    //Gym과 연관관계
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gym_id")
-    private Gym gym;
+    @Column(name = "gym_id")
+    private Long gymId;
+
 
     @Builder
-    public Post(String title, String content, Gym gym, LocalDateTime createdTime,String createdBy) {
+    public Post(String title, String content, Long gymId, LocalDateTime createdTime,String createdBy) {
         this.title = title;
         this.createdTime = LocalDateTime.now();
         this.createdBy = createdBy;
         this.content = content;
-        this.gym = gym;
+        this.gymId = gymId;
     }
 
 

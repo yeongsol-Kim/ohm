@@ -6,7 +6,6 @@ import com.ohm.dto.ManagerDto.ManagerDto;
 import com.ohm.dto.requestDto.ManagerRequestDto;
 import com.ohm.entity.Admin;
 import com.ohm.entity.Enum.Role;
-import com.ohm.entity.Gym.Gym;
 import com.ohm.entity.embedded.BaseTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,8 +13,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -34,6 +31,9 @@ public class Ceo extends BaseTime {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "available")
+    private boolean available;
+
     @Column(name = "password")
     private String password;
 
@@ -49,8 +49,8 @@ public class Ceo extends BaseTime {
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
-    @OneToMany(mappedBy = "ceo",cascade = CascadeType.PERSIST,orphanRemoval = true)
-    private final List<Gym> gyms = new ArrayList<Gym>();
+//    @OneToMany(mappedBy = "ceo",cascade = CascadeType.PERSIST,orphanRemoval = true)
+//    private final List<Gym> gyms = new ArrayList<Gym>();
 
 
     public void update(ManagerDto manager) {

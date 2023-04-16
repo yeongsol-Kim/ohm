@@ -11,8 +11,6 @@ buildscript {
 }
 
 
-
-
 //setting.gradle에 include 된 프로젝트를 전부 관리한다.
 //rootproject까지 적용시키고 싶은 경오 allprojects로 등록하면 된다.
 subprojects {

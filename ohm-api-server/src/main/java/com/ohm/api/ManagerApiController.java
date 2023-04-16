@@ -2,21 +2,12 @@ package com.ohm.api;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import com.ohm.dto.ManagerDto.LoginDto;
 import com.ohm.dto.ManagerDto.ManagerDto;
-import com.ohm.dto.ManagerDto.TokenDto;
-import com.ohm.dto.PostDto.PostDto;
 import com.ohm.dto.requestDto.ManagerRequestDto;
-import com.ohm.dto.responseDto.TrainerResponseDto;
-import com.ohm.entity.Gym.Gym;
-import com.ohm.entity.Manager.Manager;
-import com.ohm.jwt.TokenProvider;
 import com.ohm.service.ManagerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 

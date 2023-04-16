@@ -63,34 +63,19 @@ public class Gym{
     private List<GymImg> imgs;
 
 
-    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
-    private List<Statistics> statistics;
-
 
     @OneToOne(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
     private GymTime gymTime;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST,orphanRemoval = true)
-    private final List<Manager> managers = new ArrayList<Manager>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ceo_id")
-    private Ceo ceo;
+    @Column(name = "ceo_id")
+    private Long ceoId;
 
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private final List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<GymPrice> prices;
 
-    @OneToOne(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private TotalStatistics totalStatistics;
-
-    @OneToMany(mappedBy = "gym",cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<Question> questions;
 
 
     public void register_time(GymTime gymTime){

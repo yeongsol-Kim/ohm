@@ -1,7 +1,6 @@
 package com.ohm.api;
 
 import com.ohm.dto.Statistics.TotalStatisticsDto;
-import com.ohm.entity.Statistics.TotalStatistics;
 import com.ohm.service.TotalStatisticsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,11 +8,9 @@ import lombok.RequiredArgsConstructor;
 import com.ohm.dto.GymDto.GymDto;
 import com.ohm.dto.GymDto.GymPriceDto;
 import com.ohm.dto.GymDto.GymTimeDto;
-import com.ohm.dto.Statistics.StatisticsDto;
 import com.ohm.dto.requestDto.GymRequestDto;
 import com.ohm.dto.responseDto.GymResponseDto;
 import com.ohm.service.GymService;
-import com.ohm.service.StatisticsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

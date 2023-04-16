@@ -7,7 +7,6 @@ import com.ohm.s3.AmazonS3ResourceStorage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import com.ohm.config.AppConfig;
-import com.ohm.dto.GymDto.GymDto;
 import com.ohm.dto.ManagerDto.ManagerDto;
 import com.ohm.dto.requestDto.ManagerRequestDto;
 import com.ohm.dto.responseDto.TrainerResponseDto;
@@ -28,7 +27,7 @@ import java.util.*;
 @Slf4j
 @RequiredArgsConstructor
 @Transactional
-public class ManagerService{
+public class ManagerService {
 
     private final CeoRepository ceoRepository;
     private final AmazonS3ResourceStorage amazonS3ResourceStorage;
@@ -38,12 +37,12 @@ public class ManagerService{
     private final PasswordEncoder passwordEncoder;
 
 
-    public void change_showProfile(Long managerId){
+    public void change_showProfile(Long managerId) {
         Optional<Manager> byId = managerRepository.findById(managerId);
         byId.get().change_showProfile();
     }
 
-    public void delete(Long managerId){
+    public void delete(Long managerId) {
         Optional<Manager> byId = managerRepository.findById(managerId);
         managerRepository.delete(byId.get());
     }
@@ -89,16 +88,16 @@ public class ManagerService{
         byId.get().register_profile(current_date + File.separator + uuid_string + ext, multipartFile.getOriginalFilename());
     }
 
-   // Manager 회원가입
+    // Manager 회원가입
     public ManagerDto managerSave(ManagerRequestDto managerDto, Long gymId) {
         //헬스장 정보 주입
-        managerDto.setGym(gymRepository.findById(gymId).orElse(null));
+        managerDto.setGym(gymRepository.findById(gymId).orElse(null).getId());
         return saveManagerAndReturnDto(managerDto, Role.ROLE_MANAGER);
     }
 
 
     public ManagerDto trainerSave(ManagerRequestDto managerDto, Long gymId) {
-        managerDto.setGym(gymRepository.findById(gymId).orElse(null));
+        managerDto.setGym(gymRepository.findById(gymId).orElse(null).getId());
 
 
         return saveManagerAndReturnDto(managerDto, Role.ROLE_TRAINER);
@@ -111,8 +110,9 @@ public class ManagerService{
 
         Manager manager = Manager.builder()
                 .username(managerDto.getUsername())
-                .gym(managerDto.getGym())
+                .gymId(managerDto.getGymId())
                 .showProfile(true)
+                .available(true)
                 .position(managerDto.getPosition())
                 .password(passwordEncoder.encode(managerDto.getPassword()))
                 .nickname(managerDto.getNickname())
@@ -128,13 +128,14 @@ public class ManagerService{
     }
 
 
+    //manager가 자신의 정보를 가져올때 id를 통해 조회
     public ManagerDto getManagerInfo(Long id) {
 
-        Optional<Manager> findmanager = managerRepository.findOneWithGymById(id);
+        Optional<Manager> findmanager = managerRepository.findById(id);
 
         ManagerDto managerDto = ManagerDto.builder()
                 .name(findmanager.get().getUsername())
-                .gymDto(appConfig.modelMapper().map(findmanager.get().getGym(), GymDto.class))
+                .gymId(findmanager.get().getGymId())
                 .id(findmanager.get().getId())
                 .nickname(findmanager.get().getNickname())
                 .introduce(findmanager.get().getIntroduce())
@@ -145,7 +146,6 @@ public class ManagerService{
 
         return managerDto;
     }
-
 
 
     //Id로 매니저 조회
@@ -172,9 +172,6 @@ public class ManagerService{
         byId.get().update(updateDto);
         return byId;
     }
-
-
-
 
 
 }

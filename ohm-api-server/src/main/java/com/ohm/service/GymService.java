@@ -78,7 +78,7 @@ public class GymService {
         Gym gym = Gym.builder()
                 .address(gymDto.getAddress())
                 //간접참조로 변경후 리팩토링
-                .ceo(byId.get())
+                .ceoId(byId.get().getId())
                 .currentCount(0L)
                 .count(gymDto.getCount())
                 .name(gymDto.getName())
@@ -186,6 +186,7 @@ public class GymService {
 
         GymResponseDto gymResponseDto = GymResponseDto.builder()
                 .address(gym.getAddress())
+
                 .current_count(gym.getCurrentCount())
                 .id(gym.getId())
                 .name(gym.getName())
@@ -197,7 +198,6 @@ public class GymService {
         return gymResponseDto;
 
     }
-
 
     public Long findByIdCount(Long id) throws Exception {
         Optional<Gym> byId = gymRepository.findById(id);

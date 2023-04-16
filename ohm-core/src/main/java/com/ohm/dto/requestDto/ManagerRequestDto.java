@@ -31,9 +31,9 @@ public class ManagerRequestDto {
 
     private Role role;
 
-    private Gym gym;
+    private Long gymId;
 
-    public void setGym(Gym gym) {
-        this.gym = gym;
+    public void setGym(Long gymId) {
+        this.gymId = gymId;
     }
 }

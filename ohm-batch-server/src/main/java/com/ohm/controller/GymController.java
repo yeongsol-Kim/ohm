@@ -8,10 +8,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,13 +20,9 @@ public class GymController {
 
     @GetMapping("/login/success")
     public String loginSuccess() {
-//        Long gymId = SecurityUtil.getCurrentGymId().orElse(null);
-//        if (gymId == null) {
-//            return "error/404";
-//        }
+
 
         Long gymId = SecurityUtil.getCurrentGymId().orElse(null);
-        System.out.println(gymId);
         return "redirect:/currentCountManage";
     }
 
@@ -46,7 +40,7 @@ public class GymController {
     }
 
     @GetMapping("/gym/increaseCurrentCount")
-    @PreAuthorize("hasRole('ROLE_MANAGER')")
+    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_TRAINER')")
     public String increaseMyGymCurrentCount(HttpServletRequest request) {
         Long gymId = SecurityUtil.getCurrentGymId().orElse(null);
         if (gymId.equals(null)) return "error/400";
@@ -55,6 +49,7 @@ public class GymController {
     }
 
     @GetMapping("/gym/decreaseCurrentCount")
+    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_TRAINER')")
     public String decreaseMyGymCurrentCount(HttpServletRequest request) {
         Long gymId = SecurityUtil.getCurrentGymId().orElse(null);
         if (gymId.equals(null)) return "error/400";

@@ -15,27 +15,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AdminResponseDto {
 
-
     private Long id;
-
     private String username;
-
     private String position;
-
     private String nickname;
-
     private String profile;
-
     private String onelineIntroduce;
-
     private String introduce;
-
     private AdminDto admin;
-
     private boolean showProfile;
-
+    private boolean available;
     private GymDto gymDto;
-
-
     private Role role;
 }

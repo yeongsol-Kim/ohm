@@ -13,12 +13,7 @@ import java.util.Optional;
 
 public interface StatisticsRepository extends JpaRepository<Statistics, Long> {
 
-    Optional<Statistics> findByGymAndStatisticsDate(Gym gym, LocalDate statisticsDate);
+    Optional<Statistics> findByGymIdAndStatisticsDate(Long gymId, LocalDate statisticsDate);
 
-//    @Query("select st from Statistics st where st.gym.id = :gymId")
-//    Statistics get_statistics(@Param("gymId") Long gymId);
-//
-//    @Query("select st from Statistics st where st.id = :gymId and ")
-//    Statistics get_avg(@Param("gymId")Long gymId, @Param("dateTime")LocalDateTime dateTime);
 
 }

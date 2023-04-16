@@ -1,7 +1,6 @@
 package com.ohm.entity.Manager;
 
 import com.ohm.dto.ManagerDto.ManagerDto;
-import com.ohm.entity.Gym.Gym;
 import com.ohm.entity.Enum.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -49,6 +48,9 @@ public class Manager {
     @Column(name = "profile_url")
     private String profileUrl;
 
+    @Column(name = "available")
+    private boolean available;
+
     //프사이름
     @Column(name = "profile_origin_name")
     private String profileOriginName;
@@ -76,9 +78,11 @@ public class Manager {
     private Role role;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gym_id")
-    private Gym gym;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "gym_id")
+//    private Gym gym;
+    @Column(name = "gym_id")
+    private Long gymId;
 
     //프로필 노출여부 변경메서드
     public void change_showProfile(){

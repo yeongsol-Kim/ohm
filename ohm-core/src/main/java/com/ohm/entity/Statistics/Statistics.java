@@ -95,9 +95,11 @@ public class Statistics {
     @Column(name = "zero")
     private Long zero;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gym_id")
-    private Gym gym;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "gym_id")
+//    private Gym gym;
+    @Column(name = "gym_id")
+    private Long gymId;
 
 
     // ========

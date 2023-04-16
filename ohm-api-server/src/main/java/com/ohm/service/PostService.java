@@ -51,7 +51,6 @@ public class PostService {
         }
     }
 
-    //글 등록 - manager,trainer가 사용
     @Transactional
     public Long save_content(Long gymId, PostDto postDto)  {
         Optional<Gym> gym = gymRepository.findById(gymId);
@@ -59,12 +58,14 @@ public class PostService {
                 .createdBy(SecurityUtils.getCurrentUsername().get())
                 .title(postDto.getTitle())
                 .content(postDto.getContent())
-                .gym(gym.get())
+                .gymId(gym.get().getId())
                 .build();
 
         Post save = postRepository.save(post);
         return save.getId();
     }
+
+
 
 
     @Transactional

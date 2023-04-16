@@ -34,6 +34,8 @@ public class GymDto {
 
     private String area;
 
+    private Long ceoId;
+
 
     @JsonIgnore
     private List<GymImgDto> imgs;

@@ -16,9 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import java.util.Optional;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
@@ -36,6 +34,7 @@ public class CeoServiceTest {
     @Mock
     private ManagerRepository managerRepository;
 
+    //@Spy는 given으로 지정해준 로직을 제외하곤 모두 실제 객체를 사용함 appconfig에서 사용하는 modelMapper()의 의존성을 갖고 있지만 단순히 형변환을 해주는 용도이므로 그냥 사용
     @Spy
     private  AppConfig appConfig;
 
@@ -49,7 +48,7 @@ public class CeoServiceTest {
 
 
     @Test
-    public void ceo생성() throws Exception{
+    public void ceo생성() {
         //given
         Ceo ceo = createCeoEntity();
         ManagerRequestDto managerRequestDto = createManagerRequestEntity();
@@ -67,8 +66,21 @@ public class CeoServiceTest {
 
     @Test
     public void ceoId로모든gym조회(){
-        Ceo ceo = createCeoEntity();
+        //given
+
+        //when
+//        ceoService.findallGyms();
+
+        //then
+
+
     }
+
+//    private List<Gym> createGyms(){
+//        Gym gym = Gym.builder()
+//
+//                .build();
+//    }
 
 
     private ManagerRequestDto createManagerRequestEntity(){
@@ -81,16 +93,6 @@ public class CeoServiceTest {
                 .build();
         return managerRequestDto;
     }
-
-//    private List<Gym> createListGyms(){
-//        List<Gym> gyms = new ArrayList<>();
-//        for(int i = 0;i<3;i++){
-//            Gym gym = Gym.builder()
-//                    .count(100)
-//                    .build();
-//        }
-//    }
-//
 
 
 

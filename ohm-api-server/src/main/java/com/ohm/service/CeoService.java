@@ -1,4 +1,5 @@
 package com.ohm.service;
+
 import com.ohm.config.AppConfig;
 import com.ohm.dto.CeoDto.CeoDto;
 import com.ohm.dto.requestDto.ManagerRequestDto;
@@ -25,7 +26,7 @@ import java.util.*;
 @Slf4j
 @RequiredArgsConstructor
 @Transactional
-public class CeoService  {
+public class CeoService {
 
 
     private final ManagerRepository managerRepository;
@@ -37,7 +38,7 @@ public class CeoService  {
 
 
     //ceoId로 ceo가 가지고있는 모든 gym 조회
-    public List<GymResponseDto> findallGyms(Long ceoId){
+    public List<GymResponseDto> findallGyms(Long ceoId) {
         List<Gym> gyms = gymRepository.findallGymsByCeoId(ceoId);
         List<GymResponseDto> gymDtos = new ArrayList<GymResponseDto>();
 
@@ -78,6 +79,7 @@ public class CeoService  {
         }
 
         Ceo ceo = Ceo.builder()
+                .available(true)
                 .username(managerDto.getUsername())
                 .password(passwordEncoder.encode(managerDto.getPassword()))
                 .nickname(managerDto.getNickname())
@@ -88,8 +90,6 @@ public class CeoService  {
         return appConfig.modelMapper().map(save, CeoDto.class);
 
     }
-
-
 
 
 }
