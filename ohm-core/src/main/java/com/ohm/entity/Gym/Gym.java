@@ -78,6 +78,7 @@ public class Gym{
 
 
 
+    //gymTime등록
     public void register_time(GymTime gymTime){
         this.gymTime = gymTime;
 

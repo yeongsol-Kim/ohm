@@ -6,13 +6,11 @@ import com.ohm.dto.requestDto.ManagerRequestDto;
 import com.ohm.dto.responseDto.GymImgResponseDto;
 import com.ohm.dto.responseDto.GymResponseDto;
 import com.ohm.entity.Ceo.Ceo;
-import com.ohm.entity.Code;
 import com.ohm.entity.Enum.Role;
 import com.ohm.entity.Gym.Gym;
 import com.ohm.entity.Gym.GymImg;
 import com.ohm.repository.ceo.CeoRepository;
 import com.ohm.repository.gym.GymRepository;
-import com.ohm.repository.manager.CodeRepository;
 import com.ohm.repository.manager.ManagerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +31,6 @@ public class CeoService {
     private final GymRepository gymRepository;
     private final CeoRepository ceoRepository;
     private final AppConfig appConfig;
-    private final CodeRepository codeRepository;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -62,24 +59,16 @@ public class CeoService {
         return gymDtos;
     }
 
-    public boolean checkCode(String code) {
-        Optional<Code> code1 = codeRepository.findCode(code);
-        if (code1.get() == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
 
     //Ceo 회원가입
     public CeoDto ceoSave(ManagerRequestDto managerDto) {
+        //아이디 동일성 검증 로직
         if (ceoRepository.findByUsername(managerDto.getUsername()).orElse(null) != null || managerRepository.findByUsername(managerDto.getUsername()).orElse(null) != null) {
-            throw new RuntimeException("이미 가입되어 있는 아이디.");
+            throw new RuntimeException("이미 가입되어 있는 아이디입니다.");
         }
 
         Ceo ceo = Ceo.builder()
-                .available(true)
+                .available(false)
                 .username(managerDto.getUsername())
                 .password(passwordEncoder.encode(managerDto.getPassword()))
                 .nickname(managerDto.getNickname())

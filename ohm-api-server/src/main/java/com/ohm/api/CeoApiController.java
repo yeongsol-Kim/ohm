@@ -25,20 +25,6 @@ public class CeoApiController {
 
     private final CeoService ceoService;
 
-    @ApiOperation(value = "CEO code 인증(초기가입)", response = String.class)
-    @PostMapping("/ceo/code/{code}")
-    public ResponseEntity<String> check_code(
-            @PathVariable String code) {
-
-        boolean bool = ceoService.checkCode(code);
-        if(bool == true){
-            return ResponseEntity.ok("true");
-        } else {
-            return ResponseEntity.ok("false");
-        }
-    }
-
-
 
 
     @ApiOperation(value = "ceo 회원가입", response = ManagerDto.class)

@@ -31,11 +31,9 @@ public class CeoRepositoryTest {
     public void ceousername으로조회() {
         //given
         Ceo ceo = createCeoEntity();
-
         //when
         ceoRepository.save(ceo);
         Optional<Ceo> usernam = ceoRepository.findByUsername("username");
-
         //then
         Assertions.assertThat(usernam.get().getUsername()).isEqualTo("username");
 

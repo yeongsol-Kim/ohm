@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface GymRepository extends JpaRepository<Gym,Long> {
+public interface GymRepository extends JpaRepository<Gym, Long> {
 
 
     @Query("select distinct g from Gym g where g.ceoId = :ceoId")
@@ -24,10 +24,11 @@ public interface GymRepository extends JpaRepository<Gym,Long> {
 
 
     @Query("select distinct g from Gym g left join fetch g.imgs where g.id = :id")
-    Gym findGymFetchJoin(@Param("id")Long id);
+    Gym findGymFetchJoin(@Param("id") Long id);
 
 
     @Query("select distinct g from Gym g left join fetch g.gymTime where g.id = :id")
-    Gym findTimeByGymId(@Param("id")Long id);
+    Gym findTimeByGymId(@Param("id") Long id);
+
 
 }

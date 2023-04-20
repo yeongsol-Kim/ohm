@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
+
+//현재 StatisticsService는 모두 스케쥴러를 이용중임 이후 배치 모듈 따로 분리
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -42,6 +45,17 @@ public class StatisticsService {
         }
 
     }
+
+    //
+//    @Scheduled(cron = "0 0 0 * * *")
+//    public void updateTotalStatistics(Long gymId,Long statisticsId){
+//        LocalDateTime now = LocalDateTime.now();
+//        for(Gym gym : gymRepository.findAll()){
+//            Optional<Statistics> byGymIdAndStatisticsDate = statisticsRepository.findByGymIdAndStatisticsDate(gym.getId(), now.toLocalDate());
+//            totalStatisticsService.updateStatistics(gym.getId(),byGymIdAndStatisticsDate.get().getId());
+//        }
+//
+//    }
 
 
 }
