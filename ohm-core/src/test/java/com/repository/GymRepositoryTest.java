@@ -77,9 +77,25 @@ public class GymRepositoryTest {
         Assertions.assertEquals(name.get(0).getName(),gym.getName());
     }
 
+    @Test
+    public void gym모두조회(){
+        //given
+        
+
+        //when
+        List<Gym> allFetchJoin = gymRepository.findAllFetchJoin();
+
+        //then
+    }
+    
+
+
+
+
+
+
     private Gym createGymWithCeo(Ceo ceo){
         return Gym.builder()
-                .ceo(ceo)
                 .name("gymname")
                 .address("gymaddress")
                 .count(100)
@@ -89,6 +105,7 @@ public class GymRepositoryTest {
                 .currentCount(0L)
                 .build();
     }
+
 
     private Ceo createCeo() {
         return Ceo.builder()

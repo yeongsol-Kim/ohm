@@ -62,9 +62,13 @@ public class GymService {
     public void deleteImg(List<Long> ids) throws Exception {
 
         for (Long id : ids) {
+
             GymImg gymImg = gymImgRepository.findById(id).get();
+
             amazonS3ResourceStorage.deleteObjectByKey(gymImg.getFilePath());
+
             gymImgRepository.delete(gymImg);
+
         }
     }
 
@@ -186,7 +190,6 @@ public class GymService {
 
         GymResponseDto gymResponseDto = GymResponseDto.builder()
                 .address(gym.getAddress())
-
                 .current_count(gym.getCurrentCount())
                 .id(gym.getId())
                 .name(gym.getName())

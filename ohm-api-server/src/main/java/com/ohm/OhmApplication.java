@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import javax.annotation.PostConstruct;
 import java.util.TimeZone;
 
+//스케줄러
 @EnableScheduling
 @SpringBootApplication
 public class OhmApplication {

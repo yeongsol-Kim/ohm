@@ -1,12 +1,16 @@
 package com.ohm.dto.GymDto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import com.ohm.entity.Gym.Gym;
 
 
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class GymTimeDto {
 

@@ -44,7 +44,7 @@ public class TotalStatisticsService {
         return appConfig.modelMapper().map(statistics, TotalStatisticsDto.class);
     }
 
-    //updateStatistics 업데이트 한시간마다.
+
     public void updateStatistics(Long gymId, Long statisticsId) {
         Optional<Statistics> byId = statisticsRepository.findById(statisticsId);
         TotalStatistics totalStatistics = totalStatisticsRepository.get_statistics(gymId);
